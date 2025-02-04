@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,29 +12,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    // "forceConsistentCasingInFileNames": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "paths": {
-      "utils/*": ["./utils/*"],
-      "styles/*": ["./styles/*"],
-      "routes/*": ["./routes/*"],
-      "services/*": ["./services/*"],
-      "interfaces/*": ["./interfaces/*"],
-      "components/*": ["./components/*"],
-      "redux-store/*": ["./redux-store/*"]
+      "@/*": ["./*"],
+      "@lib/*": ["./lib/*"],
+      "@store/*": ["./store/*"],
+      "@styles/*": ["./styles/*"],
+      "@interfaces/*": ["./interfaces/*"],
+      "@components/*": ["./components/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "components/shared/slides/features/index.tss",
-    "components/shared/tab-panel/index.tss"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

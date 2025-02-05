@@ -22,5 +22,21 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         # run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
         run: |
-          url="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
-          vercel alias --token=${{ secrets.VERCEL_TOKEN }} set $url preview.waverd.com
+          deployment_url="$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)"
+          deployment_hostname=${deployment_url#*://}
+          preview_domain="preview.waverd.com"
+
+          deployment_id=$(curl -s -G \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v6/deployments/$deployment_hostname" | jq -r '.id')
+
+          if [ -z "$deployment_id" ]; then
+            echo "Failed to retrieve deployment ID. Exiting..."
+            exit 1
+          fi
+
+          ALIAS_RESPONSE=$(curl --location --globoff \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v2/deployments/$deployment_id/aliases?teamId=$VERCEL_ORG_ID" \
+            --header "Content-Type: application/json" \
+            --data "{\"alias\": \"$preview_domain\"}")

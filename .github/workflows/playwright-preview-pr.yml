@@ -8,7 +8,7 @@ env:
 
 on:
   pull_request:
-    branches: [main, development]
+    branches: development
 
 jobs:
   pre-playwright-tests:

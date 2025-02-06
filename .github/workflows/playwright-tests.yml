@@ -11,7 +11,7 @@ on:
     branches: [main, development]
 
 jobs:
-  preview-deployment:
+  pre-playwright-tests:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
@@ -86,10 +86,10 @@ jobs:
           path: preview_url.txt
           retention-days: 1
 
-  playwright-tests:
+  run-playwright-tests:
     timeout-minutes: 5
     runs-on: ubuntu-latest
-    needs: preview-deployment
+    needs: pre-playwright-tests
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -121,7 +121,7 @@ jobs:
   post-playwright-tests:
     timeout-minutes: 5
     runs-on: ubuntu-latest
-    needs: playwright-tests
+    needs: run-playwright-tests
     steps:
       - uses: actions/download-artifact@v4
         with:

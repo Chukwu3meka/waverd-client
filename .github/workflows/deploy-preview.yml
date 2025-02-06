@@ -3,7 +3,6 @@ env:
   BASE_DOMAIN: ${{ vars.BASE_DOMAIN }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   push:
     branches:
@@ -19,9 +18,9 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token=$VERCEL_TOKEN
       - name: Deploy Project Artifacts to Vercel
         run: |
           deployment_url="$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)"

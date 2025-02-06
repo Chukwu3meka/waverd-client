@@ -2,9 +2,6 @@ name: "Playwright Tests"
 
 env:
   BASE_DOMAIN: ${{ vars.BASE_DOMAIN }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
   pull_request:
@@ -37,8 +34,9 @@ jobs:
         env:
           NODE_ENV: preview
         run: |
-          preview_domain="preview${BASE_DOMAIN}"
-          npx wait-on $preview_domain && PREVIEW_URL=$preview_domain npx playwright test
+          PREVIEW_URL="https://preview${BASE_DOMAIN}"
+          echo "wait-on will now wait for $PREVIEW_URL to be ready"
+          npx wait-on $PREVIEW_URL && PREVIEW_URL=$PREVIEW_URL npx playwright test
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

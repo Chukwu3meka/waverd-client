@@ -5,7 +5,6 @@ export const setCssThemeVar = (theme: Theme) => {
         mode = theme === "system" ? getSystemTheme() : theme;
 
       if (mode === "dark") {
-        console.log(colors, theme);
         document.documentElement.style.setProperty("--theme", "dark");
         document.documentElement.style.setProperty("--primary-color", colors.darkThemePrimaryColor);
         document.documentElement.style.setProperty("--inverse-color", colors.darkThemeContrastColor);

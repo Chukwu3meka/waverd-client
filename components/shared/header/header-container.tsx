@@ -1,14 +1,13 @@
 "use client";
 
-import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useMemo, useState } from "react";
+import { INIT_PROFILE } from "@lib/constants";
+import { setThemeAction } from "@store/actions/account";
 
-export interface VisibleState {
-  nav: boolean;
-  mobile: boolean;
-}
-
+const Header = dynamic(() => import("./header-view"));
 interface HeaderContainerProps {
   profile: Profile;
   deviceWidth: number;
@@ -18,43 +17,36 @@ interface HeaderContainerProps {
   position: "relative" | "sticky";
 }
 
-import dynamic from "next/dynamic";
-import { INIT_PROFILE } from "@lib/constants";
-import { setThemeAction } from "@store/actions/account";
-const Header = dynamic(() => import("./header-view"));
-
 const HeaderContainer = (props: HeaderContainerProps) => {
-  const { setTheme, theme } = useTheme();
-
   //  accountsService = new AccountsService(),
   //   { enqueueSnackbar } = useSnackbar(),
-  // [color, setColor] = useState<ColorState>({ first: "", last: COLORS.primaryColor }),
 
-  const { position, setThemeAction } = props,
+  const { setTheme, theme } = useTheme(),
+    { position, setThemeAction } = props,
+    [showNav, setShowNav] = useState(false),
     [profile, setProfile] = useState<Profile>(INIT_PROFILE),
-    // [theme, setTheme] = useState<Theme>(INIT_PROFILE.theme),
     [displayHeader, setDisplayHeader] = useState<boolean>(false),
     [authenticated, setAuthenticated] = useState<boolean>(false),
-    [visible, setVisible] = useState<VisibleState>({ nav: false, mobile: false }),
     className = position === "relative" ? "relativeHeader" : displayHeader ? "stickyHeader" : "hiddenHeader";
 
   useEffect(() => {
-    setDisplayHeader(props.displayHeader!);
+    if (displayHeader != props.displayHeader) {
+      setDisplayHeader(props.displayHeader!);
+    }
   }, [props.displayHeader]);
 
   useEffect(() => {
     setProfile(props.profile);
-    setTheme(props.profile.theme);
     setAuthenticated(props.authenticated);
   }, [props.profile, props.authenticated]);
 
   useEffect(() => {
     // Regex to match relativeHeader ignoring ID react will attach to module.scss
-    const headerElement = document.querySelectorAll(`[class*="${className}"`);
+    const headerElement = document.querySelector(`[class*="${className}"`);
 
-    if (headerElement.length && headerElement[0] instanceof HTMLElement) {
-      const offsetWidth = headerElement[0].offsetWidth;
-      setVisible({ nav: offsetWidth > 850, mobile: offsetWidth < 600 });
+    if (headerElement instanceof HTMLElement) {
+      const offsetWidth = headerElement.offsetWidth;
+      setShowNav(offsetWidth > 850);
     }
   }, [props.deviceWidth]);
 
@@ -68,8 +60,7 @@ const HeaderContainer = (props: HeaderContainerProps) => {
     //     .catch(() => enqueueSnackbar("Failed to save new theme across profile", { variant: "error" }));
   };
 
-  // return <p>ss</p>;
-  return <Header {...{ className, authenticated, theme: theme as Theme, profile, themeHandler, visible }} />;
+  return <Header {...{ className, authenticated, theme: theme as Theme, profile, themeHandler, showNav }} />;
 };
 
 const mapStateToProps = (state: RootState) => ({

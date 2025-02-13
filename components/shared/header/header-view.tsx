@@ -1,38 +1,141 @@
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { forwardRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 const MobileHeader = dynamic(() => import("./mobile-header")),
-  FaSun = dynamic(() => import("react-icons/fa").then((x) => x.FaSun)),
-  FaMoon = dynamic(() => import("react-icons/fa").then((x) => x.FaMoon)),
-  FaCloudSun = dynamic(() => import("react-icons/fa").then((x) => x.FaCloudSun)),
-  Button = dynamic(() => import("@/components/ui/button").then((x) => x.Button)),
-  MdLightMode = dynamic(() => import("react-icons/md").then((x) => x.MdLightMode)),
-  DropdownMenu = dynamic(() => import("@/components/ui/dropdown-menu").then((x) => x.DropdownMenu)),
-  DropdownMenuItem = dynamic(() => import("@/components/ui/dropdown-menu").then((x) => x.DropdownMenuItem)),
-  DropdownMenuContent = dynamic(() => import("@/components/ui/dropdown-menu").then((x) => x.DropdownMenuContent)),
-  DropdownMenuTrigger = dynamic(() => import("@/components/ui/dropdown-menu").then((x) => x.DropdownMenuTrigger));
+  GameIcon = dynamic(() => import("react-icons/gr").then((x) => x.GrGamepad)),
+  WaverdLogo = dynamic(() => import("react-icons/pi").then((x) => x.PiHandPeaceLight)),
+  NavigationMenu = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenu)),
+  NavigationMenuItem = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuItem)),
+  NavigationMenuLink = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuLink)),
+  NavigationMenuList = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuList)),
+  NavigationMenuContent = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuContent)),
+  NavigationMenuTrigger = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuTrigger));
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Clubs",
+    href: "/",
+    description: "Retrieve club details, including history, squad, and performance.",
+  },
+  {
+    title: "Players",
+    href: "/",
+    description: "Access player profiles, stats, and performance data.",
+  },
+  {
+    title: "Managers",
+    href: "/",
+    description: "Access details on team managers, their history, and strategic insights.",
+  },
+  {
+    title: "Referees",
+    href: "/",
+    description: "Get information on referees, their officiating history, and match assignments.",
+  },
+  {
+    title: "Competitions",
+    href: "/",
+    description: "Explore details on tournaments, leagues, fixtures, and standings.",
+  },
+];
 
 interface HeaderProps {
-  profile: Profile;
   theme: Theme;
+  showNav: boolean;
+  profile: Profile;
   authenticated: boolean;
   themeHandler: (theme: Theme) => () => void;
   className: "relativeHeader" | "stickyHeader" | "hiddenHeader";
 }
 
-const Header = ({ className, authenticated, themeHandler, theme, profile }: HeaderProps) => (
+const Header = ({ className, authenticated, themeHandler, theme, profile, showNav }: HeaderProps) => (
   <header id="header" data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full m-auto overflow-hidden max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent">
-      <span />
+    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent">
+      {!showNav && <span />}
 
-      <h1 className="font-bold text-3xl">
-        <Link href="/">Wave Research</Link>
-      </h1>
+      <div className="flex gap-1 items-center">
+        <WaverdLogo size={25} />
+        <h1 className="font-bold text-3xl">
+          <Link href="/">WaveRD</Link>
+        </h1>
+      </div>
 
+      {showNav && (
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Manager</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md" href="/">
+                        <GameIcon className="h-6 w-6" />
+                        <div className="mb-2 mt-4 text-lg font-medium">Game</div>
+                        <p className="text-sm leading-tight text-muted-foreground">Revamped Football Manager for everyone with advanced real world simulation.</p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <ListItem href="/" title="Register">
+                    Get started! Create an account today and compete against opponents.
+                  </ListItem>
+                  <ListItem href="/" title="My Team">
+                    Get support from AI assistant to build the most formidable team in your game world.
+                  </ListItem>
+                  <ListItem href="/" title="Trophy Cabinet">
+                    Get a glance into game objectives, achievements, and upcoming challenges!
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>API Hub</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {components.map((component) => (
+                    <ListItem key={component.title} title={component.title} href={component.href}>
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      )}
       <MobileHeader profile={profile} authenticated={authenticated} themeHandler={themeHandler} theme={theme} />
     </main>
   </header>
 );
 
 export default Header;
+
+const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}>
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

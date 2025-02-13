@@ -2,6 +2,8 @@
 @plugin 'tailwindcss-animate';
 
 body {
+  font-family: var(--font-playfair);
+
   /* margin: 0;
   padding: 0; */
 
@@ -146,6 +148,7 @@ input:-webkit-autofill:active {
       height: var(--radix-accordion-content-height);
     }
   }
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);

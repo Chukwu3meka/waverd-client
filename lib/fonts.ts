@@ -1,4 +1,4 @@
-import { Playfair, Roboto_Mono } from "next/font/google";
+import { Playfair } from "next/font/google";
 
 const playfair = Playfair({
   subsets: ["latin"],
@@ -6,12 +6,6 @@ const playfair = Playfair({
   variable: "--font-playfair",
 });
 
-const roboto_mono = Roboto_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-roboto-mono",
-});
-
-const fonts = `${playfair.variable} ${roboto_mono.variable}`;
+const fonts = `${playfair.variable}`;
 
 export default fonts;

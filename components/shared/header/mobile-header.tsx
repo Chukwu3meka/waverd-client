@@ -89,23 +89,21 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
                 </div>
               ))}
 
-            <div className="flex items-center gap-2.5">
-              {!authenticated && (
-                <Link href="/accounts/signin">
-                  <Button variant="default">
-                    Login <BiLogIn />
-                  </Button>
-                </Link>
-              )}
+            {!authenticated && (
+              <Link href="/accounts/signin" className="w-full max-w-52">
+                <Button className="w-full">
+                  Login <BiLogIn />
+                </Button>
+              </Link>
+            )}
 
-              {authenticated && (
-                <a href={`${process.env.BASE_URL}/accounts/signout`} rel="noopener noreferrer">
-                  <Button>
-                    Logout <BiLogOut />
-                  </Button>
-                </a>
-              )}
-            </div>
+            {!authenticated && (
+              <a href={`${process.env.BASE_URL}/accounts/signout`} rel="noopener noreferrer" className="w-full max-w-52">
+                <Button className="w-full">
+                  Logout <BiLogOut />
+                </Button>
+              </a>
+            )}
           </div>
 
           <div className="flex flex-col items-center gap-3">

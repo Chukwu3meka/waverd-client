@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { LOGO } from "@lib/constants";
 
 const MobileHeader = dynamic(() => import("./mobile-header")),
   GameIcon = dynamic(() => import("react-icons/gr").then((x) => x.GrGamepad)),
@@ -58,8 +59,8 @@ const Header = ({ className, authenticated, themeHandler, theme, profile, showNa
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">
-        <WaverdLogo size={25} />
-        <h1 className="font-bold text-3xl">
+        <span className="text-xl">{LOGO}</span>
+        <h1 className="font-bold text-3xl -mt-0.5">
           <Link href="/">WaveRD</Link>
         </h1>
       </div>

@@ -15,13 +15,19 @@ body {
   /* caret-color: var(--primary-color); */
   /* color: var(--inverse-color); */
 
-  display: grid;
-  grid-template-rows: max-content auto max-content;
+  /* *:has(> div),
+  *:has(> main) { */
 
-  max-width: 100vw;
-  overflow-x: hidden;
+  & > div,
+  & > main {
+    display: grid;
+    grid-template-rows: max-content auto max-content;
+    max-width: 100vw;
+    overflow-x: hidden;
+    min-height: var(--visibleScreen);
+  }
+
   /* box-sizing: border-box; */
-  min-height: var(--visibleScreen);
   /* background: var(--primary-color-color); */
 
   /* -webkit-box-sizing: border-box;

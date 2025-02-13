@@ -17,10 +17,10 @@ const Social = dynamic(() => import("@components/shared/social")),
   FaCloudSun = dynamic(() => import("react-icons/fa").then((x) => x.FaCloudSun)),
   VscSignOut = dynamic(() => import("react-icons/vsc").then((x) => x.VscSignOut)),
   TabsList = dynamic(() => import("@components/ui/tabs").then((x) => x.TabsList)),
+  MenuIcon = dynamic(() => import("react-icons/gi").then((x) => x.GiHamburgerMenu)),
   VscPersonAdd = dynamic(() => import("react-icons/vsc").then((x) => x.VscPersonAdd)),
   TabsTrigger = dynamic(() => import("@components/ui/tabs").then((x) => x.TabsTrigger)),
   AiOutlineClose = dynamic(() => import("react-icons/ai").then((x) => x.AiOutlineClose)),
-  BsPersonCircle = dynamic(() => import("react-icons/bs").then((x) => x.BsPersonCircle)),
   Separator = dynamic(() => import("@components/ui/separator").then((x) => x.Separator)),
   DrawerTitle = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerTitle)),
   DrawerClose = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerClose)),
@@ -48,7 +48,7 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
   <Drawer direction="right">
     <DrawerTrigger asChild>
       <Button variant="outline" size="icon" aria-label="mobile-menu" className="cursor-pointer">
-        <BsPersonCircle />
+        <MenuIcon />
       </Button>
     </DrawerTrigger>
     <DrawerContent className="max-w-lg ml-auto">
@@ -91,19 +91,19 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
 
             <div className="flex items-center gap-2.5">
               {!authenticated && (
-                // <Lin/k href="/accounts/signin">
-                <Button variant="default">
-                  Login <BiLogIn />
-                </Button>
-                // {/* </Link> */}
+                <Link href="/accounts/signin">
+                  <Button variant="default">
+                    Login <BiLogIn />
+                  </Button>
+                </Link>
               )}
 
               {authenticated && (
-                // <a href={`${process.env.BASE_URL}/accounts/signout`} rel="noopener noreferrer">
-                <Button>
-                  Logout <BiLogOut />
-                </Button>
-                // {/* </a> */}
+                <a href={`${process.env.BASE_URL}/accounts/signout`} rel="noopener noreferrer">
+                  <Button>
+                    Logout <BiLogOut />
+                  </Button>
+                </a>
               )}
             </div>
           </div>

@@ -47,3 +47,5 @@ export const COMPETITIONS: Competition[] = [
   { title: "Premier League", id: "premierLeague", image: "/images/competitions/premier-league.png" },
   { title: "Serie A", id: "serieA", image: "/images/competitions/serie-a.png" },
 ];
+
+export const LOGO = "✌";

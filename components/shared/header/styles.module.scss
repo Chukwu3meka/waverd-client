@@ -3,9 +3,9 @@ header.relativeHeader {
   user-select: none;
   padding: 5px 10px;
   max-width: calc(100vw - 3px);
-  border-bottom: 1px solid var(--primary-color);
+  // border-bottom: 1px solid var(--primary-color);
   backdrop-filter: blur(2px); /* Apply a blur effect to the background */
-  background: rgba(var(--primary-color-color), 0.7); /* Semi-transparent black background to create a blur effect */
+  // background: rgba(var(--primary-color-color), 0.7); /* Semi-transparent black background to create a blur effect */
 }
 
 header.stickyHeader {
@@ -21,7 +21,7 @@ header.stickyHeader {
 
   & > main {
     padding: 12px 20px;
-    background-color: var(--primary-color-color);
+    // background-color: var(--primary-color-color);
     box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);
     -moz-box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);
     -webkit-box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);

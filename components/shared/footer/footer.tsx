@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { LOGO } from "@lib/constants";
 import styles from "./styles.module.scss";
 
-const Social = dynamic(() => import("@components/shared/social"));
+const SocialIcons = dynamic(() => import("@components/shared/social/social-icons"));
 
 const Footer = () => (
   <div data-testid="footer" className={styles.footer} style={{ maxWidth: "100vw", overflowX: "hidden" }}>
@@ -15,7 +15,7 @@ const Footer = () => (
           <span className="font-bold text-3xl">WaveRD</span>
           <span className="text-7xl p-3">{LOGO}</span>
           <span className="bg-muted px-2">Follow US</span>
-          <Social filterParams={["twitter", "instagram", "github", "whatsapp", "linkedin", "phone", "facebook"]} fontSize="20px" />
+          <SocialIcons filterParams={["twitter", "instagram", "github", "whatsapp", "linkedin", "phone", "facebook"]} fontSize="20px" />
         </aside>
 
         <nav>

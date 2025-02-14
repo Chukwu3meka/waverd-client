@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { useTheme } from "next-themes";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { INIT_PROFILE } from "@lib/constants";
 import { setThemeAction } from "@store/actions/account";
 

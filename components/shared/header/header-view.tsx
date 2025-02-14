@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { forwardRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+
+import { cn } from "@/lib/utils";
+import { forwardRef } from "react";
 import { LOGO } from "@lib/constants";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 const MobileHeader = dynamic(() => import("./mobile-header")),
   GameIcon = dynamic(() => import("react-icons/gr").then((x) => x.GrGamepad)),
-  WaverdLogo = dynamic(() => import("react-icons/pi").then((x) => x.PiHandPeaceLight)),
   NavigationMenu = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenu)),
   NavigationMenuItem = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuItem)),
   NavigationMenuLink = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuLink)),
@@ -55,7 +55,7 @@ interface HeaderProps {
 
 const Header = ({ className, authenticated, themeHandler, theme, profile, showNav }: HeaderProps) => (
   <header id="header" data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent">
+    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent border-b">
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">
@@ -80,7 +80,9 @@ const Header = ({ className, authenticated, themeHandler, theme, profile, showNa
                 <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
-                      <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md" href="/">
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/">
                         <GameIcon className="h-6 w-6" />
                         <div className="mb-2 mt-4 text-lg font-medium">Game</div>
                         <p className="text-sm leading-tight text-muted-foreground">Revamped Football Manager for everyone with advanced real world simulation.</p>

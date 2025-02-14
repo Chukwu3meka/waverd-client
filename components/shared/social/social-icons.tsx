@@ -9,24 +9,24 @@ const TiSocialInstagram = dynamic(() => import("react-icons/ti").then((x) => x.T
 const MdOutlineWhatsapp = dynamic(() => import("react-icons/md").then((x) => x.MdOutlineWhatsapp));
 const VscGithubInverted = dynamic(() => import("react-icons/vsc").then((x) => x.VscGithubInverted));
 
-const SocialContainer = ({ filterParams, fontSize = "18px" }: { fontSize?: string; filterParams: string[] }) => (
+const SocialIcons = ({ filterParams, fontSize = "18px" }: { fontSize?: string; filterParams: string[] }) => (
   <div className="flex gap-2.5 ">
     {SOCIAL_ACCOUNTS.filter((acc) => filterParams.includes(acc.id)).map(({ title, id, href }) => (
       <a key={id} href={href} target="_blank" rel="noopener noreferrer" aria-label={title.toLowerCase()}>
         {title === "Whatsapp" ? (
-          <MdOutlineWhatsapp fontSize={fontSize} color="var(--primary-color)" />
+          <MdOutlineWhatsapp fontSize={fontSize} />
         ) : title === "Twitter" ? (
-          <TiSocialTwitter fontSize={fontSize} color="var(--primary-color)" />
+          <TiSocialTwitter fontSize={fontSize} />
         ) : title === "Instagram" ? (
-          <TiSocialInstagram fontSize={fontSize} color="var(--primary-color)" />
+          <TiSocialInstagram fontSize={fontSize} />
         ) : title === "Facebook" ? (
-          <MdFacebook fontSize={fontSize} color="var(--primary-color)" />
+          <MdFacebook fontSize={fontSize} />
         ) : title === "LinkedIn" ? (
-          <TiSocialLinkedin fontSize={fontSize} color="var(--primary-color)" />
+          <TiSocialLinkedin fontSize={fontSize} />
         ) : title === "Github" ? (
-          <VscGithubInverted fontSize={fontSize} color="var(--primary-color)" />
+          <VscGithubInverted fontSize={fontSize} />
         ) : title === "Phone" ? (
-          <TbPhoneCall fontSize={fontSize} color="var(--primary-color)" />
+          <TbPhoneCall fontSize={fontSize} />
         ) : (
           <></>
         )}
@@ -35,4 +35,4 @@ const SocialContainer = ({ filterParams, fontSize = "18px" }: { fontSize?: strin
   </div>
 );
 
-export default SocialContainer;
+export default SocialIcons;

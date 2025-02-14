@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Social = dynamic(() => import("@components/shared/social")),
+const Social = dynamic(() => import("@components/shared/social/social-icons")),
   FaSun = dynamic(() => import("react-icons/fa").then((x) => x.FaSun)),
   FaMoon = dynamic(() => import("react-icons/fa").then((x) => x.FaMoon)),
   Tabs = dynamic(() => import("@components/ui/tabs").then((x) => x.Tabs)),
@@ -81,28 +81,25 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
               .filter((nav) => (authenticated ? !["signup", "signin"].includes(nav.id) : !["signout"].includes(nav.id)))
               .map(({ Icon, path, title }) => (
                 <div className="flex items-center gap-3" key={title}>
-                  <Icon color="var(--primary-color)" />
-
-                  <Link href={path}>
-                    <span className="font-bold">{title}</span>
+                  <Icon />
+                  <Link href={path} className="font-bold">
+                    {title}
                   </Link>
                 </div>
               ))}
 
-            {!authenticated && (
-              <Link href="/accounts/signin" className="w-full max-w-52">
-                <Button className="w-full">
-                  Login <BiLogIn />
-                </Button>
-              </Link>
-            )}
-
-            {!authenticated && (
+            {authenticated ? (
               <a href={`${process.env.BASE_URL}/accounts/signout`} rel="noopener noreferrer" className="w-full max-w-52">
                 <Button className="w-full">
                   Logout <BiLogOut />
                 </Button>
               </a>
+            ) : (
+              <Link href="/accounts/signin" className="w-full max-w-52">
+                <Button className="w-full">
+                  Login <BiLogIn />
+                </Button>
+              </Link>
             )}
           </div>
 

@@ -1,18 +1,23 @@
-import Footer from "@components/shared/footer/footer";
-import Header from "@components/shared/header/header-container";
-import Image from "next/image";
+import { Metadata } from "next";
+import dynamic from "next/dynamic";
 
-export default function Home() {
-  return (
-    <main
-    // className="h-[3000px]"
-    // style={{
-    //   border: "3px solid red",
-    // }}
-    >
-      <Header position="relative" />
-      <span>sdasdsds</span>
-      <Footer />
-    </main>
-  );
-}
+const Footer = dynamic(() => import("@components/shared/footer/footer")),
+  WelcomeScreen = dynamic(() => import("@components/home/welcome-screen")),
+  Header = dynamic(() => import("@components/shared/header/header-container"));
+
+export const metadata: Metadata = {
+  title: "Wave Research",
+  description:
+    "Revamped Football Manager for everyone with advanced real world simulation and Football API Provider for all your soccer data needs. Available Everywhere at every time",
+  keywords: ["soccer manager", "soccer", "waverd", "football manager", "football"],
+};
+
+const HomePage = () => (
+  <main>
+    <Header position="relative" />
+    <WelcomeScreen />
+    <Footer />
+  </main>
+);
+
+export default HomePage;

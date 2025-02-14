@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import styles from "./welcome.module.scss";
+import styles from "./styles.module.scss";
 import { Button } from "@components/ui/button";
 
 const VscHubot = dynamic(() => import("react-icons/vsc").then((module) => module.VscHubot)),
@@ -11,7 +11,7 @@ const VscHubot = dynamic(() => import("react-icons/vsc").then((module) => module
 const Welcome = () => (
   <div className="flex justify-center items-stretch min-h-[calc(var(--visibleScreen)-var(--headerHeight))] overflow-hidden py-16 px-12" data-testid="welcome">
     <main className="max-w-[1200px] overflow-hidden relative p-2.5 rounded-br-[70px] rounded-tl-[70px] border-2">
-      <aside className="flex flex-col items-start justify-center h-full">
+      <aside className="flex flex-col items-start justify-center h-full relative z-10">
         <span className="text-[calc(0.9em+1vw)]">Welcome to</span>
 
         <span className="text-[calc(2.7em+1vw)] font-extrabold">
@@ -40,8 +40,7 @@ const Welcome = () => (
           </Link>
         </nav>
       </aside>
-      <figure></figure>
-      {/* .welcome-image */}
+      <figure className={styles["welcome-image"]} />
     </main>
   </div>
 );

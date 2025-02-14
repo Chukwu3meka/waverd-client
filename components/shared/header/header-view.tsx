@@ -55,7 +55,7 @@ interface HeaderProps {
 
 const Header = ({ className, authenticated, themeHandler, theme, profile, showNav }: HeaderProps) => (
   <header id="header" data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent border-b">
+    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent border-b-2 ">
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">

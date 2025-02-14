@@ -102,22 +102,6 @@
   body {
     @apply bg-background text-foreground;
 
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 7px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      /* background: var(--primary-color); */
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      /* background: var(--secondary-color); */
-      cursor: grabbing;
-    }
-
     /* Forcefully remove input background color for Chrome autocomplete/autofill? */
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
@@ -138,4 +122,20 @@
       min-height: var(--visibleScreen);
     }
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--secondary-foreground);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--chart-4);
+  cursor: pointer;
 }

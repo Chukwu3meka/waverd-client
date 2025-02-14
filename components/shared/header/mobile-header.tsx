@@ -26,7 +26,8 @@ const Social = dynamic(() => import("@components/shared/social/social-icons")),
   DrawerClose = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerClose)),
   DrawerHeader = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerHeader)),
   DrawerTrigger = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerTrigger)),
-  DrawerContent = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerContent));
+  DrawerContent = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerContent)),
+  DrawerDescription = dynamic(() => import("@/components/ui/drawer").then((x) => x.DrawerDescription));
 
 const navLinks = [
   { id: "home", title: "Home", Icon: VscHome, path: "/" },
@@ -53,9 +54,10 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
     </DrawerTrigger>
     <DrawerContent className="max-w-lg ml-auto">
       <div className="h-screen w-full ml-auto pt-4 px-5 flex flex-col justify-between text-center">
-        <div className="absolute -top-96 -right-96">
+        <div className="hidden">
           <DrawerHeader>
             <DrawerTitle>Mobile menu</DrawerTitle>
+            <DrawerDescription>Mobile menu</DrawerDescription>
           </DrawerHeader>
         </div>
 
@@ -105,7 +107,13 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
 
           <div className="flex flex-col items-center gap-3">
             <Separator className="-mb-11" />
-            <Image width={60} height={60} alt="Wave Research" src="/images/layout/waverd.webp" className="z-10 rounded-full relative border-2 border-[secondaryColor] h-16" />
+            <Image
+              width={60}
+              height={60}
+              alt="Wave Research"
+              src="/images/layout/waverd.webp"
+              className="z-10 rounded-full relative border-2 border-[secondaryColor] h-16"
+            />
             <Social filterParams={["twitter", "instagram", "whatsapp", "linkedin", "facebook"]} fontSize="20px" />
             <span className="text-inverseColor text-xs text-center">● All rights reserved. All trademarks are the property of their respective owners ●</span>
             <span className="font-bold text-ellipsis">©Wave Research 2018 ~ {new Date().getFullYear()}</span>

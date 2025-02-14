@@ -1,0 +1,9 @@
+figure.welcome-image {
+  top: 50%;
+  right: -200px;
+  width: 800px;
+  position: absolute;
+  transform: translate(0%, -51%);
+  height: clamp(300px, calc(100% + 20px), 1000px);
+  background: radial-gradient(circle closest-corner at 53% 50%, transparent -170%, var(--background) 65%), url("/images/layout/intro-welcome.webp") 50%/220% no-repeat;
+}

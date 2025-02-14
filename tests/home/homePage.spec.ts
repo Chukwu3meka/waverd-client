@@ -4,7 +4,7 @@ test("Page is reachable", async ({ page }) => {
   await page.goto("/");
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Wave Research/);
+  await expect(page).toHaveTitle(/WaveRD/);
 
   // // const welcomeScreen = await page.getByTestId("welcome");
   // const logo = page.locator('[href="/fff"');

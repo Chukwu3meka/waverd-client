@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -10,19 +10,17 @@ const VscHubot = dynamic(() => import("react-icons/vsc").then((module) => module
 
 const Welcome = () => (
   <div className="flex justify-center items-stretch min-h-[calc(var(--visibleScreen)-var(--headerHeight))] overflow-hidden py-16 px-12" data-testid="welcome">
-    <main className="max-w-[1200px] overflow-hidden relative p-2.5 rounded-br-[70px] rounded-tl-[70px] border-2">
+    <main className="overflow-hidden relative p-2.5 rounded-br-[70px] rounded-tl-[70px] border-2">
       <aside className="flex flex-col items-start justify-center h-full relative z-10">
-        <span className="text-[calc(0.9em+1vw)]">Welcome to</span>
+        <p className="text-7xl font-extrabold">
+          <Link href="/">WaveRD</Link>
+        </p>
 
-        <span className="text-[calc(2.7em+1vw)] font-extrabold">
-          <Link href="/">Wave Research</Link>
-        </span>
-
-        <span className="text-[calc(0.6em+1vw)]">
+        <p className="text-3xl">
           The ultimate destination for football enthusiasts and managers, designed to provide you with everything you need to stay ahead of the game. With our
           cutting-edge tools and in-depth insights, you can access real-time data. So join us today and experience the power of data-driven football API like never
           before!
-        </span>
+        </p>
 
         <nav className="mt-5 flex gap-x-2.5 gap-y-5 justify-end w-full flex-wrap">
           <Link href="/games">

@@ -11,7 +11,7 @@ interface Profile {
 }
 
 interface SocialAccounts {
-  title: "Facebook" | "Twitter" | "Instagram" | "LinkedIn" | "Wave Research" | "Pinterest" | "Github" | "YouTube" | "Fiverr" | "Whatsapp" | "Phone";
+  title: "Facebook" | "Twitter" | "Instagram" | "LinkedIn" | "WaveRD" | "Pinterest" | "Github" | "YouTube" | "Fiverr" | "Whatsapp" | "Phone";
   id: string;
   image: string;
   href: string;

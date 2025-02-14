@@ -32,10 +32,10 @@ const Social = dynamic(() => import("@components/shared/social/social-icons")),
 const navLinks = [
   { id: "home", title: "Home", Icon: VscHome, path: "/" },
   { id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
-  { id: "manager", title: "Football Manager", Icon: VscGame, path: "/games" },
+  { id: "manager", title: "Soccer Manager", Icon: VscGame, path: "/games" },
   { id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
   { id: "signin", title: "Login to your Account", Icon: VscSignIn, path: "/accounts/signin" },
-  { id: "signout", title: "Sign Out from Wave Research", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
+  { id: "signout", title: "Sign Out from WaveRD", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
 ];
 
 interface MobileHeaderProps {
@@ -107,16 +107,10 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
 
           <div className="flex flex-col items-center gap-3">
             <Separator className="-mb-11" />
-            <Image
-              width={60}
-              height={60}
-              alt="Wave Research"
-              src="/images/layout/waverd.webp"
-              className="z-10 rounded-full relative border-2 border-[secondaryColor] h-16"
-            />
+            <Image width={60} height={60} alt="WaveRD" src="/images/layout/waverd.webp" className="z-10 rounded-full relative border-2 border-[secondaryColor] h-16" />
             <Social filterParams={["twitter", "instagram", "whatsapp", "linkedin", "facebook"]} fontSize="20px" />
             <span className="text-inverseColor text-xs text-center">● All rights reserved. All trademarks are the property of their respective owners ●</span>
-            <span className="font-bold text-ellipsis">©Wave Research 2018 ~ {new Date().getFullYear()}</span>
+            <span className="font-bold text-ellipsis">©WaveRD 2018 ~ {new Date().getFullYear()}</span>
 
             <Tabs defaultValue={theme} className="w-[400px]">
               <TabsList>

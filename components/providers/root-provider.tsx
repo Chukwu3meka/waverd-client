@@ -15,13 +15,20 @@ interface RootProviderProps {
   setDeviceSizeAction: (size: { width: number; height: number }) => void;
 }
 
-const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setBreakpointAction, setDisplayHeaderAction, displayHeader: reduxDisplayHeader }: RootProviderProps) => {
+const RootProvider = ({
+  children,
+  setProfileAction,
+  setDeviceSizeAction,
+  setBreakpointAction,
+  setDisplayHeaderAction,
+  displayHeader: reduxDisplayHeader,
+}: RootProviderProps) => {
   const profile = INIT_PROFILE,
     prevScrollPosRef = useRef(0),
     [displayHeader, setDisplayHeader] = useState(reduxDisplayHeader);
 
   useEffect(() => {
-    console.log(`%cInitializing Wave Research...${new Date().toLocaleTimeString()}`, "color: green; font-family: serif; font-size: 12px");
+    console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: green; font-family: serif; font-size: 12px");
 
     handleResize();
     setDisplayHeader(true);

@@ -55,7 +55,7 @@ interface HeaderProps {
 
 const Header = ({ className, authenticated, themeHandler, theme, profile, showNav }: HeaderProps) => (
   <header id="header" data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 rounded-[65px / 100%] bg-transparent border-b-2 ">
+    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 bg-transparent border-b-2 ">
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">
@@ -85,7 +85,7 @@ const Header = ({ className, authenticated, themeHandler, theme, profile, showNa
                         href="/">
                         <GameIcon className="h-6 w-6" />
                         <div className="mb-2 mt-4 text-lg font-medium">Game</div>
-                        <p className="text-sm leading-tight text-muted-foreground">Revamped Football Manager for everyone with advanced real world simulation.</p>
+                        <p className="text-sm leading-tight text-muted-foreground">Revamped Soccer Manager for everyone with advanced real world simulation.</p>
                       </a>
                     </NavigationMenuLink>
                   </li>

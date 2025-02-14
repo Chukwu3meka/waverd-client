@@ -3,12 +3,13 @@ export const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 };
 export const INIT_PROFILE: Profile = {
   role: "dummy",
   theme: "system",
-  name: "Wave Research",
+  name: "WaveRD",
   handle: "API Hub and Soccer Manager",
   avatar: "/images/layout/profile.webp",
 };
 
-export const HEADER_HEIGHT = 74;
+// export const HEADER_HEIGHT = 74;
+export const HEADER_HEIGHT = 68;
 
 export const COLORS = {
   darkThemePrimaryColor: "#ffffff",
@@ -27,7 +28,7 @@ export const SOCIAL_ACCOUNTS: SocialAccounts[] = [
   { id: "instagram", title: "Instagram", image: "/images/social/instagram.png", href: "https://www.instagram.com/Chukwuemeka_Maduekwe" },
   // { id: "twitter", title: "Twitter", image: "/images/social/twitter.png", href: "https://twitter.com/WaveRDinc/" },
   { id: "twitter", title: "Twitter", image: "/images/social/twitter.png", href: "https://twitter.com/Chukwu3meka/" },
-  // {id:"waverd",title:"Wave Research",image:"/images/social/waverd.png",href: "https://www.waverd.com/"],
+  // {id:"waverd",title:"WaveRD",image:"/images/social/waverd.png",href: "https://www.waverd.com/"],
   // {id:"pinterest",title:"Pinterest",image:"/images/social/pinterest.png",href: "https://www.pinterest.com/viewcrunch/"],
   { id: "github", title: "Github", image: "/images/social/github.png", href: "https://github.com/Chukwu3meka/WaveRD-Web/issues" },
   // {id:"youtube",title:"YouTube",image:"/images/social/youtube.png",href: "https://www.youtube.com/channel/UCs_hSlk3N8bxP5xHSdKw3IQ/"],

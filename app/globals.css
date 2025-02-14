@@ -115,11 +115,12 @@
 
     & > div,
     & > main {
+      margin: auto;
       display: grid;
-      grid-template-rows: max-content auto max-content;
-      max-width: 100vw;
+      max-width: 1500px;
       overflow-x: hidden;
       min-height: var(--visibleScreen);
+      grid-template-rows: max-content auto max-content;
     }
   }
 }

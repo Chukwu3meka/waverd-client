@@ -1,8 +1,8 @@
 # WaveRD ✨
 
-**WaveRD**: is a free online football manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
+**WaveRD**: is a free online Soccer Manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
 This app was built to meet a true soccer management system where the developers and contributors also play the game.<br/>
-I've always had the goal to build a free online soccer app that can compete with **PES** and **eFootball**, but then what really pushed/motivated me to start the development of WaveRD, was a question asked on another football manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
+I've always had the goal to build a free online soccer app that can compete with **FIFA** and **eFootball**, but then what really pushed/motivated me to start the development of WaveRD, was a question asked on another Soccer Manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
 Initially, **WaveRD** was a closed source app, but my mentor who's a lover of Open Source Community influenced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
 That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVIATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORIZATION FROM ME**
 
@@ -22,7 +22,7 @@ The manager's responsibilities in a professional football club usually include (
 
 WaveRD Client holds the code necessary for the web version of [WaveRD](https://www.waverd.com), which is an online Soccer Manager App with the main of building an engaging online soccer game with peoples satisfaction as our goal. What motivated me to build WaveRD was the inability for existing Online Manger games to give what we really want in a soccer manager app, after sending mails most platform on how to improve the game, without response, i can across one post where a user asked 'Do the developers of this game even play it, or are they just there for money'.
 
-Wave Research Web is hosted on **[Vercel](https://vercel.com/)** and can be found here at [home](https://www.waverd.com), [Manager](https://manager.waverd.com/) and [apihub](https://hub.waverd.com/). Its subdomain, though similar in nature: console | accounts | manager | apihub makes it easier to access various section of WaveRD
+WaveRD Web is hosted on **[Vercel](https://vercel.com/)** and can be found here at [home](https://www.waverd.com), [Manager](https://manager.waverd.com/) and [apihub](https://hub.waverd.com/). Its subdomain, though similar in nature: console | accounts | manager | apihub makes it easier to access various section of WaveRD
 
 | Domains  | Action                                                                      |
 | -------- | --------------------------------------------------------------------------- |
@@ -41,7 +41,7 @@ Wave Research Web is hosted on **[Vercel](https://vercel.com/)** and can be foun
 
 ## Getting Started
 
-- _Fork_ **Wave Research Web** [here](https://github.com/Chukwu3meka/waverd-client)
+- _Fork_ **WaveRD Web** [here](https://github.com/Chukwu3meka/waverd-client)
 - Now clone your remote branch, and run `pnpm install` or `pnpm i` for short; to install all packages
 - If you don't have a gitignore file, create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
 - In development we run a single command to reflect changes on file change, and to keep our app running all the time

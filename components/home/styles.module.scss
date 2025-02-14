@@ -7,3 +7,9 @@ figure.welcome-image {
   height: clamp(300px, calc(100% + 20px), 1000px);
   background: radial-gradient(circle closest-corner at 53% 50%, transparent -170%, var(--background) 65%), url("/images/layout/intro-welcome.webp") 50%/220% no-repeat;
 }
+
+div.manager {
+  width: 100%;
+  padding: 0 0 40px;
+  clip-path: polygon(0 3%, 100% 0, 100% 97%, 0% 100%);
+}

@@ -30,7 +30,7 @@ const Manager = () => (
       </BreadcrumbList>
     </Breadcrumb>
 
-    <div className="flex flex-col gap-6 py-10 px-5" data-testid="manager">
+    <div className="flex flex-col gap-8 py-10 px-5" data-testid="manager">
       <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }} className="w-full max-w-screen hidden md:block">
         <CarouselContent>
           {COMPETITIONS.map(({ id, image, title }) => (
@@ -41,8 +41,8 @@ const Manager = () => (
         </CarouselContent>
       </Carousel>
 
-      <div className="flex flex-col md:flex-row items-center justify-center">
-        <div className="border flex flex-col items-center max-w-xs rounded-l-3xl overflow-hidden gap-4 pb-5">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-y-7">
+        <div className="border flex flex-col items-center max-w-xs rounded-3xl overflow-hidden gap-4 pb-5 shadow-2xl">
           <Image alt="WaveRD Clubs" src="/images/layout/intro-signup.webp" width={300} height={150} className="w-full h-52" />
           <p className="text-center pl- pr-6">Rise to the challenge and outshine the best managers. Lead your team to ultimate victory — join now and take control!</p>
           <Link href="/accounts/signup">
@@ -50,9 +50,15 @@ const Manager = () => (
           </Link>
         </div>
 
-        <Image width={150} height={150} alt="WaveRD Clubs" src="/images/layout/privacy.png" className="rounded-full overflow-hidden h-32 w-32 -mx-12 z-10" />
+        <Image
+          width={150}
+          height={150}
+          alt="WaveRD Clubs"
+          src="/images/layout/privacy.png"
+          className="rounded-full overflow-hidden h-32 w-32 -mx-12 z-10 hidden md:block shadow-2xl"
+        />
 
-        <div className="border flex flex-col items-center max-w-xs rounded-r-3xl overflow-hidden gap-4 pb-5">
+        <div className="border flex flex-col items-center max-w-xs rounded-3xl overflow-hidden gap-4 pb-5 shadow-2xl">
           <Image alt="WaveRD Clubs" src="/images/layout/intro-signin.webp" width={300} height={150} className="w-full h-52" />
           <p className="text-center pr-1 pl-6">Assemble your team, manage finances, crush the competition and lead your players to glory — they're counting on you!</p>
           <Link href="/accounts/signin">

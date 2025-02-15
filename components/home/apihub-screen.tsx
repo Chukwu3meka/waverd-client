@@ -1,22 +1,21 @@
 "use client";
 
-import apiHubStyles from "./apiHub.module.scss";
-
+import dynamic from "next/dynamic";
 import Link from "next/link";
-// import { textToId } from "utils/utils";
-import { VscHome } from "react-icons/vsc";
-import { FaCartPlus } from "react-icons/fa";
-import { FaDatabase } from "react-icons/fa6";
-import { MdNetworkCheck } from "react-icons/md";
-// import { Breadcrumb, Button, div, div, Row, span } from "antd";
 import Image from "next/image";
 import { textToId } from "@lib/helpers";
-import { Button } from "@components/ui/button";
 
-import { COMPETITIONS } from "@lib/constants";
-import Autoplay from "embla-carousel-autoplay";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
-import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+const FaCartPlus = dynamic(() => import("react-icons/fa").then((x) => x.FaCartPlus)),
+  Button = dynamic(() => import("@components/ui/button").then((x) => x.Button)),
+  FaDatabase = dynamic(() => import("react-icons/fa6").then((x) => x.FaDatabase)),
+  MdNetworkCheck = dynamic(() => import("react-icons/md").then((x) => x.MdNetworkCheck)),
+  Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.Breadcrumb)),
+  BreadcrumbPage = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbPage)),
+  BreadcrumbItem = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbItem)),
+  BreadcrumbLink = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbLink)),
+  BreadcrumbList = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbList)),
+  BreadcrumbEllipsis = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbEllipsis)),
+  BreadcrumbSeparator = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbSeparator));
 
 const ApiHub = () => (
   <div className="bg-secondary p-2.5" data-testid="manager">

@@ -46,15 +46,15 @@ import { VscLoading } from "react-icons/vsc";
 import { ChangeEvent, useRef, useState } from "react";
 
 const response = [
-  { url: "/#1", title: "1", desc: "Next.js 1" },
-  { url: "/#2", title: "2", desc: "Next.js 2" },
-  { url: "/#3", title: "3", desc: "Next.js 3" },
-  { url: "/#4", title: "4", desc: "Next.js 4" },
-  { url: "/#5", title: "5", desc: "Next.js 5" },
-  { url: "/#6", title: "6", desc: "Next.js 6" },
-  { url: "/#7", title: "7", desc: "Next.js 7" },
-  { url: "/#8", title: "8", desc: "Next.js 8" },
-  { url: "/#9", title: "9", desc: "Next.js 9" },
+  { url: "/#1", title: "mss1wrewrhjdshj", desc: "Next.js 1" },
+  { url: "/#2", title: "mss2wrewrhjdshj", desc: "Next.js 2" },
+  { url: "/#3", title: "mss3wrewrhjdshj", desc: "Next.js 3" },
+  { url: "/#4", title: "mss4wrewrhjdshj", desc: "Next.js 4" },
+  { url: "/#5", title: "mss5wrewrhjdshj", desc: "Next.js 5" },
+  { url: "/#6", title: "mss6wrewrhjdshj", desc: "Next.js 6" },
+  { url: "/#7", title: "mss7wrewrhjdshj", desc: "Next.js 7" },
+  { url: "/#8", title: "mss8wrewrhjdshj", desc: "Next.js 8" },
+  { url: "/#9", title: "mss9wrewrhjdshj", desc: "Next.js 9" },
 ];
 interface MobileHeaderProps {
   theme: Theme;
@@ -64,24 +64,24 @@ interface MobileHeaderProps {
 }
 
 const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHeaderProps) => {
-  const searchRef = useRef(undefined);
+  // const searchRef = useRef(undefined);
   const [searching, setSearching] = useState(false);
   const [matches, setMatches] = useState<Array<{ url: string; title: string; desc: string }>>([]);
 
-  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const searchHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const phrase = e.currentTarget.value;
-    if (searchRef.current) clearTimeout(searchRef.current);
+    // if (searchRef.current) clearTimeout(searchRef.current);
 
     if (phrase) {
       setSearching(true);
 
       console.log({ phrase });
 
-      const a = setTimeout((id) => {
-        setSearching(false);
-        setMatches(response.filter((x) => x.title.includes(phrase)));
-      }, 500);
-      searchRef.current = a;
+      // await setTimeout(() => {
+      setSearching(false);
+      setMatches(response.filter((x) => x.title.includes(phrase)));
+      // }, 500);
+      // searchRef.current = a;
     } else {
       setMatches([]);
       if (searching) setSearching(false);
@@ -132,18 +132,19 @@ const MobileHeader = ({ profile, authenticated, themeHandler, theme }: MobileHea
                   {/* <CommandEmpty>No framework found.</CommandEmpty> */}
                   <CommandGroup>
                     {matches.map(({ desc, title, url }) => (
-                      <Link href={url} key={url} className="cursor-pointer hover:bg-accent-foreground">
-                        <CommandItem
-                        // value={framework.value}
+                      <CommandItem
+                        key={url}
+                        className="cursor-pointer hover:bg-accent-foreground" // value={framework.value}
                         // onSelect={(currentValue) => {
                         // setValue(currentValue === value ? "" : currentValue);
                         // setOpen(false);
                         // }}
-                        >
+                      >
+                        <Link href={url}>
                           <span>{title}</span>
                           <p>{desc}</p>
-                        </CommandItem>
-                      </Link>
+                        </Link>
+                      </CommandItem>
                     ))}
                   </CommandGroup>
                 </CommandList>

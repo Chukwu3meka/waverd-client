@@ -59,12 +59,12 @@ const Footer = () => (
         <span className="text-xs">
           <span>
             Powered with 💗 by&nbsp;
-            <a href="https://mongodb.com/" rel="noopener noreferrer" target="_blank">
-              MongoDB
-            </a>
-            ,&nbsp;
             <a href="https://vercel.com/" rel="noopener noreferrer" target="_blank">
               Vercel
+            </a>
+            ,&nbsp;
+            <a href="https://mongodb.com/" rel="noopener noreferrer" target="_blank">
+              MongoDB
             </a>
             &nbsp;&&nbsp;
             <a href="https://render.com/" rel="noopener noreferrer" target="_blank">

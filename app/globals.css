@@ -117,9 +117,11 @@
     & > main {
       margin: auto;
       display: grid;
-      max-width: 1500px;
+      overflow-y: auto;
       overflow-x: hidden;
+      position: relative;
       min-height: var(--visibleScreen);
+      width: clamp(200px, 100vw, 1500px);
       grid-template-rows: max-content auto max-content;
     }
   }

@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 
 const SocialIcons = dynamic(() => import("@components/shared/social/social-icons"));
 
-const Footer = () => (
+const Footer = ({ theme, themeHandler }: { theme: any; themeHandler: any }) => (
   <div data-testid="footer" className={styles.footer} style={{ maxWidth: "100vw", overflowX: "hidden" }}>
     <footer>
       <main>
@@ -77,9 +77,7 @@ const Footer = () => (
           ● All rights reserved. All trademarks are the property of their respective owners ●<span></span>
         </span>
 
-        <span>
-          <span>©WaveRD 2018 ~ {new Date().getFullYear()}</span>
-        </span>
+        <span>© {new Date().getFullYear()}, WaveRD.</span>
       </section>
     </footer>
   </div>

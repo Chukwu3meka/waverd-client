@@ -3,8 +3,8 @@ export const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 };
 export const INIT_PROFILE: Profile = {
   role: "dummy",
   theme: "system",
-  name: "WaveRD",
-  handle: "API Hub and Soccer Manager",
+  name: "",
+  handle: "",
   avatar: "/images/layout/profile.webp",
 };
 

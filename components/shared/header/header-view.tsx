@@ -116,6 +116,7 @@ const Header = ({ className, authenticated, themeHandler, theme, profile, showNa
           </NavigationMenuList>
         </NavigationMenu>
       )}
+
       <MobileHeader profile={profile} authenticated={authenticated} themeHandler={themeHandler} theme={theme} />
     </main>
   </header>

@@ -113,15 +113,17 @@
 
     font-family: var(--font-playfair);
 
+    width: 100vw;
+    overflow-x: hidden;
+
     & > div,
     & > main {
       margin: auto;
       display: grid;
-      overflow-y: auto;
-      overflow-x: hidden;
+      /* overflow: auto; */
+      max-width: 1500px;
       position: relative;
       min-height: var(--visibleScreen);
-      width: clamp(200px, 100vw, 1500px);
       grid-template-rows: max-content auto max-content;
     }
   }
@@ -139,6 +141,6 @@
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--chart-4);
+  background: var(--chart-3);
   cursor: pointer;
 }

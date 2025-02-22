@@ -79,7 +79,7 @@ const RootProvider = ({
     }
   }, [reduxDisplayHeader, displayHeader]);
 
-  return <>{children}</>;
+  return children;
 };
 
 const mapStateToProps = (state: RootState) => ({ displayHeader: state.layout.displayHeader }),

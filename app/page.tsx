@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Separator } from "@components/ui/separator";
 
-const Footer = dynamic(() => import("@components/shared/footer/footer")),
-  ApiHubScreen = dynamic(() => import("@components/home/apihub-screen")),
+const ApiHub = dynamic(() => import("@components/home/apihub-screen")),
   WelcomeScreen = dynamic(() => import("@components/home/welcome-screen")),
   ManagerScreen = dynamic(() => import("@components/home/manager-screen")),
+  Footer = dynamic(() => import("@components/shared/footer/footer-container")),
   Header = dynamic(() => import("@components/shared/header/header-container"));
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ const HomePage = () => (
       <WelcomeScreen />
       <ManagerScreen />
       <Separator />
-      <ApiHubScreen />
+      <ApiHub />
     </div>
     <Footer />
   </main>

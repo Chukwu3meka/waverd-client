@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { LOGO } from "@lib/constants";
 import styles from "./styles.module.scss";
+import SocialIcons from "../social/social-icons";
 
-const SocialIcons = dynamic(() => import("@components/shared/social/social-icons"));
+import { LOGO } from "@lib/constants";
+import { FaCloudSun, FaMoon, FaSun } from "react-icons/fa";
+import { Tabs, TabsList, TabsTrigger } from "@components/ui/tabs";
 
-const Footer = ({ theme, themeHandler }: { theme: any; themeHandler: any }) => (
+const Footer = ({ theme, themeHandler }: { theme: Theme; themeHandler: (theme: Theme) => () => void }) => (
   <div data-testid="footer" className={styles.footer} style={{ maxWidth: "100vw", overflowX: "hidden" }}>
     <footer>
       <main>
@@ -56,6 +57,10 @@ const Footer = ({ theme, themeHandler }: { theme: any; themeHandler: any }) => (
       </main>
 
       <section>
+        <span className="text-sm">
+          ● All rights reserved. All trademarks are the property of their respective owners ●<span></span>
+        </span>
+
         <span className="text-xs">
           <span>
             Powered with 💗 by&nbsp;
@@ -73,11 +78,24 @@ const Footer = ({ theme, themeHandler }: { theme: any; themeHandler: any }) => (
           </span>
         </span>
 
-        <span className="text-sm">
-          ● All rights reserved. All trademarks are the property of their respective owners ●<span></span>
-        </span>
+        <div className="flex flex-wrap w-full items-center justify-between">
+          <span>© {new Date().getFullYear()}, WaveRD.</span>
 
-        <span>© {new Date().getFullYear()}, WaveRD.</span>
+          <Tabs defaultValue={theme}>
+            <TabsList>
+              <TabsTrigger value="light" className="cursor-pointer h-7" onClick={themeHandler("light")}>
+                <FaSun size=".8em" />
+              </TabsTrigger>
+              <TabsTrigger value="dark" className="cursor-pointer h-7" onClick={themeHandler("dark")}>
+                <FaMoon size=".7em" />
+              </TabsTrigger>
+
+              <TabsTrigger value="system" className="cursor-pointer h-7" onClick={themeHandler("system")}>
+                <FaCloudSun size=".9em" />
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </section>
     </footer>
   </div>

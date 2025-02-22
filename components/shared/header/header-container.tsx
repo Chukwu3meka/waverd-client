@@ -1,13 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Header from "./header";
+
 import { connect } from "react-redux";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { INIT_PROFILE } from "@lib/constants";
 import { setThemeAction } from "@store/actions/account";
 
-const Header = dynamic(() => import("./header-view"));
 interface HeaderContainerProps {
   profile: Profile;
   deviceWidth: number;
@@ -21,8 +20,7 @@ const HeaderContainer = (props: HeaderContainerProps) => {
   //  accountsService = new AccountsService(),
   //   { enqueueSnackbar } = useSnackbar(),
 
-  const { setTheme, theme } = useTheme(),
-    { position, setThemeAction } = props,
+  const { position } = props,
     [showNav, setShowNav] = useState(false),
     [profile, setProfile] = useState<Profile>(INIT_PROFILE),
     [displayHeader, setDisplayHeader] = useState<boolean>(false),
@@ -50,17 +48,7 @@ const HeaderContainer = (props: HeaderContainerProps) => {
     }
   }, [props.deviceWidth]);
 
-  const themeHandler = (theme: Theme) => () => {
-    setTheme(theme);
-    setThemeAction(theme);
-
-    // if (authenticated)
-    //   await accountsService
-    //     .setTheme({ theme: newTheme })
-    //     .catch(() => enqueueSnackbar("Failed to save new theme across profile", { variant: "error" }));
-  };
-
-  return <Header {...{ className, authenticated, theme: theme as Theme, profile, themeHandler, showNav }} />;
+  return <Header {...{ className, authenticated, profile, showNav }} />;
 };
 
 const mapStateToProps = (state: RootState) => ({

@@ -1,16 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import { LOGO } from "@lib/constants";
-import styles from "./styles.module.scss";
 import Footer from "./footer";
+import { connect } from "react-redux";
 import { useTheme } from "next-themes";
 import { setThemeAction } from "@store/actions/account";
 
-const SocialIcons = dynamic(() => import("@components/shared/social/social-icons"));
-
-const FooterContainer = () => {
+const FooterContainer = ({ setThemeAction }: { setThemeAction: (data: Theme) => unknown }) => {
   const { setTheme, theme } = useTheme();
 
   const themeHandler = (theme: Theme) => () => {
@@ -23,9 +18,8 @@ const FooterContainer = () => {
     //     .catch(() => enqueueSnackbar("Failed to save new theme across profile", { variant: "error" }));
   };
 
-  return <Footer theme themeHandler />;
+  return <Footer theme={(theme as Theme) || "light"} themeHandler={themeHandler} />;
 };
-export default FooterContainer;
 
 const mapStateToProps = (state: RootState) => ({
     profile: state.account.profile,
@@ -34,3 +28,5 @@ const mapStateToProps = (state: RootState) => ({
     authenticated: state.account.authenticated,
   }),
   mapDispatchToProps = { setThemeAction };
+
+export default connect(mapStateToProps, mapDispatchToProps)(FooterContainer);

@@ -116,7 +116,7 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 7
 
   post-playwright-tests:
     timeout-minutes: 5

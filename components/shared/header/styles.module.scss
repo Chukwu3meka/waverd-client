@@ -1,0 +1,34 @@
+header.relativeHeader {
+  display: flex;
+  user-select: none;
+  padding: 5px 10px;
+  max-width: calc(100vw - 3px);
+  backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+  // background: rgba(var(--primary-color-color), 0.7); /* Semi-transparent black background to create a blur effect */
+}
+
+header.stickyHeader {
+  @extend .relativeHeader;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  border-bottom: none;
+  transition: top 0.5s linear;
+
+  & > main {
+    padding: 12px 20px;
+    border-radius: 65px / 100%;
+    border: 2px solid var(--border);
+    box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);
+    -moz-box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);
+    -webkit-box-shadow: 0px 5px 9px 0px rgba(var(--secondary-color-color), 0.75);
+  }
+}
+
+header.hiddenHeader {
+  @extend .stickyHeader;
+  top: calc((-1 * var(--headerHeight)) - 10px);
+}

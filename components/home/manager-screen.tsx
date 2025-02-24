@@ -2,16 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import Autoplay from "embla-carousel-autoplay";
+
 import { COMPETITIONS } from "@lib/constants";
 import { Button } from "@components/ui/button";
-import Autoplay from "embla-carousel-autoplay";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
-import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
-const clubs = ["club00001", "club00043", "club00021", "club00031", "club00024", "club00002", "club00026", "club00022", "club00042", "club00011", "club00025"];
+const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.Breadcrumb)),
+  BreadcrumbPage = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbPage)),
+  BreadcrumbItem = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbItem)),
+  BreadcrumbLink = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbLink)),
+  BreadcrumbList = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbList)),
+  BreadcrumbEllipsis = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbEllipsis)),
+  BreadcrumbSeparator = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbSeparator)),
+  clubs = ["club00001", "club00043", "club00021", "club00031", "club00024", "club00002", "club00026", "club00022", "club00042", "club00011", "club00025"];
 
 const Manager = () => (
-  <div className="bg-secondary p-2.5" data-testid="manager">
+  <div className="bg-secondary p-2.5 pt-10 rounded-t-2xl" data-testid="manager" style={{ clipPath: "polygon(100% 0, 0 5%, 0% 100%, 100% 100%)" }}>
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
@@ -35,7 +43,7 @@ const Manager = () => (
         <CarouselContent>
           {COMPETITIONS.map(({ id, image, title }) => (
             <CarouselItem key={id} className="md:basis-1/3 lg:basis-1/5 flex items-center justify-center">
-              <Image src={image} alt={`WaveRD - ${title}`} width={70} height={70} />
+              <Image src={image} alt={`WaveRD - ${title}`} width={70} height={70} className="w-auto h-auto" />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -71,7 +79,7 @@ const Manager = () => (
         <CarouselContent>
           {clubs.map((club, index) => (
             <CarouselItem key={club} className="md:basis-1/3 lg:basis-1/5 flex items-center justify-center">
-              <Image src={`/images/clubs/${club}.webp`} alt={`WaveRD ${index + 1}`} width={40} height={40} />
+              <Image src={`/images/clubs/${club}.webp`} alt={`WaveRD ${index + 1}`} width={40} height={40} className="w-auto h-auto" />
             </CarouselItem>
           ))}
         </CarouselContent>

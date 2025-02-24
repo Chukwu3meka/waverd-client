@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import styles from "./styles.module.scss";
-import { Button } from "@components/ui/button";
 
-const VscHubot = dynamic(() => import("react-icons/vsc").then((module) => module.VscHubot)),
-  IoGameControllerOutline = dynamic(() => import("react-icons/io5").then((module) => module.IoGameControllerOutline));
+import { VscHubot } from "react-icons/vsc";
+import { Button } from "@components/ui/button";
+import { IoGameControllerOutline } from "react-icons/io5";
 
 const Welcome = () => (
-  <div className="flex justify-center p-4 md:py-16 md:px-12 min-h-[500px]" data-testid="welcome">
-    <main className="flex flex-col items-start justify-center p-4 md:p-10  md:max-w-[calc(100vw/1.5)] rounded-bl-[70px] rounded-tr-[70px] shadow-xl">
+  <div className="flex justify-center p-4 md:py-16 md:px-12 min-h-[600px]" data-testid="welcome">
+    <main className="flex flex-col items-start justify-center p-4 md:p-10  md:max-w-[calc(100vw/1.5)] rounded-bl-[70px] rounded-tr-[70px] shadow-xl overflow-hidden relative">
       <p className="text-4xl md:text-4xl font-extrabold">Football Revolution</p>
 
       <p className="text-lg md:text-xl">

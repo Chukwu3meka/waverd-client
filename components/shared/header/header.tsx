@@ -6,44 +6,43 @@ import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 import { LOGO } from "@lib/constants";
 import { GrGamepad as GameIcon } from "react-icons/gr";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 const MobileHeader = dynamic(() => import("./mobile-header")),
-  components: { title: string; href: string; description: string }[] = [
-    {
-      title: "Clubs",
-      href: "/",
-      description: "Retrieve club details, including history, squad, and performance.",
-    },
-    {
-      title: "Players",
-      href: "/",
-      description: "Access player profiles, stats, and performance data.",
-    },
-    {
-      title: "Managers",
-      href: "/",
-      description: "Access details on team managers, their history, and strategic insights.",
-    },
-    {
-      title: "Referees",
-      href: "/",
-      description: "Get information on referees, their officiating history, and match assignments.",
-    },
-    {
-      title: "Competitions",
-      href: "/",
-      description: "Explore details on tournaments, leagues, fixtures, and standings.",
-    },
-  ];
+  NavigationMenu = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenu)),
+  NavigationMenuItem = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuItem)),
+  NavigationMenuLink = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuLink)),
+  NavigationMenuList = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuList)),
+  NavigationMenuContent = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuContent)),
+  NavigationMenuTrigger = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuTrigger));
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Clubs",
+    href: "/",
+    description: "Retrieve club details, including history, squad, and performance.",
+  },
+  {
+    title: "Players",
+    href: "/",
+    description: "Access player profiles, stats, and performance data.",
+  },
+  {
+    title: "Managers",
+    href: "/",
+    description: "Access details on team managers, their history, and strategic insights.",
+  },
+  {
+    title: "Referees",
+    href: "/",
+    description: "Get information on referees, their officiating history, and match assignments.",
+  },
+  {
+    title: "Competitions",
+    href: "/",
+    description: "Explore details on tournaments, leagues, fixtures, and standings.",
+  },
+];
 
 interface HeaderProps {
   showNav: boolean;
@@ -53,7 +52,7 @@ interface HeaderProps {
 }
 
 const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => (
-  <header id="header" data-testid={className} className={styles[className]}>
+  <header data-testid={className} className={styles[className]}>
     <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 bg-transparent border-b-2 ">
       {!showNav && <span />}
 

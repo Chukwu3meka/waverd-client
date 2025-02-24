@@ -81,7 +81,7 @@ const Footer = ({ theme, themeHandler }: { theme: Theme; themeHandler: (theme: T
         <div className="flex flex-wrap w-full items-center justify-between">
           <span>© {new Date().getFullYear()}, WaveRD.</span>
 
-          <Tabs defaultValue={theme}>
+          <Tabs value={theme}>
             <TabsList>
               <TabsTrigger value="light" className="cursor-pointer h-7" onClick={themeHandler("light")}>
                 <FaSun size=".8em" />
@@ -89,7 +89,6 @@ const Footer = ({ theme, themeHandler }: { theme: Theme; themeHandler: (theme: T
               <TabsTrigger value="dark" className="cursor-pointer h-7" onClick={themeHandler("dark")}>
                 <FaMoon size=".7em" />
               </TabsTrigger>
-
               <TabsTrigger value="system" className="cursor-pointer h-7" onClick={themeHandler("system")}>
                 <FaCloudSun size=".9em" />
               </TabsTrigger>

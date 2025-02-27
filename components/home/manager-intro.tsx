@@ -19,7 +19,7 @@ const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) =
   clubs = ["club00001", "club00043", "club00021", "club00031", "club00024", "club00002", "club00026", "club00022", "club00042", "club00011", "club00025"];
 
 const Manager = () => (
-  <div className="bg-secondary p-2.5 pt-10 rounded-t-2xl" data-testid="manager" style={{ clipPath: "polygon(100% 0, 0 5%, 0% 100%, 100% 100%)" }}>
+  <div className="bg-secondary p-2.5 pt-14 rounded-t-4xl" data-testid="manager" style={{ clipPath: "polygon(100% 0, 0 5%, 0% 100%, 100% 100%)" }}>
     <div className="max-w-7xl m-auto">
       <Breadcrumb>
         <BreadcrumbList>
@@ -39,7 +39,7 @@ const Manager = () => (
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex flex-col gap-8 py-10 px-5" data-testid="manager">
+      <div className="flex flex-col gap-8 py-10" data-testid="manager">
         <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }} className="w-full max-w-screen hidden md:block">
           <CarouselContent>
             {COMPETITIONS.map(({ id, image, title }) => (
@@ -52,7 +52,7 @@ const Manager = () => (
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-y-7">
           <div className="border flex flex-col items-center max-w-xs rounded-3xl overflow-hidden gap-4 pb-5 shadow-2xl">
-            <Image alt="WaveRD Clubs" src="/images/layout/intro-signup.webp" width={300} height={150} className="w-full h-52" />
+            <Image alt="WaveRD Clubs" src="/images/layouts/intro-signup.webp" width={300} height={150} className="w-full h-52" />
             <p className="text-center pl- pr-6">Rise to the challenge and outshine the best managers. Lead your team to ultimate victory — join now and take control!</p>
             <Link href="/accounts/signup">
               <Button>Sign up</Button>
@@ -63,12 +63,12 @@ const Manager = () => (
             width={150}
             height={150}
             alt="WaveRD Clubs"
-            src="/images/layout/privacy.png"
+            src="/images/layouts/privacy.png"
             className="rounded-full overflow-hidden h-32 w-32 -mx-12 z-10 hidden md:block shadow-2xl"
           />
 
           <div className="border flex flex-col items-center max-w-xs rounded-3xl overflow-hidden gap-4 pb-5 shadow-2xl">
-            <Image alt="WaveRD Clubs" src="/images/layout/intro-signin.webp" width={300} height={150} className="w-full h-52" />
+            <Image alt="WaveRD Clubs" src="/images/layouts/intro-signin.webp" width={300} height={150} className="w-full h-52" />
             <p className="text-center pr-1 pl-6">Assemble your team, manage finances, crush the competition and lead your players to glory — they're counting on you!</p>
             <Link href="/accounts/signin">
               <Button>Sign in</Button>

@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -21,68 +19,65 @@ const navLinks = [
 ];
 
 const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { profile: Profile; authenticated: boolean; setDisplayHeaderAction: any }) => (
-  <div className="grid grid-cols-2 gap-2">
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          size="icon"
-          variant="outline"
-          aria-label="mobile-menu"
-          className="cursor-pointer"
-          onClick={
-            () => setDisplayHeaderAction(false)
-            // When sticky header is open it overlaps shadcn sidebar
-          }>
-          <MenuIcon />
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <Image width={40} height={40} alt="WaveRD" src="/images/layout/profile.webp" className="rounded-[50%]" />
-                <div className="flex flex-col items-start">
-                  <span className="font-bold text-ellipsis">WaveRD</span>
-                  <span className="text-ellipsis text-sm">API Hub and Soccer Manager</span>
-                </div>
-              </div>
-            </div>
-          </SheetTitle>
-          <SheetDescription></SheetDescription>
-        </SheetHeader>
-
-        <div>
-          <Separator className="mb-9" />
-
-          <div className="flex flex-col gap-5 justify-between">
-            {navLinks
-              .filter((nav) => (authenticated ? !["signup", "signin"].includes(nav.id) : !["signout"].includes(nav.id)))
-              .map(({ Icon, path, title }) => (
-                <div className="flex items-center gap-3" key={title}>
-                  <Icon />
-                  <Link href={path} className="font-bold">
-                    {title}
-                  </Link>
-                </div>
-              ))}
-          </div>
-        </div>
-
-        {profile.handle && (
-          <SheetFooter>
-            <div className="w-full flex items-center gap-3">
-              <Image width={40} height={40} alt="WaveRD" src="/images/layout/profile.webp" className="rounded-[50%]" />
+  <Sheet>
+    <SheetTrigger asChild>
+      <Button
+        size="icon"
+        variant="outline"
+        aria-label="mobile-menu"
+        onClick={
+          () => setDisplayHeaderAction(false)
+          // When sticky header is open it overlaps shadcn sidebar
+        }>
+        <MenuIcon />
+      </Button>
+    </SheetTrigger>
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-3">
+              <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />
               <div className="flex flex-col items-start">
-                <span className="font-bold text-ellipsis">{profile.name}</span>
-                <span className="text-ellipsis text-inverseColor">{profile.handle}</span>
+                <span className="font-bold text-ellipsis">WaveRD</span>
+                <span className="text-ellipsis text-sm">API Hub and Soccer Manager</span>
               </div>
             </div>
-          </SheetFooter>
-        )}
-      </SheetContent>
-    </Sheet>
-  </div>
+          </div>
+        </SheetTitle>
+        <SheetDescription></SheetDescription>
+      </SheetHeader>
+
+      <div>
+        <Separator className="mb-9" />
+
+        <div className="flex flex-col gap-5 justify-between">
+          {navLinks
+            .filter((nav) => (authenticated ? !["signup", "signin"].includes(nav.id) : !["signout"].includes(nav.id)))
+            .map(({ Icon, path, title }) => (
+              <div className="flex items-center gap-3" key={title}>
+                <Icon />
+                <Link href={path} className="font-bold">
+                  {title}
+                </Link>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {profile.handle && (
+        <SheetFooter>
+          <div className="w-full flex items-center gap-3">
+            <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />
+            <div className="flex flex-col items-start">
+              <span className="font-bold text-ellipsis">{profile.name}</span>
+              <span className="text-ellipsis text-inverseColor">{profile.handle}</span>
+            </div>
+          </div>
+        </SheetFooter>
+      )}
+    </SheetContent>
+  </Sheet>
 );
 
 const mapDispatchToProps = { setDisplayHeaderAction },

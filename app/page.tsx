@@ -21,11 +21,9 @@ const HomePage = () => (
     <Header position="relative" />
     <div>
       <WelcomeInto />
-      <div className="p-4">
-        <ManagerIntro />
-        <Separator />
-        <ApiHub />
-      </div>
+      <ManagerIntro />
+      <Separator />
+      <ApiHub />
     </div>
     <Footer />
   </main>

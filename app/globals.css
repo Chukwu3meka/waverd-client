@@ -121,9 +121,8 @@
       margin: auto;
       display: grid;
       position: relative;
-      min-height: var(--visibleScreen);
+      min-height: var(--availHeight);
       grid-template-rows: max-content auto max-content;
-      /* border: 3px solid red; */
     }
   }
 }

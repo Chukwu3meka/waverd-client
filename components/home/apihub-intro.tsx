@@ -18,7 +18,7 @@ const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) =
   BreadcrumbSeparator = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbSeparator));
 
 const ApiHub = () => (
-  <div className="bg-secondary p-2.5 pb-10 rounded-b-2xl" data-testid="manager" style={{ clipPath: "polygon(0 0%, 100% 0, 100% 95%, 0% 100%)" }}>
+  <div className="bg-secondary p-2.5 pb-20 rounded-b-4xl" data-testid="manager" style={{ clipPath: "polygon(0 0%, 100% 0, 100% 95%, 0% 100%)" }}>
     <div className="max-w-7xl m-auto">
       <Breadcrumb>
         <BreadcrumbList>
@@ -38,9 +38,9 @@ const ApiHub = () => (
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center max-w-6xl mx-auto px-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center max-w-6xl mx-auto">
         <div className="col-span-1">
-          <Image width={400} height={400} src="/images/layout/intro-apihub.png" alt="WaveRD API HUB welcome image" className="w-full h-96" />
+          <Image width={400} height={400} src="/images/layouts/intro-apihub.png" alt="WaveRD API HUB welcome image" className="w-full h-96" />
         </div>
 
         <main className="col-span-1 md:col-span-2">

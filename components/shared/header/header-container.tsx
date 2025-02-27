@@ -1,11 +1,13 @@
 "use client";
 
-import Header from "./header";
+import dynamic from "next/dynamic";
 
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { INIT_PROFILE } from "@lib/constants";
 import { setThemeAction } from "@store/actions/account";
+
+const Header = dynamic(() => import("./header"), { ssr: false });
 
 interface HeaderContainerProps {
   profile: Profile;

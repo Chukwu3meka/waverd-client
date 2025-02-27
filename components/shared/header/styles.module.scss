@@ -2,7 +2,7 @@ header.relativeHeader {
   display: flex;
   user-select: none;
   padding: 5px 10px;
-  max-width: calc(100vw - 3px);
+  max-width: calc(100vw - 10px);
   backdrop-filter: blur(10px); /* Apply a blur effect to the background */
   // background: rgba(var(--primary-color-color), 0.7); /* Semi-transparent black background to create a blur effect */
 }

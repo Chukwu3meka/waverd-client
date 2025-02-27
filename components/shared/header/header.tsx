@@ -53,7 +53,7 @@ interface HeaderProps {
 
 const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => (
   <header data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full py-2.5 px-5 bg-transparent border-b-2 ">
+    <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">

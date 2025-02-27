@@ -1,9 +1,10 @@
 "use client";
 
+import { sleep } from "@lib/helpers";
 import { connect } from "react-redux";
 import { setProfileAction } from "@store/actions/account";
+import { INIT_PROFILE, BREAKPOINTS } from "@lib/constants";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { INIT_PROFILE, HEADER_HEIGHT, BREAKPOINTS } from "@lib/constants";
 import { setBreakpointAction, setDeviceSizeAction, setDisplayHeaderAction } from "@store/actions/layout";
 
 interface RootProviderProps {
@@ -30,25 +31,31 @@ const RootProvider = ({
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: green; font-family: serif; font-size: 12px");
 
-    handleResize();
     setDisplayHeader(true);
     setProfileAction(profile);
-    document.documentElement.style.setProperty("--headerHeight", `${HEADER_HEIGHT}px`);
-    document.documentElement.style.setProperty("--visibleScreen", `${window.innerHeight}px`);
+    sleep(3).finally(() => handleResize()); // delay execution of calc since footer/header is dynamically loaded
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleResize = useCallback(() => {
-    const { innerWidth: width, innerHeight: height } = window;
-    setDeviceSizeAction({ width, height });
+  const handleResize = useCallback(async () => {
+    let [headerHeight, footerHeight] = [0, 0];
+    const { innerWidth, innerHeight } = window;
+    setDeviceSizeAction({ width: innerWidth, height: innerHeight });
 
     const { xl, lg, md, sm } = BREAKPOINTS;
-    const breakpoint = width > xl ? "xl" : width > lg ? "lg" : width > md ? "md" : width > sm ? "sm" : "xs";
-    setBreakpointAction(breakpoint);
+    setBreakpointAction(innerWidth > xl ? "xl" : innerWidth > lg ? "lg" : innerWidth > md ? "md" : innerWidth > sm ? "sm" : "xs");
 
-    document.documentElement.style.setProperty("--visibleScreen", `${height}px`);
+    const footerElement = document.querySelector("footer");
+    if (footerElement) footerHeight = footerElement.getBoundingClientRect().height;
+
+    const headerElement = document.querySelector("header");
+    if (headerElement) headerHeight = headerElement.getBoundingClientRect().height;
+
+    document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
+    document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
+    document.documentElement.style.setProperty("--availHeight", `${innerHeight - (footerHeight + headerHeight)}px`);
   }, [setDeviceSizeAction, setBreakpointAction]);
 
   const handleScroll = useCallback(() => {

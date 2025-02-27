@@ -6,7 +6,7 @@ figure.welcome-image {
   position: absolute;
   transform: translate(50%, -40%);
   height: clamp(600px, 100vh, 50vh);
-  background: radial-gradient(circle closest-corner at 50% 35%, transparent -170%, var(--background) 65%), url("/images/layout/intro-welcome.webp") 50%/220% no-repeat;
+  background: radial-gradient(circle closest-corner at 50% 35%, transparent -170%, var(--background) 65%), url("/images/layouts/intro-welcome.webp") 50%/220% no-repeat;
   border-radius: 100%;
   // border: 3px solid var(--background);
 }

@@ -13,10 +13,10 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 
 const navLinks = [
   { id: "home", title: "Home", Icon: VscHome, path: "/" },
-  { id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
   { id: "manager", title: "Soccer Manager", Icon: VscGame, path: "/games" },
-  { id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
+  { id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
   { id: "signin", title: "Login to WaveRD", Icon: VscSignIn, path: "/accounts/signin" },
+  { id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
   { id: "signout", title: "Logout from WaveRD", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
 ];
 

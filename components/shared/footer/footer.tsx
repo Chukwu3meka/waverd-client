@@ -9,7 +9,7 @@ import { FaCloudSun, FaMoon, FaSun } from "react-icons/fa";
 import { Tabs, TabsList, TabsTrigger } from "@components/ui/tabs";
 
 const Footer = ({ theme, themeHandler }: { theme: Theme; themeHandler: (theme: Theme) => () => void }) => (
-  <div data-testid="footer" className={styles.footer} style={{ maxWidth: "100vw", overflowX: "hidden" }}>
+  <div data-testid="footer" className={styles.footer}>
     <footer>
       <main>
         <aside>

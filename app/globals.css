@@ -113,18 +113,17 @@
 
     font-family: var(--font-playfair);
 
-    width: 100vw;
+    max-width: 100vw;
     overflow-x: hidden;
 
     & > div,
     & > main {
       margin: auto;
       display: grid;
-      /* overflow: auto; */
-      max-width: 1500px;
       position: relative;
       min-height: var(--visibleScreen);
       grid-template-rows: max-content auto max-content;
+      /* border: 3px solid red; */
     }
   }
 }

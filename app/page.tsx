@@ -1,10 +1,11 @@
-import { Metadata } from "next";
 import dynamic from "next/dynamic";
+
+import { Metadata } from "next";
 import { Separator } from "@components/ui/separator";
 
-const ApiHub = dynamic(() => import("@components/home/apihub-screen")),
-  WelcomeScreen = dynamic(() => import("@components/home/welcome-screen")),
-  ManagerScreen = dynamic(() => import("@components/home/manager-screen")),
+const ApiHub = dynamic(() => import("@components/home/apihub-intro")),
+  WelcomeInto = dynamic(() => import("@components/home/welcome-intro")),
+  ManagerIntro = dynamic(() => import("@components/home/manager-intro")),
   Footer = dynamic(() => import("@components/shared/footer/footer-container")),
   Header = dynamic(() => import("@components/shared/header/header-container"));
 
@@ -19,10 +20,12 @@ const HomePage = () => (
   <main>
     <Header position="relative" />
     <div>
-      <WelcomeScreen />
-      <ManagerScreen />
-      <Separator />
-      <ApiHub />
+      <WelcomeInto />
+      <div className="p-4">
+        <ManagerIntro />
+        <Separator />
+        <ApiHub />
+      </div>
     </div>
     <Footer />
   </main>

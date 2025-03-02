@@ -6,7 +6,7 @@ export interface ComingSoonProps extends ComingSoonContainerProps {
 }
 
 const ComingSoon = ({ timeLeft, minHeight }: ComingSoonProps) => (
-  <div className="flex flex-col gap-[5vh] p-10 justify-center" style={{ minHeight }}>
+  <div className="flex flex-col gap-[3vh] p-10 justify-center" style={{ minHeight }}>
     <div className="text-right">
       <p className="">Coming soon...</p>
       <p className="text-3xl">{timeLeft.date}</p>
@@ -34,8 +34,8 @@ const ComingSoon = ({ timeLeft, minHeight }: ComingSoonProps) => (
     <p className="text-justify">
       We apologize for the inconvenience, the page you're trying to access is not available at this time. We're currently working on making some improvements and updates
       to the page, so please bear with us while we make it better. Rest assured, we're doing everything we can to get the page up and running as soon as possible. We
-      appreciate your patience and understanding while we work through this process. In the meantime, feel free to explore other parts of our website. Thank you for your
-      understanding and support!
+      appreciate your patience while we work through this process. In the meantime, feel free to explore other parts of our website. Thank you for your understanding and
+      support.
     </p>
   </div>
 );

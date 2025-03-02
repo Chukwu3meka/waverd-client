@@ -3,8 +3,7 @@
 import ComingSoon from "./ComingSoon";
 
 import { format } from "date-fns";
-import { fullDateFn } from "@lib/helpers";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface ComingSoonContainerProps {
   minHeight?: string;
@@ -49,4 +48,4 @@ const ComingSoonContainer = ({ minHeight = "var(--contentHeight)", finishDate = 
   return <ComingSoon timeLeft={timeLeft} minHeight={minHeight} />;
 };
 
-export default memo(ComingSoonContainer);
+export default ComingSoonContainer;

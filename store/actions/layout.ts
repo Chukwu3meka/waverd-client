@@ -11,7 +11,3 @@ export const setActiveRouteAction = (data: string) => {
 export const setDisplayHeaderAction = (data: boolean) => {
   return (dispatch: AppDispatch) => dispatch({ type: "SET_DISPLAY_HEADER", data });
 };
-
-export const setBreakpointAction = (data: Breakpoint) => {
-  return (dispatch: AppDispatch) => dispatch({ type: "SET_BREAKPOINT", data });
-};

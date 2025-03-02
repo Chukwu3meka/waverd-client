@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => (
-  <main>
+  <main className="grid-rows[max-content auto max-content]">
     <Header position="relative" />
-    <div>
+    <div className="border-b pb-5 my-5">
       <WelcomeInto />
       <ManagerIntro />
       <Separator />

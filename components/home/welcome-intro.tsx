@@ -9,8 +9,8 @@ import { IoGameControllerOutline } from "react-icons/io5";
 
 const Welcome = () => (
   <div className="max-w-7xl m-auto" data-testid="welcome">
-    <div className="flex justify-center p-4 md:py-16 md:px-12 min-h-[600px] max-h-[50vh] h-screen">
-      <main className="flex flex-col items-start justify-center p-4 md:p-10  md:max-w-[calc(100vw/1.5)] rounded-bl-[70px] rounded-tr-[70px] shadow-xl overflow-hidden relative">
+    <div className="flex justify-center p-4 md:py-16 md:px-12 min-h-[calc(50vh+200px)] max-h-[50vh] h-screen">
+      <main className="flex flex-col items-start justify-center p-4 md:p-10  md:max-w-[calc(100vw/1.5)] rounded-bl-[70px] rounded-tr-[70px] shadow-xl overflow-hidden relative border-2">
         <p className="text-4xl md:text-4xl font-extrabold">Football Revolution</p>
 
         <p className="text-lg md:text-xl">

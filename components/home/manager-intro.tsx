@@ -7,7 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 import { COMPETITIONS } from "@lib/constants";
 import { Button } from "@components/ui/button";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@components/ui/carousel";
 
 const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.Breadcrumb)),
   BreadcrumbPage = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbPage)),
@@ -33,7 +33,9 @@ const Manager = () => (
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/">Soccer Manager</Link>
+              <Link href="/" className="text-primary">
+                Soccer Manager
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>

@@ -3,10 +3,10 @@ figure.welcome-image {
   right: 50%;
   z-index: -1;
   width: 100%;
+  max-width: 700px;
   position: absolute;
-  transform: translate(50%, -40%);
-  height: clamp(600px, 100vh, 50vh);
-  background: radial-gradient(circle closest-corner at 50% 35%, transparent -170%, var(--background) 65%), url("/images/layouts/intro-welcome.webp") 50%/220% no-repeat;
   border-radius: 100%;
-  // border: 3px solid var(--background);
+  transform: translate(70%, -40%);
+  height: clamp(calc(50vh + 200px), 100vh, 100vh);
+  background: radial-gradient(circle closest-corner at 50% 35%, transparent -100%, var(--background) 55%), url("/images/layouts/intro-welcome.webp") 50%/220% no-repeat;
 }

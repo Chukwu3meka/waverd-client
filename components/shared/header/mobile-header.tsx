@@ -7,13 +7,13 @@ import { Separator } from "@components/ui/separator";
 import { GiHamburgerMenu as MenuIcon } from "react-icons/gi";
 import { setDisplayHeaderAction } from "@store/actions/layout";
 import { VscGame, VscHome, VscHubot, VscPersonAdd, VscSignIn, VscSignOut } from "react-icons/vsc";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@components/ui/sheet";
 
 const navLinks = [
   { id: "home", title: "Home", Icon: VscHome, path: "/" },
   { id: "manager", title: "Soccer Manager", Icon: VscGame, path: "/games" },
   { id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
-  { id: "signin", title: "Login to WaveRD", Icon: VscSignIn, path: "/accounts/signin" },
+  { id: "signin", title: "Sign in to WaveRD", Icon: VscSignIn, path: "/accounts/signin" },
   { id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
   { id: "signout", title: "Logout from WaveRD", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
 ];
@@ -24,7 +24,7 @@ const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { prof
       <Button
         size="icon"
         variant="outline"
-        aria-label="mobile-menu"
+        aria-label="Mobile menu"
         onClick={
           () => setDisplayHeaderAction(false)
           // When sticky header is open it overlaps shadcn sidebar
@@ -57,9 +57,11 @@ const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { prof
             .map(({ Icon, path, title }) => (
               <div className="flex items-center gap-3" key={title}>
                 <Icon />
-                <Link href={path} className="font-bold">
-                  {title}
-                </Link>
+                <SheetClose asChild>
+                  <Link href={path} className="font-bold">
+                    {title}
+                  </Link>
+                </SheetClose>
               </div>
             ))}
         </div>

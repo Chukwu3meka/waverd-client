@@ -32,7 +32,9 @@ const ApiHub = () => (
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/">API Hub</Link>
+              <Link href="/" className="text-primary">
+                API Hub
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>

@@ -9,16 +9,19 @@ const Result = dynamic(() => import("@components/shared/result/result")),
 
 const NotFoundPage = () => {
   return (
-    <>
+    <main>
       <RelativeHeader position="relative" />
 
-      <Result variant={404}>
-        <Link href="/">
-          <Button>Back Home</Button>
-        </Link>
-      </Result>
+      <div className="h-[var(--contentHeight)] flex justify-center items-center">
+        <Result variant={404}>
+          <Link href="/">
+            <Button>Back Home</Button>
+          </Link>
+        </Result>
+      </div>
+
       <Footer />
-    </>
+    </main>
   );
 };
 

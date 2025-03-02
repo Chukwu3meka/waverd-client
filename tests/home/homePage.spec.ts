@@ -33,7 +33,7 @@ test("Home page works just fine", async ({ page, isMobile }) => {
   await page.goto("/");
 
   // Wait for page to be server rendered
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(3000);
 
   await page.evaluate(() => {
     window.scrollTo(0, document.querySelector("body")!.scrollHeight); // Scroll to bottom of page

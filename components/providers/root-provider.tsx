@@ -1,14 +1,12 @@
 "use client";
 
-import { sleep } from "@lib/helpers";
 import { connect } from "react-redux";
+import { INIT_PROFILE } from "@lib/constants";
+import { useEffect, useRef, useCallback } from "react";
 import { setProfileAction } from "@store/actions/account";
-import { INIT_PROFILE, BREAKPOINTS } from "@lib/constants";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { setBreakpointAction, setDeviceSizeAction, setDisplayHeaderAction } from "@store/actions/layout";
+import { setDeviceSizeAction, setDisplayHeaderAction } from "@store/actions/layout";
 
 interface RootProviderProps {
-  displayHeader: boolean;
   children: React.ReactNode;
   setProfileAction: (profile: any) => void;
   setDisplayHeaderAction: (display: boolean) => void;
@@ -16,80 +14,67 @@ interface RootProviderProps {
   setDeviceSizeAction: (size: { width: number; height: number }) => void;
 }
 
-const RootProvider = ({
-  children,
-  setProfileAction,
-  setDeviceSizeAction,
-  setBreakpointAction,
-  setDisplayHeaderAction,
-  displayHeader: reduxDisplayHeader,
-}: RootProviderProps) => {
-  const profile = INIT_PROFILE,
-    prevScrollPosRef = useRef(0),
-    [displayHeader, setDisplayHeader] = useState(reduxDisplayHeader);
+const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setBreakpointAction, setDisplayHeaderAction }: RootProviderProps) => {
+  const prevScrollPosRef = useRef(0);
 
   useEffect(() => {
-    console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: green; font-family: serif; font-size: 12px");
+    console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
-    setDisplayHeader(true);
-    setProfileAction(profile);
-    sleep(3).finally(() => handleResize()); // delay execution of calc since footer/header is dynamically loaded
-
+    setProfileAction(INIT_PROFILE);
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // const observer = new MutationObserver(handleResize);
+    // observer.observe(document.body, { childList: true, subtree: false });
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+          const hasHeaderOrFooter = Array.from(mutation.addedNodes).some((node) => node.nodeName === "HEADER" || node.nodeName === "FOOTER");
+          if (hasHeaderOrFooter) handleResize();
+        }
+      });
+    });
+
+    // Observe changes in the body, including subtree if needed
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleResize = useCallback(async () => {
-    let [headerHeight, footerHeight] = [0, 0];
-    const { innerWidth, innerHeight } = window;
-    setDeviceSizeAction({ width: innerWidth, height: innerHeight });
+    const footerHeight = document.querySelector("footer")?.getBoundingClientRect().height || 0,
+      headerHeight = document.querySelector('header[class$="relativeHeader"]')?.getBoundingClientRect().height || 0;
 
-    const { xl, lg, md, sm } = BREAKPOINTS;
-    setBreakpointAction(innerWidth > xl ? "xl" : innerWidth > lg ? "lg" : innerWidth > md ? "md" : innerWidth > sm ? "sm" : "xs");
-
-    const footerElement = document.querySelector("footer");
-    if (footerElement) footerHeight = footerElement.getBoundingClientRect().height;
-
-    const headerElement = document.querySelector("header");
-    if (headerElement) headerHeight = headerElement.getBoundingClientRect().height;
-
-    document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
-    document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
-    document.documentElement.style.setProperty("--availHeight", `${innerHeight - (footerHeight + headerHeight)}px`);
+    if (headerHeight && footerHeight) {
+      // ? Sizes would not be calculated if header/footer is not available
+      setDeviceSizeAction({ width: window.innerWidth, height: window.innerHeight });
+      document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
+      document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
+      document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
+      document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight)}px`);
+    }
   }, [setDeviceSizeAction, setBreakpointAction]);
 
   const handleScroll = useCallback(() => {
-    const currentScrollPos = window.scrollY;
-    const pageTopReached = currentScrollPos < 81;
-    const scrollingUp = currentScrollPos < prevScrollPosRef.current;
-    const areaHeight = Math.round(window.innerHeight + currentScrollPos) + 2;
-    const pageBottomReached = areaHeight >= document.body.offsetHeight;
+    const currScrollPos = window.scrollY,
+      pageTopReached = currScrollPos < 100,
+      scrollingUp = currScrollPos < prevScrollPosRef.current,
+      areaHeight = Math.round(window.innerHeight + currScrollPos),
+      pageBottomReached = areaHeight >= document.body.offsetHeight;
 
-    const newDisplayHeader = !pageTopReached && (scrollingUp || pageBottomReached);
-
-    prevScrollPosRef.current = currentScrollPos; // Update the previous scroll position.
-
-    if (newDisplayHeader !== displayHeader) {
-      setDisplayHeader(newDisplayHeader);
-      setDisplayHeaderAction(newDisplayHeader);
-    }
-  }, [displayHeader, setDisplayHeaderAction]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-
-  useEffect(() => {
-    if (reduxDisplayHeader !== displayHeader) {
-      setDisplayHeader(!!reduxDisplayHeader);
-    }
-  }, [reduxDisplayHeader, displayHeader]);
+    setDisplayHeaderAction((scrollingUp && !pageTopReached) || pageBottomReached);
+    prevScrollPosRef.current = currScrollPos; // Update the previous scroll position.
+  }, [setDisplayHeaderAction]);
 
   return children;
 };
 
-const mapStateToProps = (state: RootState) => ({ displayHeader: state.layout.displayHeader }),
-  mapDispatchToProps = { setProfileAction, setDeviceSizeAction, setDisplayHeaderAction, setBreakpointAction };
+const mapDispatchToProps = { setProfileAction, setDeviceSizeAction, setDisplayHeaderAction },
+  mapStateToProps = (state: RootState) => ({ displayHeader: state.layout.displayHeader });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootProvider);

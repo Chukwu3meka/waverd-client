@@ -1,25 +1,25 @@
-export const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 };
+export const BREAKPOINTS = { xs: 0, sm: 640, md: 768, lg: 1024, xl: 1280 };
 
 export const INIT_PROFILE: Profile = {
   role: "dummy",
   theme: "system",
   name: "",
   handle: "",
-  avatar: "/images/layout/profile.webp",
+  avatar: "/images/layouts/profile.webp",
 };
 
 // export const HEADER_HEIGHT = 74;
-export const HEADER_HEIGHT = 68;
+// export const HEADER_HEIGHT = 68;
 
-export const COLORS = {
-  darkThemePrimaryColor: "#ffffff",
-  darkThemeContrastColor: "#2a2f3a",
-  darkThemeSecondaryColor: "#eeeeee",
+// export const COLORS = {
+//   darkThemePrimaryColor: "#ffffff",
+//   darkThemeContrastColor: "#2a2f3a",
+//   darkThemeSecondaryColor: "#eeeeee",
 
-  lightThemePrimaryColor: "#22272e",
-  lightThemeContrastColor: "#d8d8d8",
-  lightThemeSecondaryColor: "#30353c",
-};
+//   lightThemePrimaryColor: "#22272e",
+//   lightThemeContrastColor: "#d8d8d8",
+//   lightThemeSecondaryColor: "#30353c",
+// };
 
 export const SOCIAL_ACCOUNTS: SocialAccounts[] = [
   { id: "linkedin", title: "LinkedIn", image: "/images/social/linkedin.png", href: "https://www.linkedin.com/in/chukwu3meka/" },

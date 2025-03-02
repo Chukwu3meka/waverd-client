@@ -1,8 +1,6 @@
 header.relativeHeader {
-  display: flex;
   user-select: none;
-  padding: 5px 10px;
-  max-width: calc(100vw - 3px);
+  padding: 10px 10px 0;
   backdrop-filter: blur(10px); /* Apply a blur effect to the background */
   // background: rgba(var(--primary-color-color), 0.7); /* Semi-transparent black background to create a blur effect */
 }
@@ -30,5 +28,5 @@ header.stickyHeader {
 
 header.hiddenHeader {
   @extend .stickyHeader;
-  top: calc((-1 * var(--headerHeight)) - 10px);
+  top: -100px;
 }

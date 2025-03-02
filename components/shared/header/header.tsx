@@ -16,34 +16,6 @@ const MobileHeader = dynamic(() => import("./mobile-header")),
   NavigationMenuContent = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuContent)),
   NavigationMenuTrigger = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuTrigger));
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Clubs",
-    href: "/",
-    description: "Retrieve club details, including history, squad, and performance.",
-  },
-  {
-    title: "Players",
-    href: "/",
-    description: "Access player profiles, stats, and performance data.",
-  },
-  {
-    title: "Managers",
-    href: "/",
-    description: "Access details on team managers, their history, and strategic insights.",
-  },
-  {
-    title: "Referees",
-    href: "/",
-    description: "Get information on referees, their officiating history, and match assignments.",
-  },
-  {
-    title: "Competitions",
-    href: "/",
-    description: "Explore details on tournaments, leagues, fixtures, and standings.",
-  },
-];
-
 interface HeaderProps {
   showNav: boolean;
   profile: Profile;
@@ -53,7 +25,7 @@ interface HeaderProps {
 
 const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => (
   <header data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full m-auto  max-w-[1500px] py-2.5 px-5 bg-transparent border-b-2 ">
+    <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
       {!showNav && <span />}
 
       <div className="flex gap-1 items-center">
@@ -141,3 +113,31 @@ const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRe
   );
 });
 ListItem.displayName = "ListItem";
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Clubs",
+    href: "/",
+    description: "Retrieve club details, including history, squad, and performance.",
+  },
+  {
+    title: "Players",
+    href: "/",
+    description: "Access player profiles, stats, and performance data.",
+  },
+  {
+    title: "Managers",
+    href: "/",
+    description: "Access details on team managers, their history, and strategic insights.",
+  },
+  {
+    title: "Referees",
+    href: "/",
+    description: "Get information on referees, their officiating history, and match assignments.",
+  },
+  {
+    title: "Competitions",
+    href: "/",
+    description: "Explore details on tournaments, leagues, fixtures, and standings.",
+  },
+];

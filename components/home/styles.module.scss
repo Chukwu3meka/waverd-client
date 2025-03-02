@@ -2,9 +2,11 @@ figure.welcome-image {
   top: 50%;
   right: 50%;
   z-index: -1;
-  width: 800px;
+  width: 100%;
+  max-width: 700px;
   position: absolute;
-  transform: translate(55%, -40%);
-  height: clamp(300px, 100vh, 1000px);
-  background: radial-gradient(circle closest-corner at 53% 50%, transparent -170%, var(--background) 65%), url("/images/layout/intro-welcome.webp") 50%/220% no-repeat;
+  border-radius: 100%;
+  transform: translate(70%, -40%);
+  height: clamp(calc(50vh + 200px), 100vh, 100vh);
+  background: radial-gradient(circle closest-corner at 50% 35%, transparent -100%, var(--background) 55%), url("/images/layouts/intro-welcome.webp") 50%/220% no-repeat;
 }

@@ -16,6 +16,8 @@ interface HeaderContainerProps {
   position: "relative" | "sticky";
 }
 
+type ClassName = "relativeHeader" | "stickyHeader" | "hiddenHeader";
+
 const HeaderContainer = (props: HeaderContainerProps) => {
   //  accountsService = new AccountsService(),
   //   { enqueueSnackbar } = useSnackbar(),
@@ -23,14 +25,11 @@ const HeaderContainer = (props: HeaderContainerProps) => {
   const { position } = props,
     [showNav, setShowNav] = useState(false),
     [profile, setProfile] = useState<Profile>(INIT_PROFILE),
-    [displayHeader, setDisplayHeader] = useState<boolean>(false),
     [authenticated, setAuthenticated] = useState<boolean>(false),
-    className = position === "relative" ? "relativeHeader" : displayHeader ? "stickyHeader" : "hiddenHeader";
+    [className, setClassName] = useState<ClassName>(position === "relative" ? "relativeHeader" : "hiddenHeader");
 
   useEffect(() => {
-    if (displayHeader != props.displayHeader) {
-      setDisplayHeader(props.displayHeader!);
-    }
+    if (position === "sticky") setClassName(props.displayHeader ? "stickyHeader" : "hiddenHeader");
   }, [props.displayHeader]);
 
   useEffect(() => {

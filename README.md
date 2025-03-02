@@ -16,7 +16,8 @@ The manager's responsibilities in a professional football club usually include (
 4. Delegating duties to the first team coach and the coaching and medical staff.
 5. Scouting for young but talented players for eventual training in the youth academy or the reserves, and encouraging their development and improvement.
 6. Buying and selling players in the transfer market, including loans.
-7. Facing the media in pre-match and post-match interviews. > Some of the above responsibilities may be shared with a director of football or sporting director, and are at times delegated to an assistant manager or club coach. <hr/> Additionally, depending on the club, some minor[citation needed] responsibilities include:
+7. Facing the media in pre-match and post-match interviews.
+   > Some of the above responsibilities may be shared with a director of football or sporting director, and are at times delegated to an assistant manager or club coach. <hr/> Additionally, depending on the club, some minor[citation needed] responsibilities include:
 8. Marketing the club, most especially for ticket admission, sponsorship and merchandising.
 9. Growing turnover and keeping the club profitable. <br/ > These responsibilities are more common among managers of small clubs.
 

@@ -1,7 +1,7 @@
 import { AppDispatch } from "../appStore";
 
 export const setThemeAction = (data: Theme) => {
-  import("@lib/helpers").then((module) => module.setCssThemeVar(data));
+  // import("@lib/helpers").then((module) => module.setCssThemeVar(data));
   return (dispatch: AppDispatch) => dispatch({ type: "SET_THEME", data });
 };
 

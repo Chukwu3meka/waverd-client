@@ -3,7 +3,6 @@ interface LayoutState {
   width: number;
   height: number;
   displayHeader: boolean;
-  breakpoint: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 interface AccountState {

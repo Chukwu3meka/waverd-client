@@ -8,7 +8,7 @@ import { setThemeAction } from "@store/actions/account";
 
 const Footer = dynamic(() => import("@components/shared/footer/footer"), { ssr: false });
 
-const FooterContainer = ({ setThemeAction }: { setThemeAction: (data: Theme) => unknown }) => {
+const FooterContainer = ({ setThemeAction, ...props }: { setThemeAction: (data: Theme) => unknown; deviceWidth: number }) => {
   const { setTheme, theme } = useTheme();
 
   const themeHandler = (theme: Theme) => () => {
@@ -21,8 +21,7 @@ const FooterContainer = ({ setThemeAction }: { setThemeAction: (data: Theme) => 
     //     .catch(() => enqueueSnackbar("Failed to save new theme across profile", { variant: "error" }));
   };
 
-  // return <Footer theme={(useTheme().theme as Theme) || "system"} themeHandler={themeHandler} />;
-  return <Footer theme={theme as Theme} themeHandler={themeHandler} />;
+  return <Footer theme={theme as Theme} themeHandler={themeHandler} deviceWidth={props.deviceWidth} />;
 };
 
 const mapStateToProps = (state: RootState) => ({

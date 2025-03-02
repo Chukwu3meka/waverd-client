@@ -10,11 +10,10 @@ interface RootProviderProps {
   children: React.ReactNode;
   setProfileAction: (profile: any) => void;
   setDisplayHeaderAction: (display: boolean) => void;
-  setBreakpointAction: (breakpoint: Breakpoint) => void;
   setDeviceSizeAction: (size: { width: number; height: number }) => void;
 }
 
-const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setBreakpointAction, setDisplayHeaderAction }: RootProviderProps) => {
+const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisplayHeaderAction }: RootProviderProps) => {
   const prevScrollPosRef = useRef(0);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setBrea
       document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
       document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight)}px`);
     }
-  }, [setDeviceSizeAction, setBreakpointAction]);
+  }, [setDeviceSizeAction]);
 
   const handleScroll = useCallback(() => {
     const currScrollPos = window.scrollY,

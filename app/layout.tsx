@@ -1,7 +1,6 @@
 import "./globals.css";
 import fonts from "@lib/fonts";
 import dynamic from "next/dynamic";
-import type { Metadata } from "next";
 
 const Root = dynamic(() => import("@/components/providers/root-provider")),
   Header = dynamic(() => import("@components/shared/header/header-container")),
@@ -9,13 +8,6 @@ const Root = dynamic(() => import("@/components/providers/root-provider")),
   ThemeProvider = dynamic(() => import("@/components/providers/theme-provider")),
   Analytics = dynamic(() => import("@vercel/analytics/next").then((m) => m.Analytics)),
   SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((m) => m.SpeedInsights));
-
-export const metadata: Metadata = {
-  title: "WaveRD",
-  keywords: ["soccer manager", "soccer", "wave", "soccer manager", "football", "api"],
-  description:
-    "Soccer Manager for everyone with advanced real world simulation and Football API Provider for all your soccer data needs. Available Everywhere at every time!",
-};
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={`${fonts} antialiased`} suppressHydrationWarning>

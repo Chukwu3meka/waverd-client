@@ -55,7 +55,7 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
       document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
       document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
       document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
-      document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight)}px`);
+      document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight + 20)}px`);
     }
   }, [setDeviceSizeAction]);
 

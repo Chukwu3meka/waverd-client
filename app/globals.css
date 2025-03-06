@@ -119,6 +119,7 @@
       display: grid;
       max-width: 100vw;
       position: relative;
+      align-content: space-between;
       min-height: var(--browserHeight);
     }
   }

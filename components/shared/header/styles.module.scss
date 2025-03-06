@@ -28,5 +28,5 @@ header.stickyHeader {
 
 header.hiddenHeader {
   @extend .stickyHeader;
-  top: -100px;
+  top: calc((-1 * var(--headerHeight)) * 2);
 }

@@ -3,7 +3,7 @@ import fonts from "@lib/fonts";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 
-const App = dynamic(() => import("@/components/providers/root-provider")),
+const Root = dynamic(() => import("@/components/providers/root-provider")),
   Header = dynamic(() => import("@components/shared/header/header-container")),
   ReduxProvider = dynamic(() => import("@/components/providers/redux-provider")),
   ThemeProvider = dynamic(() => import("@/components/providers/theme-provider")),
@@ -27,10 +27,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     <body>
       <ReduxProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <App>
+          <Root>
             <Header position="sticky" />
             {children}
-          </App>
+          </Root>
         </ThemeProvider>
       </ReduxProvider>
 

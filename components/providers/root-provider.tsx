@@ -1,9 +1,11 @@
 "use client";
 
+import Spinner from "@components/shared/spinner/spinner";
+
 import { connect } from "react-redux";
 import { INIT_PROFILE } from "@lib/constants";
-import { useEffect, useRef, useCallback } from "react";
 import { setProfileAction } from "@store/actions/account";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { setDeviceSizeAction, setDisplayHeaderAction } from "@store/actions/layout";
 
 interface RootProviderProps {
@@ -14,11 +16,13 @@ interface RootProviderProps {
 }
 
 const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisplayHeaderAction }: RootProviderProps) => {
-  const prevScrollPosRef = useRef(0);
+  const prevScrollPosRef = useRef(0),
+    [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
+    handleResize();
     setProfileAction(INIT_PROFILE);
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -46,17 +50,22 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
   }, []);
 
   const handleResize = useCallback(async () => {
+    setPageReady(false);
+
+    setDeviceSizeAction({ width: window.innerWidth, height: window.innerHeight });
+    document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
+
     const footerHeight = document.querySelector("footer")?.getBoundingClientRect().height || 0,
       headerHeight = document.querySelector('header[class$="relativeHeader"]')?.getBoundingClientRect().height || 0;
 
     if (headerHeight && footerHeight) {
       // ? Sizes would not be calculated if header/footer is not available
-      setDeviceSizeAction({ width: window.innerWidth, height: window.innerHeight });
       document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
       document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
-      document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
       document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight + 20)}px`);
     }
+
+    setPageReady(true);
   }, [setDeviceSizeAction]);
 
   const handleScroll = useCallback(() => {
@@ -70,7 +79,7 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
     prevScrollPosRef.current = currScrollPos; // Update the previous scroll position.
   }, [setDisplayHeaderAction]);
 
-  return children;
+  return pageReady ? children : <Spinner />;
 };
 
 const mapDispatchToProps = { setProfileAction, setDeviceSizeAction, setDisplayHeaderAction },

@@ -17,6 +17,7 @@
     "paths": {
       "@interfaces/*": ["./interfaces/*"],
       "@components/*": ["./components/*"],
+      "@services/*": ["./services/*"],
       "@styles/*": ["./styles/*"],
       "@store/*": ["./store/*"],
       "@lib/*": ["./lib/*"],

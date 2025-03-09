@@ -1,10 +1,6 @@
 import service from "./service";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-import { Endpoint } from "interfaces/components/apihub/endpoints.interface";
-import { GetEndpoints, GetEndpointsCategories } from "interfaces/services/apihub.interface";
-import { NonPaginatedResponse, PaginatedResponse } from "interfaces/services/shared.interface";
-
 class ApihubService {
   apihubServiceUrl = "/apihub";
 
@@ -49,7 +45,8 @@ class ApihubService {
     sequence,
     category,
   }: // }: GetEndpoints): Promise<NonPaginatedResponse<Endpoint>> => {
-  GetEndpoints): Promise<PaginatedResponse<Endpoint>> => {
+  // GetEndpoints): Promise<PaginatedResponse<Endpoint>> => {
+  GetEndpoints): Promise<PaginatedResponse<any>> => {
     try {
       switch (filter) {
         case "search": {

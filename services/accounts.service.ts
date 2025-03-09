@@ -1,16 +1,5 @@
 import service from "./service";
 import { AxiosError, AxiosResponse } from "axios";
-import { NonPaginatedResponse } from "interfaces/services/shared.interface";
-
-import {
-  ThemePayload,
-  ExistsPayload,
-  SigninPayload,
-  SignupPayload,
-  DataDeletionService,
-  ConfPassResetService,
-  InitPassResetService,
-} from "interfaces/services/accounts.interface";
 
 class AccountsService {
   accountsServiceUrl = "/accounts";

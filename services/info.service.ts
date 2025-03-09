@@ -1,5 +1,4 @@
 import service from "./service";
-import { ContactUsPayload } from "interfaces/services/info.interface";
 
 class InfoService {
   infoServiceUrl = "/info";

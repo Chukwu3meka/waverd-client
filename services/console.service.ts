@@ -1,29 +1,12 @@
 import service from "./service";
 
 import { AxiosError, AxiosResponse } from "axios";
-import { ConsoleEndpointsContent } from "interfaces/components/console/apihub.interface";
-import { NonPaginatedResponse, PaginatedResponse } from "interfaces/services/shared.interface";
-
-import {
-  DailyStatResponse,
-  GetEndpointsPayload,
-  SaveEndpointPayload,
-  GetDailyStatPayload,
-  AllRequestsResponse,
-  GetAllRequestsPayload,
-  ConsoleComposeEndpoint,
-  FailedRequestsResponse,
-  GetFailedRequestsPayload,
-  GetConsoleEndpointPayload,
-  GetConsoleEndpointResponse,
-  ConsoleEndpointTitleExistsResponse,
-  GetGameWorldsResponse,
-} from "interfaces/services/console.interface";
 
 class ConsoleService {
   consoleServiceUrl = "/console";
 
-  getEndpoints = async ({ filter, page, size, cookie }: GetEndpointsPayload): Promise<PaginatedResponse<ConsoleEndpointsContent>> => {
+  // getEndpoints = async ({ filter, page, size, cookie }: GetEndpointsPayload): Promise<PaginatedResponse<ConsoleEndpointsContent>> => {
+  getEndpoints = async ({ filter, page, size, cookie }: GetEndpointsPayload): Promise<PaginatedResponse<any>> => {
     const path = this.consoleServiceUrl + `/apihub/endpoints?filter=${filter}&page=${page}&size=${size}`,
       option = cookie ? { headers: { Cookie: cookie } } : {};
 

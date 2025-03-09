@@ -1,14 +1,6 @@
 import service from "./service";
 
 import { AxiosError, AxiosResponse } from "axios";
-import { NonPaginatedResponse } from "interfaces/services/shared.interface";
-
-import {
-  GetGameWorldsResponse,
-  GetGameWorldClubPayload,
-  GetGameWorldClubResponse,
-  GetGameWorldClubsResponse,
-} from "interfaces/services/games.interface";
 
 class GamesService {
   gamesServiceUrl = "/games";
@@ -32,13 +24,7 @@ class GamesService {
       .catch((err: AxiosError) => err.response?.data || {});
   };
 
-  getGameWorldClubs = async ({
-    world,
-    division,
-  }: {
-    world: string;
-    division: string;
-  }): Promise<NonPaginatedResponse<GetGameWorldClubsResponse[]>> => {
+  getGameWorldClubs = async ({ world, division }: { world: string; division: string }): Promise<NonPaginatedResponse<GetGameWorldClubsResponse[]>> => {
     const path = this.gamesServiceUrl + `/clubs/${world}/${division}`;
 
     return await service

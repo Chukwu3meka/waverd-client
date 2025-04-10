@@ -30,7 +30,7 @@ const Accounts = ({ children, deviceWidth }: { children: ReactNode; deviceWidth:
       )}
       <div className="bg-secondary">
         <RelativeHeader position="relative" />
-        <div className="max-w-7xl m-auto grid min-h-[calc(var(--contentHeight)-var(--headerHeight))]">{children}</div>
+        <div className="max-w-7xl m-auto grid p-5 min-h-[calc(var(--contentHeight)-var(--headerHeight))]">{children}</div>
       </div>
     </div>
 

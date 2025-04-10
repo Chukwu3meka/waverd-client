@@ -7,6 +7,7 @@ const Root = dynamic(() => import("@/components/providers/root-provider")),
   ReduxProvider = dynamic(() => import("@/components/providers/redux-provider")),
   ThemeProvider = dynamic(() => import("@/components/providers/theme-provider")),
   Analytics = dynamic(() => import("@vercel/analytics/next").then((m) => m.Analytics)),
+  Toaster = dynamic(() => import("@/components/ui/sonner").then((mod) => mod.Toaster)),
   SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((m) => m.SpeedInsights));
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
@@ -26,6 +27,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
         </ThemeProvider>
       </ReduxProvider>
 
+      <Toaster />
       <Analytics />
       <SpeedInsights />
     </body>

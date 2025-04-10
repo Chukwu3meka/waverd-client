@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
     INACTIVITY_PERIOD: "21",
     DATA_DELETION_PERIOD_PERIOD: "14",
   },
+
+  turbopack: {
+    //
+    //
+  },
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({ enabled: process.env.ANALYZE === "true" });

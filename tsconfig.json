@@ -18,6 +18,7 @@
       "@interfaces/*": ["./interfaces/*"],
       "@components/*": ["./components/*"],
       "@services/*": ["./services/*"],
+      "@schemas/*": ["./schemas/*"],
       "@styles/*": ["./styles/*"],
       "@store/*": ["./store/*"],
       "@lib/*": ["./lib/*"],

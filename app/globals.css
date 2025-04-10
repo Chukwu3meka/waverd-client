@@ -135,7 +135,7 @@
   background: var(--secondary-foreground);
 }
 
-/* Handle on hover */
+/* handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--chart-3);
   cursor: pointer;

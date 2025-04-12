@@ -5,8 +5,7 @@ interface LayoutState {
   displayHeader: boolean;
 }
 
-interface AccountState {
-  profile: Profile;
+interface AccountState extends Profile {
   authenticated: boolean;
 }
 

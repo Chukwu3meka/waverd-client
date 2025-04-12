@@ -8,6 +8,7 @@ import { Button } from "@components/ui/button";
 import { IoPersonAddSharp as RegisterIcon } from "react-icons/io5";
 import { GoEyeClosed as EyeClosed, GoEye as EyeOpen } from "react-icons/go";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@components/ui/form";
+import { Separator } from "@components/ui/separator";
 
 interface SignupProps {
   onSubmit: any;
@@ -21,6 +22,7 @@ interface SignupProps {
 const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: SignupProps) => (
   <div className="space-y-8 text-center m-auto md:max-w-xl bg-background shadow rounded-lg p-5 w-full">
     <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
+
     <h1 className="text-xl font-bold">Create your account</h1>
 
     <Form {...form}>
@@ -59,9 +61,9 @@ const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisi
           disabled={isSubmitting}
           render={({ field }) => (
             <FormItem className="col-span-2 md:col-span-1">
-              <FormLabel hidden>handle</FormLabel>
+              <FormLabel hidden>Handle</FormLabel>
               <FormControl className="relative">
-                <Input placeholder="handle" {...field} />
+                <Input placeholder="Handle" {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -103,14 +105,24 @@ const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisi
     </Form>
 
     <p className="text-sm -mt-3 max-w-md mx-auto">
-      By clicking CREATE ACCOUNT, you agree to our{" "}
+      By clicking REGISTER, you agree to our{" "}
       <Link href="/info/terms-and-condition" prefetch={false} className="font-bold">
         Terms & Conditions
       </Link>{" "}
       and have read and acknowledge our&nbsp;
       <Link href="/info/privacy-policy" prefetch={false} className="font-bold">
-        Privacy Policy
+        Privacy Policy.
       </Link>
+    </p>
+
+    <Separator className="-mt-2 mb-2 max-w-md mx-auto" />
+
+    <p className="text-sm">
+      Signed up already?{" "}
+      <Link href="/accounts/signin" prefetch={false} className="font-bold">
+        Login
+      </Link>{" "}
+      here
     </p>
   </div>
 );

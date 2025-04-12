@@ -5,17 +5,17 @@ import { connect } from "react-redux";
 import { Button } from "@components/ui/button";
 import { Separator } from "@components/ui/separator";
 import { GiHamburgerMenu as MenuIcon } from "react-icons/gi";
-import { setDisplayHeaderAction } from "@store/actions/layout";
+import { setDisplayHeaderAction } from "@/redux-store/actions/layout";
 import { VscGame, VscHome, VscHubot, VscPersonAdd, VscSignIn, VscSignOut } from "react-icons/vsc";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@components/ui/sheet";
 
 const navLinks = [
-  { id: "home", title: "Home", Icon: VscHome, path: "/" },
-  { id: "manager", title: "Soccer Manager", Icon: VscGame, path: "/games" },
-  { id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
-  { id: "signin", title: "Sign in to WaveRD", Icon: VscSignIn, path: "/accounts/signin" },
-  { id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
-  { id: "signout", title: "Logout from WaveRD", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
+  { local: true, id: "home", title: "Home", Icon: VscHome, path: "/" },
+  { local: true, id: "manager", title: "Soccer Manager", Icon: VscGame, path: "/games" },
+  { local: true, id: "apihub", title: "Football API Hub", Icon: VscHubot, path: "/apihub" },
+  { local: true, id: "signin", title: "Sign in to WaveRD", Icon: VscSignIn, path: "/accounts/signin" },
+  { local: true, id: "signup", title: "Create an Account", Icon: VscPersonAdd, path: "/accounts/signup" },
+  { local: false, id: "signout", title: "Logout from WaveRD", Icon: VscSignOut, path: `${process.env.BASE_URL}/accounts/signout` },
 ];
 
 const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { profile: Profile; authenticated: boolean; setDisplayHeaderAction: any }) => (
@@ -54,20 +54,26 @@ const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { prof
         <div className="flex flex-col gap-5 justify-between">
           {navLinks
             .filter((nav) => (authenticated ? !["signup", "signin"].includes(nav.id) : !["signout"].includes(nav.id)))
-            .map(({ Icon, path, title }) => (
+            .map(({ local, Icon, path, title }) => (
               <div className="flex items-center gap-3" key={title}>
                 <Icon />
                 <SheetClose asChild>
-                  <Link href={path} className="font-bold">
-                    {title}
-                  </Link>
+                  {local ? (
+                    <Link href={path} className="font-bold">
+                      {title}
+                    </Link>
+                  ) : (
+                    <a href={path} rel="noopener noreferrer">
+                      {title}
+                    </a>
+                  )}
                 </SheetClose>
               </div>
             ))}
         </div>
       </div>
 
-      {profile.handle && (
+      {profile?.handle && (
         <SheetFooter>
           <div className="w-full flex items-center gap-3">
             <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />

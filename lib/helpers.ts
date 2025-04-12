@@ -23,3 +23,12 @@ export const capitalize = (phrase: string) => {
 
   return capitalized.join(" ");
 };
+
+export const deObfuscate = (phrase: string) => {
+  if (!phrase) return;
+  let r = "";
+  for (let i = 0; i < phrase.length / 2; i++) {
+    r += String.fromCharCode(parseInt(phrase.substr(i * 2, 2), 16) ^ 0x7f);
+  }
+  return r;
+};

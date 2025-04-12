@@ -42,9 +42,6 @@ const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => 
               <Link href="/" className={navigationMenuTriggerStyle()}>
                 Home
               </Link>
-              {/* <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
-              </Link> */}
             </NavigationMenuItem>
 
             <NavigationMenuItem>

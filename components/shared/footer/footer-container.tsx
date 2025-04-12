@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 
 import { connect } from "react-redux";
 import { useTheme } from "next-themes";
-import { setThemeAction } from "@store/actions/account";
+import { setThemeAction } from "@/redux-store/actions/account";
 
 const Footer = dynamic(() => import("@components/shared/footer/footer"), { ssr: false });
 

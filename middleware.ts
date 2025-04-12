@@ -2,7 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { NextResponse, userAgent } from "next/server";
 
 import type { NextRequest } from "next/server";
-import AccountsService from "@services/accounts.service";
+import AccountsService from "@services/axios/accounts.service";
 
 const goToLogin = async (destination: string, url: string) => {
   // return Response.redirect(new URL(`/accounts/signin?target=${destination}`, url));

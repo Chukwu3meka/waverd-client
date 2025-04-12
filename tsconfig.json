@@ -20,7 +20,7 @@
       "@services/*": ["./services/*"],
       "@schemas/*": ["./schemas/*"],
       "@styles/*": ["./styles/*"],
-      "@store/*": ["./store/*"],
+      "@stores/*": ["./stores/*"],
       "@lib/*": ["./lib/*"],
       "@/*": ["./*"]
     }

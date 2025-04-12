@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 
 const Root = dynamic(() => import("@/components/providers/root-provider")),
   Header = dynamic(() => import("@components/shared/header/header-container")),
-  ReduxProvider = dynamic(() => import("@/components/providers/redux-provider")),
   ThemeProvider = dynamic(() => import("@/components/providers/theme-provider")),
+  ReduxProvider = dynamic(() => import("@/components/providers/redux-provider")),
   Analytics = dynamic(() => import("@vercel/analytics/next").then((m) => m.Analytics)),
   Toaster = dynamic(() => import("@/components/ui/sonner").then((mod) => mod.Toaster)),
   SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((m) => m.SpeedInsights));

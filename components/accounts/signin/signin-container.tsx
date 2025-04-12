@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { ChangeEvent, FocusEventHandler, SyntheticEvent, useEffect, useState } from "react";
-import { sleep } from "@lib/helpers";
+import { capitalize, deObfuscate, sleep } from "@lib/helpers";
 import { emailSchema } from "@schemas/email";
 import { Button } from "@components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -23,12 +23,17 @@ import { BiError as ErrorIcon } from "react-icons/bi";
 import { passwordSchema } from "@schemas/password";
 
 const socialAuth = [
-  { label: "Facebook", icon: <FacebookIcon /> },
-  { label: "Google", icon: <GoogleIcon /> },
-  { label: "X", icon: <XIcon /> },
+  { label: "Facebook", icon: <FacebookIcon />, endpoint: `${process.env.BASE_URL}/accounts/facebook` },
+  { label: "Google", icon: <GoogleIcon />, endpoint: `${process.env.BASE_URL}/accounts/google` },
+  { label: "X", icon: <XIcon />, endpoint: `${process.env.BASE_URL}/accounts/twitter` },
 ];
 
 import { CiUnlock as LoginIcon } from "react-icons/ci";
+import Image from "next/image";
+import AccountsService from "@services/axios/accounts.service";
+import { AxiosError } from "axios";
+
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 
 // Define the Zod schema with async validation
 const schema = z.object({
@@ -82,17 +87,64 @@ type FormData = z.infer<typeof schema>;
 // Simulated API call
 // const checkEmailExists = async (email: string) => {
 
-const SignInContainer = () => {
+import { useRouter } from "next/navigation";
+import { connect } from "react-redux";
+import { setProfileAction } from "@/redux-store/actions/account";
+import { OAUTH_PROVIDERS } from "@lib/constants";
+import useAuthStore from "@stores/auth.store";
+
+const SignInContainer = ({ setProfileAction }: { setProfileAction: Function }) => {
+  const accountsService = new AccountsService(),
+    router = useRouter(),
+    signin = useAuthStore((state) => state.signin),
+    pathname = usePathname(),
+    searchParams = useSearchParams(),
+    oAuthUsed = searchParams.get("auth"),
+    resParam = searchParams.get("response"),
+    [target, setTarget] = useState<null | string>(null),
+    oAuthMessage = resParam && deObfuscate(decodeURIComponent(resParam as string));
+
+  // ? To get new cookies from server after oauth signin
+  if (oAuthUsed && OAUTH_PROVIDERS.includes(oAuthUsed)) {
+    // if (location) location.replace("/");
+  }
+
   // const [isChecking, setIsChecking] = useState(false);
 
-  const form = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    mode: "onBlur", // Validate when field is touched
-  });
+  useEffect(() => {
+    const target = searchParams.get("target");
+    if (target) {
+      const targetSplit = target.split("/"),
+        destination = targetSplit[targetSplit.length - 1].replaceAll("-", " ");
+
+      setTarget(target);
+      router.replace("/accounts/signin");
+      toast.error(`Kindly signin to access '${capitalize(destination)}'`);
+    }
+
+    return () => {
+      setTarget(null);
+    };
+  }, [pathname, searchParams]);
+
+  useEffect(() => {
+    if (oAuthMessage) {
+      for (const provider of OAUTH_PROVIDERS) {
+        if (searchParams.get(provider)) {
+          toast.error(oAuthMessage);
+          router.replace("/accounts/signin");
+          return;
+        }
+      }
+    }
+  }, [oAuthMessage]);
+
+  const form = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { email: "", password: "" }, mode: "onChange" });
+
+  const preSubmitHandler = async () => {
+    const isValid = await trigger(); // Trigger validation for all fields
+    if (!isValid) toast.error("Invalid Email/Password", { richColors: true });
+  };
 
   const {
     register,
@@ -102,11 +154,24 @@ const SignInContainer = () => {
     watch,
     getFieldState,
     getValues,
+    reset,
     clearErrors,
   } = form;
 
   const onSubmit = async (data: FormData) => {
-    console.log("Form submitted:", data); // handle form submission
+    await accountsService
+      .signin({ ...getValues() })
+      .then(async ({ data }) => {
+        reset();
+        signin(data);
+        setProfileAction(data);
+        toast.success("Login Successful", { richColors: true });
+        router.push(target || "/");
+      })
+      .catch(({ response }: AxiosError<NonPaginatedResponse<string>>) => {
+        const message = response ? response.data.message : "Something went wrong";
+        toast.error(message, { richColors: true });
+      });
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -117,16 +182,21 @@ const SignInContainer = () => {
 
   return (
     <div className="space-y-8 text-center m-auto md:max-w-xl bg-background shadow rounded-lg p-5 w-full">
+      <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
+
       <h1 className="text-xl font-bold">Sign in to WaveRD</h1>
 
-      <div className="flex items-center justify-center gap-4 flex-wrap">
-        {socialAuth.map(({ icon, label }) => (
-          <Button key={label}>
-            {icon} Login with {label}
-          </Button>
+      <div className="flex items-center justify-center gap-4 flex-wrap -mt-4">
+        {socialAuth.map(({ endpoint, icon, label }) => (
+          <a key={label} href={endpoint} rel="noopener noreferrer">
+            <Button>
+              {icon} Login with {label}
+            </Button>
+          </a>
         ))}
       </div>
-      <div className="max-w-md mx-auto">
+
+      <div className="max-w-md mx-auto -mt-3">
         <span className="bg-background p-2.5">OR</span>
         <Separator className="-mt-3.5"></Separator>
       </div>
@@ -134,8 +204,9 @@ const SignInContainer = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6  max-w-lg mx-auto">
           <FormField
-            control={form.control}
             name="email"
+            control={form.control}
+            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel hidden>handle</FormLabel>
@@ -147,8 +218,9 @@ const SignInContainer = () => {
           />
 
           <FormField
-            control={form.control}
             name="password"
+            control={form.control}
+            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel hidden>Password</FormLabel>
@@ -172,7 +244,7 @@ const SignInContainer = () => {
             )}
           />
 
-          <Button type="submit" disabled={isSubmitting} className="w-full h-12">
+          <Button type="submit" disabled={isSubmitting} className="w-full h-12" onClick={preSubmitHandler}>
             {!isSubmitting && <LoginIcon />}
             {isSubmitting && <Loader2 className="animate-spin" />}
             {isSubmitting ? "Authenticating..." : "SIGN IN"}
@@ -181,6 +253,15 @@ const SignInContainer = () => {
       </Form>
 
       <p className="text-sm -mt-3">
+        Seeking to reset your password or forgot your password?{" "}
+        <Link href="/accounts/password-reset" prefetch={false} className="font-bold">
+          Password recovery
+        </Link>
+      </p>
+
+      <Separator className="-mt-2 mb-2 max-w-md mx-auto" />
+
+      <p className="text-sm">
         Are you new to WaveRD?{" "}
         <Link href="/accounts/signup" prefetch={false} className="font-bold">
           Create Account
@@ -190,4 +271,7 @@ const SignInContainer = () => {
   );
 };
 
-export default SignInContainer;
+const mapStateToProps = (state: RootState) => ({}),
+  mapDispatchToProps = { setProfileAction };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);

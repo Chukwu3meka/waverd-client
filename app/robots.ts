@@ -4,7 +4,7 @@ const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: "*",
     allow: "/",
-    disallow: ["/accounts/email-verification", "/accounts/password-reset/"],
+    disallow: ["/accounts/email-verified", "/accounts/password-reset/"],
   },
   sitemap: "https://waverd.com/sitemap.xml",
 });

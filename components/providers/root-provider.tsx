@@ -4,9 +4,12 @@ import Spinner from "@components/shared/spinner/spinner";
 
 import { connect } from "react-redux";
 import { INIT_PROFILE } from "@lib/constants";
-import { setProfileAction } from "@store/actions/account";
+import { useUser } from "@services/swr/profile";
+import { setProfileAction } from "@/redux-store/actions/account";
 import { useEffect, useRef, useCallback, useState } from "react";
-import { setDeviceSizeAction, setDisplayHeaderAction } from "@store/actions/layout";
+import { setDeviceSizeAction, setDisplayHeaderAction } from "@/redux-store/actions/layout";
+import { authProfileState } from "@/recoil/atoms/profile";
+import useAuthStore from "@stores/auth.store";
 
 interface RootProviderProps {
   children: React.ReactNode;
@@ -15,15 +18,30 @@ interface RootProviderProps {
   setDeviceSizeAction: (size: { width: number; height: number }) => void;
 }
 
+// const cookie = await getUserCookies(),
+// gamesService = new GamesService(),
+// accountsService = new AccountsService();
+
+// const user = await accountsService.getProfile(cookie).then(({ success, data }) => {
+// if (success) return data;
+// return null;
+// });
+
 const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisplayHeaderAction }: RootProviderProps) => {
+  useUser();
+
   const prevScrollPosRef = useRef(0),
     [pageReady, setPageReady] = useState(false);
+
+  // const { data: userData, isLoading: fetchingUserData, isError } = useUser();
+  // const { data: userData, isLoading: fetchingUserData, isError } = useUser();
+  // if (userData) signin(userData);
 
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
     handleResize();
-    setProfileAction(INIT_PROFILE);
+    // setProfileAction(INIT_PROFILE);
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -50,7 +68,7 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
   }, []);
 
   const handleResize = useCallback(async () => {
-    setPageReady(false);
+    // setPageReady(false);
 
     setDeviceSizeAction({ width: window.innerWidth, height: window.innerHeight });
     document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);

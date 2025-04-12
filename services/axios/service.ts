@@ -9,12 +9,11 @@ const initAxios = axios,
     baseURL: process.env.BASE_URL,
   });
 
-const cookieInterceptor = (cookie: string) => {
+function cookieInterceptor(cookie: string) {
   return service.interceptors.request.use((config) => {
     config.headers.Cookie = cookie;
     return config;
   });
-};
+}
 
 export { cookieInterceptor, initAxios, service as default };
- 

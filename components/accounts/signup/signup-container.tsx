@@ -3,7 +3,7 @@
 import * as z from "zod";
 
 import Signup from "./signup";
-import AccountsService from "@services/accounts.service";
+import AccountsService from "@services/axios/accounts.service";
 
 import { toast } from "sonner";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const SignUpContainer = () => {
   const { theme } = useTheme(),
     accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
-    form = useForm<FormData>({ mode: "onBlur", resolver: zodResolver(schema), defaultValues: { email: "", password: "", name: "", handle: "" } });
+    form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", name: "", handle: "" } });
 
   const {
     reset,
@@ -45,8 +45,9 @@ const SignUpContainer = () => {
           .then(async ({ data: { exists } }) => {
             if (exists) throw { message: `${capitalize(value)} is not available, Kindly use a different ${field}` };
           })
-          .catch(({ message }: AxiosError<NonPaginatedResponse<string>>) => {
-            throw message || "An error occurred";
+          .catch(({ response, message }: AxiosError<NonPaginatedResponse<string>>) => {
+            const resMessage = response ? response.data.message : message || `Cannot validate if ${field} is unique at the moment. Try again later!`;
+            throw { message: resMessage };
           });
       }
 
@@ -59,11 +60,14 @@ const SignUpContainer = () => {
             description: "Great news! Your account has been created successfully. Kindly check your email for a message from us containing an activation link.",
           });
         })
-        .catch(({ message }: AxiosError<NonPaginatedResponse<string>>) => {
-          throw message;
+        .catch(({ response, message }: AxiosError<NonPaginatedResponse<string>>) => {
+          throw { message: response ? response.data.message : message || "Invalid Server response" };
+        })
+        .catch((err: AxiosError) => {
+          throw err.response?.data || {};
         });
-    } catch (error: any) {
-      toast.error(error || "Something went wrong", { richColors: true });
+    } catch ({ message }: any) {
+      toast.error(message || "Something went wrong", { richColors: true });
     }
   };
 

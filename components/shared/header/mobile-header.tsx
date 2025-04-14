@@ -8,6 +8,7 @@ import { GiHamburgerMenu as MenuIcon } from "react-icons/gi";
 import { setDisplayHeaderAction } from "@/redux-store/actions/layout";
 import { VscGame, VscHome, VscHubot, VscPersonAdd, VscSignIn, VscSignOut } from "react-icons/vsc";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@components/ui/sheet";
+import { LOGO } from "@lib/constants";
 
 const navLinks = [
   { local: true, id: "home", title: "Home", Icon: VscHome, path: "/" },
@@ -26,32 +27,25 @@ const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { prof
         variant="outline"
         aria-label="Mobile menu"
         onClick={
-          () => setDisplayHeaderAction(false)
           // When sticky header is open it overlaps shadcn sidebar
+          () => setDisplayHeaderAction(false)
         }>
         <MenuIcon />
       </Button>
     </SheetTrigger>
     <SheetContent>
       <SheetHeader>
-        <SheetTitle>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />
-              <div className="flex flex-col items-start">
-                <span className="font-bold text-ellipsis">WaveRD</span>
-                <span className="text-ellipsis text-sm">API Hub and Soccer Manager</span>
-              </div>
-            </div>
-          </div>
+        <SheetTitle className="text-4xl text-center">
+          <span className="text-2xl">{LOGO}</span>
+          WaveRD
         </SheetTitle>
         <SheetDescription></SheetDescription>
       </SheetHeader>
 
-      <div>
-        <Separator className="mb-9" />
-
+      <div className="flex flex-col justify-between h-[calc(100vh-135px)]">
         <div className="flex flex-col gap-5 justify-between">
+          <Separator className="mb-2" />
+
           {navLinks
             .filter((nav) => (authenticated ? !["signup", "signin"].includes(nav.id) : !["signout"].includes(nav.id)))
             .map(({ local, Icon, path, title }) => (
@@ -73,17 +67,19 @@ const MobileHeader = ({ profile, authenticated, setDisplayHeaderAction }: { prof
         </div>
       </div>
 
-      {profile?.handle && (
-        <SheetFooter>
-          <div className="w-full flex items-center gap-3">
-            <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />
-            <div className="flex flex-col items-start">
-              <span className="font-bold text-ellipsis">{profile.name}</span>
-              <span className="text-ellipsis text-inverseColor">{profile.handle}</span>
+      <SheetFooter className="border-2 -ml-6 mr-6 w-[calc(100%+48px)] bg-accent">
+        <SheetClose asChild>
+          {profile?.handle && (
+            <div className="w-full flex items-center gap-3 p-2">
+              <Image width={40} height={40} alt="WaveRD" src="/images/layouts/profile.webp" className="rounded-[50%]" />
+              <div className="flex flex-col items-start">
+                <span className="font-bold text-ellipsis">{profile.handle}</span>
+                <span className="text-ellipsis text-sm">{profile.name}</span>
+              </div>
             </div>
-          </div>
-        </SheetFooter>
-      )}
+          )}
+        </SheetClose>
+      </SheetFooter>
     </SheetContent>
   </Sheet>
 );

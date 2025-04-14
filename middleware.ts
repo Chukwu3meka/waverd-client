@@ -4,7 +4,7 @@ import { NextResponse, userAgent } from "next/server";
 import type { NextRequest } from "next/server";
 import AccountsService from "@services/axios/accounts.service";
 
-const goToLogin = async (destination: string, url: string) => {
+const goToLogin = async (destination: string, url: any) => {
   // return Response.redirect(new URL(`/accounts/signin?target=${destination}`, url));
   return NextResponse.redirect(new URL(`/accounts/signin?target=${destination}`, url));
 };
@@ -39,7 +39,7 @@ async function getUserRole(cookies: any) {
 }
 
 export async function middleware(request: NextRequest) {
-  const url = request.url,
+  const url = request.nextUrl,
     response = NextResponse.next(),
     destination = new URL(url).pathname,
     cookies = request.cookies.get("SSID");
@@ -74,9 +74,6 @@ export async function middleware(request: NextRequest) {
 
       // url.searchParams.set("viewport", viewport);
       // return NextResponse.rewrite(url);
-      return response;
-    } else {
-      return response;
     }
   }
 

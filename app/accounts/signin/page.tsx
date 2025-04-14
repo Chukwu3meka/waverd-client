@@ -10,6 +10,6 @@ export const metadata: Metadata = {
     "Seamlessly sign in to your account to enjoy premium contents created specially for you. Access real time updates, optimization, and many more - sign in to Wave Research now!",
 };
 
-const page = () => <SignInContainer />;
-
-export default page;
+export default function SignInPage() {
+  return <SignInContainer />;
+}

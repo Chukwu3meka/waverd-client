@@ -16,17 +16,17 @@ export const metadata: Metadata = {
   keywords: ["soccer manager", "soccer", "waverd", "Soccer Manager", "football"],
 };
 
-const HomePage = () => (
-  <main className="grid-rows[max-content auto max-content]">
-    <Header position="relative" />
-    <div className="border-b pb-5 my-5">
-      <WelcomeInto />
-      <ManagerIntro />
-      <Separator />
-      <ApiHub />
-    </div>
-    <Footer />
-  </main>
-);
-
-export default HomePage;
+export default function HomePage() {
+  return (
+    <main className="grid-rows[max-content auto max-content]">
+      <Header position="relative" />
+      <div className="border-b pb-5 my-5">
+        <WelcomeInto />
+        <ManagerIntro />
+        <Separator />
+        <ApiHub />
+      </div>
+      <Footer />
+    </main>
+  );
+}

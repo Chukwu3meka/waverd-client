@@ -3,46 +3,44 @@
 import dynamic from "next/dynamic";
 import styles from "./layouts.module.scss";
 import Autoplay from "embla-carousel-autoplay";
+import useLayoutStore from "@stores/layout.store";
 import RelativeHeader from "@components/shared/header/header-container";
 
 import { ReactNode } from "react";
-import { connect } from "react-redux";
 import { BREAKPOINTS } from "@lib/constants";
 import { Carousel, CarouselContent, CarouselItem } from "@components/ui/carousel";
 
 const FooterContainer = dynamic(() => import("@components/shared/footer/footer-container"));
 
-const Accounts = ({ children, deviceWidth }: { children: ReactNode; deviceWidth: number }) => (
-  <main className="grid-rows-[auto_max-content]">
-    <div className="lg:grid lg:grid-cols-[minmax(300,550px)_minmax(500px,auto)]">
-      {deviceWidth >= BREAKPOINTS.lg && (
-        <aside className={`${styles.slides} `}>
-          <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }}>
-            <CarouselContent>
-              {slides.map((features, id) => (
-                <CarouselItem key={id} className="basis-1/1">
-                  {features}
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </aside>
-      )}
-      <div className="bg-secondary">
-        <RelativeHeader position="relative" />
-        <div className="max-w-7xl m-auto grid p-5 min-h-[calc(var(--contentHeight)-var(--headerHeight))]">{children}</div>
+export default function Accounts({ children }: { children: ReactNode }) {
+  const deviceWidth = useLayoutStore((state) => state.data.width);
+
+  return (
+    <main className="grid-rows-[auto_max-content]">
+      <div className="lg:grid lg:grid-cols-[minmax(300,550px)_minmax(500px,auto)]">
+        {deviceWidth >= BREAKPOINTS.lg && (
+          <aside className={`${styles.slides} `}>
+            <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }}>
+              <CarouselContent>
+                {slides.map((features, id) => (
+                  <CarouselItem key={id} className="basis-1/1">
+                    {features}
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </aside>
+        )}
+        <div className="bg-secondary">
+          <RelativeHeader position="relative" />
+          <div className="max-w-7xl m-auto grid p-5 min-h-[calc(var(--contentHeight)-var(--headerHeight))]">{children}</div>
+        </div>
       </div>
-    </div>
 
-    <FooterContainer />
-  </main>
-);
-
-const mapDispatchToProps = {},
-  mapStateToProps = (state: RootState) => ({ deviceWidth: state.layout.width });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Accounts);
-
+      <FooterContainer />
+    </main>
+  );
+}
 const slides = [
   <>
     <h5>It's great to see you again</h5>

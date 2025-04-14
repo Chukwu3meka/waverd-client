@@ -1,6 +1,7 @@
 export const LOGO = "✌";
 export const OAUTH_PROVIDERS = ["facebook", "twitter", "google"];
 export const BREAKPOINTS = { xs: 0, sm: 640, md: 768, lg: 1024, xl: 1280 };
+export const NETWORK_ERROR = "Unable to connect to the internet. Please check your internet connection and try again.";
 export const INIT_PROFILE: Profile = { role: "dummy", theme: "system", name: "", handle: "", avatar: "/images/layouts/profile.webp" };
 
 export const SOCIAL_ACCOUNTS: SocialAccounts[] = [

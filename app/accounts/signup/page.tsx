@@ -10,11 +10,6 @@ export const metadata: Metadata = {
     "Embark on an exciting Soccer journey without limit! Register today to enjoy premium features, and experience the best competitions in soccer and football data provider.",
 };
 
-const RegisterPage = () => <SignUpContainer />;
-export default RegisterPage;
-
-// import ComingSoon from "@components/shared/coming-soon/ComingSoonContainer";
-
-// const page = () => <ComingSoon finishDate={new Date("2025-04-10")} />;
-
-// export default page;
+export default function RegisterPage() {
+  return <SignUpContainer />;
+}

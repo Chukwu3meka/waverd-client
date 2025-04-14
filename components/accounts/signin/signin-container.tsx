@@ -88,12 +88,10 @@ type FormData = z.infer<typeof schema>;
 // const checkEmailExists = async (email: string) => {
 
 import { useRouter } from "next/navigation";
-import { connect } from "react-redux";
-import { setProfileAction } from "@/redux-store/actions/account";
 import { OAUTH_PROVIDERS } from "@lib/constants";
 import useAuthStore from "@stores/auth.store";
 
-const SignInContainer = ({ setProfileAction }: { setProfileAction: Function }) => {
+export default function SignInContainer() {
   const accountsService = new AccountsService(),
     router = useRouter(),
     signin = useAuthStore((state) => state.signin),
@@ -164,7 +162,6 @@ const SignInContainer = ({ setProfileAction }: { setProfileAction: Function }) =
       .then(async ({ data }) => {
         reset();
         signin(data);
-        setProfileAction(data);
         toast.success("Login Successful", { richColors: true });
         router.push(target || "/");
       })
@@ -269,9 +266,4 @@ const SignInContainer = ({ setProfileAction }: { setProfileAction: Function }) =
       </p>
     </div>
   );
-};
-
-const mapStateToProps = (state: RootState) => ({}),
-  mapDispatchToProps = { setProfileAction };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);
+}

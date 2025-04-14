@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-
 import { Button } from "@components/ui/button";
 
 const Result = dynamic(() => import("@components/shared/result/result")),
   Footer = dynamic(() => import("@components/shared/footer/footer-container")),
   RelativeHeader = dynamic(() => import("@components/shared/header/header-container"));
 
-const NotFoundPage = () => {
+export default function NotFoundPage() {
   return (
     <main>
       <RelativeHeader position="relative" />
@@ -25,6 +24,4 @@ const NotFoundPage = () => {
       <Footer />
     </main>
   );
-};
-
-export default NotFoundPage;
+}

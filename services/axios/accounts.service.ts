@@ -14,17 +14,12 @@ class AccountsService {
       .catch((err: AxiosError) => err.response?.data || {});
   };
 
-  setTheme = async (payload: ThemePayload) =>
-    await service
-      .post(this.accountsServiceUrl + "/theme", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  setTheme = async (payload: ThemePayload) => {
+    return await service.post(this.accountsServiceUrl + "/theme", payload).then((res: AxiosResponse) => res);
+  };
 
   signin = async (payload: SigninPayload): Promise<NonPaginatedResponse<Profile>> =>
-    await service
-      .post(this.accountsServiceUrl + "/signin", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+    await service.post(this.accountsServiceUrl + "/signin", payload).then((res: AxiosResponse) => res.data);
 
   exists = async ({ data, variant }: ExistsPayload) =>
     await service

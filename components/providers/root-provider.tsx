@@ -1,47 +1,26 @@
 "use client";
 
-import Spinner from "@components/shared/spinner/spinner";
-
-import { connect } from "react-redux";
-import { INIT_PROFILE } from "@lib/constants";
-import { useUser } from "@services/swr/profile";
-import { setProfileAction } from "@/redux-store/actions/account";
-import { useEffect, useRef, useCallback, useState } from "react";
-import { setDeviceSizeAction, setDisplayHeaderAction } from "@/redux-store/actions/layout";
-import { authProfileState } from "@/recoil/atoms/profile";
 import useAuthStore from "@stores/auth.store";
+import useLayoutStore from "@stores/layout.store";
+import Spinner from "@components/shared/spinner/spinner";
+import AccountsService from "@services/axios/accounts.service";
+import { useEffect, useRef, useCallback, useState } from "react";
 
-interface RootProviderProps {
-  children: React.ReactNode;
-  setProfileAction: (profile: any) => void;
-  setDisplayHeaderAction: (display: boolean) => void;
-  setDeviceSizeAction: (size: { width: number; height: number }) => void;
-}
-
-// const cookie = await getUserCookies(),
-// gamesService = new GamesService(),
-// accountsService = new AccountsService();
-
-// const user = await accountsService.getProfile(cookie).then(({ success, data }) => {
-// if (success) return data;
-// return null;
-// });
-
-const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisplayHeaderAction }: RootProviderProps) => {
-  useUser();
-
+export default function RootProvider({ children }: { children: React.ReactNode }) {
   const prevScrollPosRef = useRef(0),
-    [pageReady, setPageReady] = useState(false);
-
-  // const { data: userData, isLoading: fetchingUserData, isError } = useUser();
-  // const { data: userData, isLoading: fetchingUserData, isError } = useUser();
-  // if (userData) signin(userData);
+    accountsService = new AccountsService(),
+    [pageReady, setPageReady] = useState(false),
+    setDeviceSize = useLayoutStore((state) => state.setDeviceSize),
+    setDisplayHeader = useLayoutStore((state) => state.setDisplayHeader);
 
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
+    accountsService.getProfile().then((res) => {
+      if (res.success) useAuthStore.setState({ data: { ...res.data, authenticated: true } });
+    });
+
     handleResize();
-    // setProfileAction(INIT_PROFILE);
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -68,9 +47,9 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
   }, []);
 
   const handleResize = useCallback(async () => {
-    // setPageReady(false);
+    setPageReady(false);
 
-    setDeviceSizeAction({ width: window.innerWidth, height: window.innerHeight });
+    setDeviceSize({ width: window.innerWidth, height: window.innerHeight });
     document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
 
     const footerHeight = document.querySelector("footer")?.getBoundingClientRect().height || 0,
@@ -84,7 +63,7 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
     }
 
     setPageReady(true);
-  }, [setDeviceSizeAction]);
+  }, [setDeviceSize]);
 
   const handleScroll = useCallback(() => {
     const currScrollPos = window.scrollY,
@@ -93,14 +72,9 @@ const RootProvider = ({ children, setProfileAction, setDeviceSizeAction, setDisp
       areaHeight = Math.round(window.innerHeight + currScrollPos),
       pageBottomReached = areaHeight >= document.body.offsetHeight;
 
-    setDisplayHeaderAction((scrollingUp && !pageTopReached) || pageBottomReached);
+    setDisplayHeader((scrollingUp && !pageTopReached) || pageBottomReached);
     prevScrollPosRef.current = currScrollPos; // Update the previous scroll position.
-  }, [setDisplayHeaderAction]);
+  }, [setDisplayHeader]);
 
   return pageReady ? children : <Spinner />;
-};
-
-const mapDispatchToProps = { setProfileAction, setDeviceSizeAction, setDisplayHeaderAction },
-  mapStateToProps = (state: RootState) => ({ displayHeader: state.layout.displayHeader });
-
-export default connect(mapStateToProps, mapDispatchToProps)(RootProvider);
+}

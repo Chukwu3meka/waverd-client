@@ -20,79 +20,80 @@ interface HeaderProps {
   showNav: boolean;
   profile: Profile;
   authenticated: boolean;
+  setDisplayHeader: Function;
   className: "relativeHeader" | "stickyHeader" | "hiddenHeader";
 }
 
-const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => (
-  <header data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
-      {!showNav && <span />}
+export default function Header({ className, authenticated, profile, showNav, setDisplayHeader }: HeaderProps) {
+  return (
+    <header data-testid={className} className={styles[className]}>
+      <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
+        {!showNav && <span />}
 
-      <div className="flex gap-1 items-center">
-        <span className="text-xl">{LOGO}</span>
-        <h1 className="font-bold text-3xl -mt-0.5">
-          <Link href="/">WaveRD</Link>
-        </h1>
-      </div>
+        <div className="flex gap-1 items-center">
+          <span className="text-xl">{LOGO}</span>
+          <h1 className="font-bold text-3xl -mt-0.5">
+            <Link href="/">WaveRD</Link>
+          </h1>
+        </div>
 
-      {showNav && (
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" className={navigationMenuTriggerStyle()}>
-                Home
-              </Link>
-            </NavigationMenuItem>
+        {showNav && (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/" className={navigationMenuTriggerStyle()}>
+                  Home
+                </Link>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Manager</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-3">
-                    <NavigationMenuLink asChild>
-                      <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        href="/">
-                        <GameIcon className="h-6 w-6" />
-                        <div className="mb-2 mt-4 text-lg font-medium">Game</div>
-                        <p className="text-sm leading-tight text-muted-foreground">Revamped Soccer Manager for everyone with advanced real world simulation.</p>
-                      </a>
-                    </NavigationMenuLink>
-                  </li>
-                  <ListItem href="/" title="Register">
-                    Get started! Create an account today and compete against opponents.
-                  </ListItem>
-                  <ListItem href="/" title="My Team">
-                    Get support from AI assistant to build the most formidable team in your game world.
-                  </ListItem>
-                  <ListItem href="/" title="Trophy Cabinet">
-                    Get a glance into game objectives, achievements, and upcoming challenges!
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>API Hub</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem key={component.title} title={component.title} href={component.href}>
-                      {component.description}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Manager</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <a
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="/">
+                          <GameIcon className="h-6 w-6" />
+                          <div className="mb-2 mt-4 text-lg font-medium">Game</div>
+                          <p className="text-sm leading-tight text-muted-foreground">Revamped Soccer Manager for everyone with advanced real world simulation.</p>
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                    <ListItem href="/" title="Register">
+                      Get started! Create an account today and compete against opponents.
                     </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      )}
+                    <ListItem href="/" title="My Team">
+                      Get support from AI assistant to build the most formidable team in your game world.
+                    </ListItem>
+                    <ListItem href="/" title="Trophy Cabinet">
+                      Get a glance into game objectives, achievements, and upcoming challenges!
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>API Hub</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {components.map((component) => (
+                      <ListItem key={component.title} title={component.title} href={component.href}>
+                        {component.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        )}
 
-      <MobileHeader profile={profile} authenticated={authenticated} />
-    </main>
-  </header>
-);
-
-export default Header;
+        <MobileHeader profile={profile} authenticated={authenticated} setDisplayHeader={setDisplayHeader} />
+      </main>
+    </header>
+  );
+}
 
 const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(({ className, title, children, ...props }, ref) => {
   return (

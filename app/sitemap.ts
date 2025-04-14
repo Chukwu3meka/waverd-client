@@ -1,9 +1,11 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
-const baseURL = "https://www.waverd.com/",
-  sitemap = (): MetadataRoute.Sitemap => [
+const baseURL = "https://www.waverd.com";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
     // ? Solemnity of Mary, the Mother of God
-    { url: baseURL + "/", lastModified: new Date("1 Jan 2024"), changeFrequency: "never", priority: 1 },
+    { url: baseURL, lastModified: new Date("1 Jan 2024"), changeFrequency: "never", priority: 1, images: [baseURL + "/layouts/waverd.webp"] },
     { url: baseURL + "/accounts/signin", lastModified: new Date("1 Jan 2024"), changeFrequency: "never", priority: 1 },
     { url: baseURL + "/accounts/signup", lastModified: new Date("1 Jan 2024"), changeFrequency: "never", priority: 1 },
     { url: baseURL + "/accounts/password-reset", lastModified: new Date("1 Jan 2024"), changeFrequency: "never", priority: 1 },
@@ -21,5 +23,4 @@ const baseURL = "https://www.waverd.com/",
     // { url: baseURL + pageInfo.apihub, lastModified: new Date("31 Mar 2024"), priority: 1.0 },
     // { url: baseURL + pageInfo.apihubEndpoints, lastModified: new Date("31 Mar 2024"), priority: 1.0 },
   ];
-
-export default sitemap;
+}

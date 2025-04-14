@@ -1,35 +1,32 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-import { connect } from "react-redux";
 import { useTheme } from "next-themes";
-import { setThemeAction } from "@/redux-store/actions/account";
+import { NETWORK_ERROR } from "@lib/constants";
+
+import dynamic from "next/dynamic";
+import useAuthStore from "@stores/auth.store";
+import useLayoutStore from "@stores/layout.store";
+import AccountsService from "@services/axios/accounts.service";
 
 const Footer = dynamic(() => import("@components/shared/footer/footer"), { ssr: false });
 
-const FooterContainer = ({ setThemeAction, ...props }: { setThemeAction: (data: Theme) => unknown; deviceWidth: number }) => {
-  const { setTheme, theme } = useTheme();
+export default function FooterContainer() {
+  const { setTheme, theme } = useTheme(),
+    accountsService = new AccountsService(),
+    deviceWidth = useLayoutStore((state) => state.data.width),
+    authenticated = useAuthStore((state) => state.data.authenticated);
 
-  const themeHandler = (theme: Theme) => () => {
+  const themeHandler = (theme: Theme) => async () => {
     setTheme(theme);
-    setThemeAction(theme);
 
-    // if (authenticated)
-    //   await accountsService
-    //     .setTheme({ theme: newTheme })
-    //     .catch(() => enqueueSnackbar("Failed to save new theme across profile", { variant: "error" }));
+    if (authenticated) {
+      await accountsService.setTheme({ theme }).catch(() => {
+        import("sonner").then((mod) => {
+          mod.toast.error(NETWORK_ERROR, { richColors: true });
+        });
+      });
+    }
   };
 
-  return <Footer theme={theme as Theme} themeHandler={themeHandler} deviceWidth={props.deviceWidth} />;
-};
-
-const mapStateToProps = (state: RootState) => ({
-    profile: state.account.profile,
-    deviceWidth: state.layout.width,
-    displayHeader: state.layout.displayHeader,
-    authenticated: state.account.authenticated,
-  }),
-  mapDispatchToProps = { setThemeAction };
-
-export default connect(mapStateToProps, mapDispatchToProps)(FooterContainer);
+  return <Footer theme={theme as Theme} themeHandler={themeHandler} deviceWidth={deviceWidth} />;
+}

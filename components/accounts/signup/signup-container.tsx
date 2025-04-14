@@ -1,7 +1,6 @@
 "use client";
 
 import * as z from "zod";
-
 import Signup from "./signup";
 import AccountsService from "@services/axios/accounts.service";
 
@@ -30,25 +29,22 @@ const SignUpContainer = () => {
     reset,
     trigger,
     getValues,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = form;
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async () => {
+    if (!isValid) throw { message: "Registration form is invalid" };
+
     try {
       const uniqueFields: Array<ExistsPayload["variant"]> = ["handle", "email"];
 
       for (const field of uniqueFields) {
         const value = getValues(field);
 
-        await accountsService
-          .exists({ data: value, variant: field })
-          .then(async ({ data: { exists } }) => {
-            if (exists) throw { message: `${capitalize(value)} is not available, Kindly use a different ${field}` };
-          })
-          .catch(({ response, message }: AxiosError<NonPaginatedResponse<string>>) => {
-            const resMessage = response ? response.data.message : message || `Cannot validate if ${field} is unique at the moment. Try again later!`;
-            throw { message: resMessage };
-          });
+        await accountsService.exists({ data: value, variant: field }).then(async ({ success, data }) => {
+          if (data.exists) throw { message: `${capitalize(value)} is not available, Kindly use a different ${field}` };
+          if (!success) throw { message: data.message || `Cannot validate if ${field} is unique at the moment. Try again later!` };
+        });
       }
 
       await accountsService

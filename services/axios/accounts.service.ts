@@ -1,5 +1,5 @@
 import service from "./service";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 class AccountsService {
   accountsServiceUrl = "/accounts";
@@ -8,48 +8,36 @@ class AccountsService {
     const path = this.accountsServiceUrl + "/profile",
       cookieOption = { headers: { Cookie: cookie } };
 
-    return await service
-      .get(path, cookieOption)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+    return service.get(path, cookieOption);
   };
 
-  setTheme = async (payload: ThemePayload) => {
-    return await service.post(this.accountsServiceUrl + "/theme", payload).then((res: AxiosResponse) => res);
+  setTheme = async (payload: ThemePayload): Promise<NonPaginatedResponse<null>> => {
+    return service.post(this.accountsServiceUrl + "/theme", payload);
   };
 
-  signin = async (payload: SigninPayload): Promise<NonPaginatedResponse<Profile>> =>
-    await service.post(this.accountsServiceUrl + "/signin", payload).then((res: AxiosResponse) => res.data);
+  signin = async (payload: SigninPayload): Promise<NonPaginatedResponse<Profile>> => {
+    return service.post(this.accountsServiceUrl + "/signin", payload);
+  };
 
-  exists = async ({ data, variant }: ExistsPayload) =>
-    await service
-      .post(this.accountsServiceUrl + `/${variant}_exists`, { [variant]: data })
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  exists = async ({ data, variant }: ExistsPayload): Promise<NonPaginatedResponse<any>> => {
+    return service.post(this.accountsServiceUrl + `/${variant}_exists`, { [variant]: data });
+  };
 
-  signup = async (payload: SignupPayload) =>
-    await service
-      .post(this.accountsServiceUrl + "/signup", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  signup = async (payload: SignupPayload): Promise<NonPaginatedResponse<any>> => {
+    return service.post(this.accountsServiceUrl + "/signup", payload);
+  };
 
-  initPasswordReset = async (payload: InitPassResetService) =>
-    await service
-      .post(this.accountsServiceUrl + "/initiate-password-reset", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  initPasswordReset = async (payload: InitPassResetService): Promise<NonPaginatedResponse<any>> => {
+    return service.post(this.accountsServiceUrl + "/initiate-password-reset", payload);
+  };
 
-  confPasswordReset = async (payload: ConfPassResetService) =>
-    await service
-      .post(this.accountsServiceUrl + "/confirm-password-reset", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  confPasswordReset = async (payload: ConfPassResetService): Promise<NonPaginatedResponse<any>> => {
+    return service.post(this.accountsServiceUrl + "/confirm-password-reset", payload);
+  };
 
-  initDataDeletion = async (payload: DataDeletionService) =>
-    await service
-      .post(this.accountsServiceUrl + "/data-deletion", payload)
-      .then((res: AxiosResponse) => res.data)
-      .catch((err: AxiosError) => err.response?.data || {});
+  initDataDeletion = async (payload: DataDeletionService): Promise<NonPaginatedResponse<any>> => {
+    return service.post(this.accountsServiceUrl + "/data-deletion", payload);
+  };
 }
 
 export default AccountsService;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import useAuthStore from "@stores/auth.store";
 import useLayoutStore from "@stores/layout.store";
 import Spinner from "@components/shared/spinner/spinner";
@@ -7,7 +8,8 @@ import AccountsService from "@services/axios/accounts.service";
 import { useEffect, useRef, useCallback, useState } from "react";
 
 export default function RootProvider({ children }: { children: React.ReactNode }) {
-  const prevScrollPosRef = useRef(0),
+  const { setTheme } = useTheme(),
+    prevScrollPosRef = useRef(0),
     accountsService = new AccountsService(),
     [pageReady, setPageReady] = useState(false),
     setDeviceSize = useLayoutStore((state) => state.setDeviceSize),
@@ -16,8 +18,11 @@ export default function RootProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
-    accountsService.getProfile().then((res) => {
-      if (res.success) useAuthStore.setState({ data: { ...res.data, authenticated: true } });
+    accountsService.getProfile().then(({ data, success }) => {
+      if (success) {
+        setTheme(data.theme);
+        useAuthStore.setState({ data: { ...data, authenticated: true } });
+      }
     });
 
     handleResize();
@@ -69,7 +74,7 @@ export default function RootProvider({ children }: { children: React.ReactNode }
     const currScrollPos = window.scrollY,
       pageTopReached = currScrollPos < 100,
       scrollingUp = currScrollPos < prevScrollPosRef.current,
-      areaHeight = Math.round(window.innerHeight + currScrollPos),
+      areaHeight = Math.ceil(window.innerHeight + currScrollPos),
       pageBottomReached = areaHeight >= document.body.offsetHeight;
 
     setDisplayHeader((scrollingUp && !pageTopReached) || pageBottomReached);

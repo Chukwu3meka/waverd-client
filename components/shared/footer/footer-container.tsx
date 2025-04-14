@@ -1,9 +1,7 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { NETWORK_ERROR } from "@lib/constants";
-
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 import useAuthStore from "@stores/auth.store";
 import useLayoutStore from "@stores/layout.store";
 import AccountsService from "@services/axios/accounts.service";
@@ -20,11 +18,16 @@ export default function FooterContainer() {
     setTheme(theme);
 
     if (authenticated) {
-      await accountsService.setTheme({ theme }).catch(() => {
-        import("sonner").then((mod) => {
-          mod.toast.error(NETWORK_ERROR, { richColors: true });
+      await accountsService
+        .setTheme({ theme })
+
+        .then(({ success, message }) => {
+          if (!success) {
+            import("sonner").then((mod) => {
+              mod.toast.error(message, { richColors: true });
+            });
+          }
         });
-      });
     }
   };
 

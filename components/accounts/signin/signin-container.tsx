@@ -145,30 +145,23 @@ export default function SignInContainer() {
   };
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, isValidating, validatingFields },
+    formState: { isSubmitting, isValid },
     trigger,
-    watch,
-    getFieldState,
     getValues,
     reset,
-    clearErrors,
   } = form;
 
   const onSubmit = async (data: FormData) => {
-    await accountsService
-      .signin({ ...getValues() })
-      .then(async ({ data }) => {
+    await accountsService.signin({ ...getValues() }).then(async ({ data, success, message }) => {
+      if (success) {
         reset();
         signin(data);
         toast.success("Login Successful", { richColors: true });
         router.push(target || "/");
-      })
-      .catch(({ response }: AxiosError<NonPaginatedResponse<string>>) => {
-        const message = response ? response.data.message : "Something went wrong";
-        toast.error(message, { richColors: true });
-      });
+      } else {
+        toast.error(message || "Something went wrong", { richColors: true });
+      }
+    });
   };
 
   const [showPassword, setShowPassword] = useState(false);

@@ -21,8 +21,6 @@ const useLayoutStore = create<LayoutStore>((set) => ({
   },
 
   setDisplayHeader: (data: boolean) => {
-    console.log(data, "ss");
-
     set((state) => ({ data: { ...state.data, displayHeader: data } }));
   },
 }));

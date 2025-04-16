@@ -29,12 +29,12 @@ export const COMPETITIONS: Competition[] = [
 export const INFO_PAGES = [
   "cookie-policy",
   "privacy-policy",
-  "contact-us",
+  // "contact-us",
   "terms-and-conditions",
   "data-deletion",
-  "faq",
-  "sponsors",
-  "advertisement",
-  "organization",
-  "pricing",
+  // "faq",
+  // "sponsors",
+  // "advertisement",
+  // "organization",
+  // "pricing",
 ];

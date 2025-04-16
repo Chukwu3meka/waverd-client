@@ -25,3 +25,16 @@ export const COMPETITIONS: Competition[] = [
   { title: "Premier League", id: "premierLeague", image: "/images/competitions/premier-league.png" },
   { title: "Serie A", id: "serieA", image: "/images/competitions/serie-a.png" },
 ];
+
+export const INFO_PAGES = [
+  "cookie-policy",
+  "privacy-policy",
+  "contact-us",
+  "terms-and-conditions",
+  "data-deletion",
+  "faq",
+  "sponsors",
+  "advertisement",
+  "organization",
+  "pricing",
+];

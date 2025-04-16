@@ -38,7 +38,7 @@ export default function Footer({ theme, themeHandler, deviceWidth }: FooterProps
               <label className="text-xl font-extrabold mb-2">Learn More</label>
 
               <Link href="/info/contact-us">Contact Us</Link>
-              <Link href="/info/terms-and-condition">Terms &amp; Conditions</Link>
+              <Link href="/info/terms-and-conditions">Terms &amp; Conditions</Link>
               <Link href="/info/privacy-policy">Privacy Policy</Link>
               <Link href="/info/faq">Freq. Asked Questions</Link>
               <Link href="/info/data-deletion">Data Deletion</Link>

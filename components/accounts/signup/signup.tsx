@@ -106,7 +106,7 @@ const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisi
 
     <p className="text-sm -mt-3 max-w-md mx-auto">
       By clicking REGISTER, you agree to our{" "}
-      <Link href="/info/terms-and-condition" prefetch={false} className="font-bold">
+      <Link href="/info/terms-and-conditions" prefetch={false} className="font-bold">
         Terms & Conditions
       </Link>{" "}
       and have read and acknowledge our&nbsp;

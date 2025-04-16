@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const [test, development, production] = ["https://dev.waverd.com", "http://localhost:8081", "https://api.waverd.com"];
@@ -18,12 +19,15 @@ const nextConfig: NextConfig = {
     }));
   },
 
+  // Configure `pageExtensions` to include markdown and MDX files
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+
   env: {
     BASE_URL,
     STABLE_VERSION,
     NOTICE_PERIOD: "30",
     INACTIVITY_PERIOD: "21",
-    DATA_DELETION_PERIOD_PERIOD: "14",
+    DATA_DELETION_PERIOD: "14",
   },
 
   turbopack: {
@@ -32,5 +36,13 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({ enabled: process.env.ANALYZE === "true" });
-module.exports = withBundleAnalyzer(nextConfig);
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+module.exports = withMDX(nextConfig); // Merge MDX config with Next.js config
+
+// const withBundleAnalyzer = require("@next/bundle-analyzer")({ enabled: process.env.ANALYZE === "true" });
+// module.exports = withBundleAnalyzer(
+//   withMDX(nextConfig) // Merge MDX config with Next.js config
+// );

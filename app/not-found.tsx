@@ -6,12 +6,12 @@ import { Button } from "@components/ui/button";
 
 const Result = dynamic(() => import("@components/shared/result/result")),
   Footer = dynamic(() => import("@components/shared/footer/footer-container")),
-  RelativeHeader = dynamic(() => import("@components/shared/header/header-container"));
+  Header = dynamic(() => import("@components/shared/header/header-container"));
 
 export default function NotFoundPage() {
   return (
     <main>
-      <RelativeHeader position="relative" />
+      <Header position="relative" />
 
       <div className="h-[var(--contentHeight)] flex justify-center items-center">
         <Result variant={404}>

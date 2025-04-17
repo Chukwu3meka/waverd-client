@@ -2,7 +2,6 @@
 
 import * as z from "zod";
 import SignIn from "./signin";
-import useAuthStore from "@stores/auth.store";
 import AccountsService from "@services/axios/accounts.service";
 
 import { toast } from "sonner";
@@ -15,6 +14,7 @@ import { passwordSchema } from "@schemas/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { capitalize, deObfuscate } from "@lib/helpers";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useAppStore } from "@stores/app.store";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema });
 type FormData = z.infer<typeof schema>;
@@ -26,26 +26,23 @@ export default function SignInContainer() {
     searchParams = useSearchParams(),
     oAuthUsed = searchParams.get("auth"),
     resParam = searchParams.get("response"),
-    signin = useAuthStore((state) => state.signin),
+    signin = useAppStore((state) => state.setProfile),
     [target, setTarget] = useState<null | string>(null),
     oAuthMessage = resParam && deObfuscate(decodeURIComponent(resParam as string));
 
-  if (oAuthUsed && OAUTH_PROVIDERS.includes(oAuthUsed)) {
-    // ? To get new cookies from server after oauth signin
-    if (location) location.replace("/");
-  }
-
   useEffect(() => {
     const target = searchParams.get("target");
+
     if (target) {
       const targetSplit = target.split("/"),
         destination = targetSplit[targetSplit.length - 1].replaceAll("-", " ");
 
-      console.log(oAuthUsed, target, destination);
-
       setTarget(target);
       router.replace("/accounts/signin");
       toast.error(`Kindly signin to access '${capitalize(destination)}'`);
+    } else if (oAuthUsed && OAUTH_PROVIDERS.includes(oAuthUsed)) {
+      // ? To get new cookies from server after oauth signin
+      if (location) location.replace("/");
     }
 
     return () => {

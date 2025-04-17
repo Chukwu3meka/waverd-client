@@ -10,6 +10,10 @@ const STABLE_VERSION = "/v1",
   BASE_URL = SERVER_ENV_URLS[INIT_NODE_ENV] + STABLE_VERSION;
 
 const nextConfig: NextConfig = {
+  experimental: {
+    viewTransition: true,
+  },
+
   async redirects() {
     return DOMAINS.map((domain) => ({
       permanent: false,

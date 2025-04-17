@@ -2,34 +2,29 @@
 
 import Header from "./header";
 import { useEffect, useState } from "react";
-import useLayoutStore from "@stores/layout.store";
-import useAuthStore from "../../../stores/auth.store";
+import { resizeHandler } from "@lib/helpers";
+import { useAppStore } from "@stores/app.store";
 
-export default function HeaderContainer({ position }: { position: "relative" | "sticky" }) {
+export type Positions = "relative" | "sticky" | "hidden";
+
+export default function HeaderContainer({ position }: { position: Positions }) {
   const [showNav, setShowNav] = useState(false),
-    deviceWidth = useLayoutStore((state) => state.data.width),
-    { authenticated, ...profile } = useAuthStore((state) => state.data),
-    displayHeader = useLayoutStore((state) => state.data.displayHeader),
-    setDisplayHeader = useLayoutStore((state) => state.setDisplayHeader);
+    deviceWidth = useAppStore((state) => state.layout.width),
+    setDisplayHeader = useAppStore((state) => state.setDisplayHeader),
+    displayHeader = useAppStore((state) => state.layout.displayHeader),
+    { authenticated, ...profile } = useAppStore((state) => state.profile);
 
   useEffect(() => {
-    const className = position === "sticky" && displayHeader ? "stickyHeader" : position === "relative" ? "relativeHeader" : "hiddenHeader",
-      headerElement = document.querySelector(`[class*="${className}"`); // Regex to match relativeHeader ignoring ID react will attach to module.scss
+    resizeHandler();
+  }, []);
 
-    if (headerElement instanceof HTMLElement) {
-      setShowNav(headerElement.offsetWidth > 850);
-    }
-  }, [deviceWidth]);
+  useEffect(() => {
+    const className = position === "relative" ? position : displayHeader ? position : "hidden",
+      headerElement = document.querySelector(`[class*="${className}"`);
 
-  return (
-    <Header
-      {...{
-        profile,
-        showNav,
-        authenticated,
-        setDisplayHeader: setDisplayHeader,
-        className: position === "sticky" && displayHeader ? "stickyHeader" : position === "relative" ? "relativeHeader" : "hiddenHeader",
-      }}
-    />
-  );
+    // Regex to match relative ignoring ID react will attach to module.scss
+    if (headerElement instanceof HTMLElement) setShowNav(headerElement.offsetWidth > 850);
+  }, [deviceWidth, displayHeader, position]);
+
+  return <Header {...{ profile, showNav, authenticated, setDisplayHeader, className: position === "relative" ? position : displayHeader ? position : "hidden" }} />;
 }

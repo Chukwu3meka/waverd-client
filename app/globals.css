@@ -114,7 +114,7 @@
     overflow-x: hidden;
     font-family: var(--font-playfair);
 
-    & > main {
+    & > div > main {
       margin: auto;
       display: grid;
       max-width: 100vw;

@@ -29,7 +29,7 @@ interface SigninProps {
 
 export default function SignIn({ form, isSubmitting, onSubmit, showPassword, togglePasswordVisibility, preSubmitHandler }: SigninProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl bg-background shadow rounded-lg p-5 w-full">
+    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full bg-accent">
       <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
       <h1 className="text-xl font-bold">Sign in to WaveRD</h1>
@@ -45,8 +45,8 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
       </div>
 
       <div className="max-w-md mx-auto -mt-3">
-        <span className="bg-background p-2.5">OR</span>
-        <Separator className="-mt-3.5"></Separator>
+        <span className="bg-accent p-2.5">OR</span>
+        <Separator color="red" className="-mt-3.5 bg-background"></Separator>
       </div>
 
       <Form {...form}>
@@ -74,7 +74,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
                 <FormLabel hidden>Password</FormLabel>
                 <FormControl className="relative">
                   <div>
-                    <Input type={showPassword ? "text" : "password"} placeholder="Password" {...field} className="pr-10" />
+                    <Input type={showPassword ? "text" : "password"} placeholder="Password" {...field} className="pr-10 bg-background" />
 
                     {field.value && (
                       <Button
@@ -82,7 +82,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
                         variant="secondary"
                         onClick={togglePasswordVisibility}
                         aria-label={showPassword ? "Hide password" : "Show password"}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 w-10 h-full">
+                        className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 w-10 mr-1.5">
                         {showPassword ? <EyeClosed /> : <EyeOpen />}
                       </Button>
                     )}

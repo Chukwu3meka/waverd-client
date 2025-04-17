@@ -3,17 +3,17 @@
 import dynamic from "next/dynamic";
 import styles from "./layouts.module.scss";
 import Autoplay from "embla-carousel-autoplay";
-import useLayoutStore from "@stores/layout.store";
-import RelativeHeader from "@components/shared/header/header-container";
 
 import { ReactNode } from "react";
 import { BREAKPOINTS } from "@lib/constants";
+import { useAppStore } from "@stores/app.store";
 import { Carousel, CarouselContent, CarouselItem } from "@components/ui/carousel";
 
-const FooterContainer = dynamic(() => import("@components/shared/footer/footer-container"));
+const Header = dynamic(() => import("@components/shared/header/header-container"), { loading: () => <p>dasdasd</p> }),
+  FooterContainer = dynamic(() => import("@components/shared/footer/footer-container"), { loading: () => <p>dasdasd</p> });
 
 export default function Accounts({ children }: { children: ReactNode }) {
-  const deviceWidth = useLayoutStore((state) => state.data.width);
+  const deviceWidth = useAppStore((state) => state.layout.width);
 
   return (
     <main className="grid-rows-[auto_max-content]">
@@ -31,8 +31,8 @@ export default function Accounts({ children }: { children: ReactNode }) {
             </Carousel>
           </aside>
         )}
-        <div className="bg-secondary">
-          <RelativeHeader position="relative" />
+        <div>
+          <Header position="relative" />
           <div className="max-w-7xl m-auto grid p-5 min-h-[calc(var(--contentHeight)-var(--headerHeight))]">{children}</div>
         </div>
       </div>

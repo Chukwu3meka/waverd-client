@@ -5,8 +5,8 @@ import { INFO_PAGES } from "@lib/constants";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@components/ui/separator";
 
-const RelativeHeader = dynamic(() => import("@components/shared/header/header-container"));
-const FooterContainer = dynamic(() => import("@components/shared/footer/footer-container"));
+const Header = dynamic(() => import("@components/shared/header/header-container")),
+  FooterContainer = dynamic(() => import("@components/shared/footer/footer-container"));
 
 export default async function InfoLayout({ children }: { children: React.ReactNode }) {
   const pages = [];
@@ -19,7 +19,7 @@ export default async function InfoLayout({ children }: { children: React.ReactNo
 
   return (
     <div>
-      <RelativeHeader position="relative" />
+      <Header position="relative" />
 
       <main className="md:grid block grid-cols-7 gap-4">
         <div className="col-span-2 px-5 pt-5 bg-accent">

@@ -19,7 +19,7 @@ const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) =
   clubs = ["club00001", "club00043", "club00021", "club00031", "club00024", "club00002", "club00026", "club00022", "club00042", "club00011", "club00025"];
 
 const Manager = () => (
-  <div className="bg-secondary p-2.5 pt-14 rounded-t-4xl" data-testid="manager" style={{ clipPath: "polygon(100% 0, 0 5%, 0% 100%, 100% 100%)" }}>
+  <div className="bg-secondary p-2.5 pt-14 rounded-tr-4xl" data-testid="manager" style={{ clipPath: "polygon(100% 0, 0 5%, 0% 100%, 100% 100%)" }}>
     <div className="max-w-7xl m-auto">
       <Breadcrumb>
         <BreadcrumbList>

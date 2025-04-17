@@ -7,12 +7,13 @@ import { BREAKPOINTS, LOGO } from "@lib/constants";
 import { GrSystem as SysModeIcon } from "react-icons/gr";
 import { Tabs, TabsList, TabsTrigger } from "@components/ui/tabs";
 import { FaMoon as DarkModeIcon, FaSun as LightModeIcon } from "react-icons/fa";
+import { useEffect } from "react";
 
 type FooterProps = { theme: Theme; deviceWidth: number; themeHandler: (theme: Theme) => () => void };
 
 export default function Footer({ theme, themeHandler, deviceWidth }: FooterProps) {
   return (
-    <footer data-testid="footer" className="flex flex-col text-center px-2.5">
+    <footer data-testid="footer" className="flex flex-col text-center px-2.5 bg-accent">
       <main className="py-3.5 flex gap-5 justify-center md:justify-between">
         <aside className="flex flex-col">
           <span className="font-bold text-3xl">WaveRD</span>

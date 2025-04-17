@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 import { LOGO } from "@lib/constants";
+import { Positions } from "./header-container";
 import { GrGamepad as GameIcon } from "react-icons/gr";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
@@ -19,15 +20,15 @@ const MobileHeader = dynamic(() => import("./mobile-header")),
 interface HeaderProps {
   showNav: boolean;
   profile: Profile;
+  className: Positions;
   authenticated: boolean;
   setDisplayHeader: Function;
-  className: "relativeHeader" | "stickyHeader" | "hiddenHeader";
 }
 
 export default function Header({ className, authenticated, profile, showNav, setDisplayHeader }: HeaderProps) {
   return (
     <header data-testid={className} className={styles[className]}>
-      <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
+      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "bg-accent pt-2.5 px-2.5 rounded-xl" : "bg-transparent"}`}>
         {!showNav && <span />}
 
         <div className="flex gap-1 items-center">

@@ -29,7 +29,7 @@ interface SigninProps {
 
 export default function SignIn({ form, isSubmitting, onSubmit, showPassword, togglePasswordVisibility, preSubmitHandler }: SigninProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full bg-accent">
+    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full">
       <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
       <h1 className="text-xl font-bold">Sign in to WaveRD</h1>
@@ -45,8 +45,8 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
       </div>
 
       <div className="max-w-md mx-auto -mt-3">
-        <span className="bg-accent p-2.5">OR</span>
-        <Separator color="red" className="-mt-3.5 bg-background"></Separator>
+        <span className="bg-background rounded-full p-2.5">OR</span>
+        <Separator className="-mt-3.5"></Separator>
       </div>
 
       <Form {...form}>
@@ -59,7 +59,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
               <FormItem>
                 <FormLabel hidden>handle</FormLabel>
                 <FormControl className="relative">
-                  <Input placeholder="Email Address" {...field} />
+                  <Input placeholder="Email Address" {...field} className="bg-background" />
                 </FormControl>
               </FormItem>
             )}

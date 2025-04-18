@@ -37,13 +37,12 @@ export const resizeHandler = () => {
   import("@stores/app.store").then((mod) => {
     mod.useAppStore.setState((state) => ({ ...state, layout: { ...state.layout, width: window.innerWidth, height: window.innerHeight } }));
 
-    document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
-
-    const footerHeight = document.querySelector("footer")?.getBoundingClientRect().height || 0,
-      headerHeight = document.querySelector('header[class$="relative"]')?.getBoundingClientRect().height || 0;
+    const footerHeight = document.querySelector("footer")?.getBoundingClientRect().height || 300,
+      headerHeight = document.querySelector('header[class$="relative"]')?.getBoundingClientRect().height || 100;
 
     document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
     document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
-    document.documentElement.style.setProperty("--contentHeight", `${window.innerHeight - (footerHeight + headerHeight + 20)}px`);
+    document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
+    document.documentElement.style.setProperty("--contentHeight", `${Math.floor(window.innerHeight) - (footerHeight + headerHeight)}px`);
   });
 };

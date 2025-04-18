@@ -20,7 +20,7 @@ interface SignupProps {
 }
 
 const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: SignupProps) => (
-  <div className="space-y-8 text-center m-auto md:max-w-xl bg-accent shadow rounded-lg p-5 w-full">
+  <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full">
     <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
     <h1 className="text-xl font-bold">Create your account</h1>
@@ -35,7 +35,7 @@ const Signup = ({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisi
             <FormItem className="col-span-2">
               <FormLabel hidden>Full Name</FormLabel>
               <FormControl className="relative">
-                <Input placeholder="Full Name" {...field}  />
+                <Input placeholder="Full Name" {...field} />
               </FormControl>
             </FormItem>
           )}

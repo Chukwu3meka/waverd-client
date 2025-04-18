@@ -18,18 +18,17 @@ const MobileHeader = dynamic(() => import("./mobile-header")),
   NavigationMenuTrigger = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuTrigger));
 
 interface HeaderProps {
-  showNav: boolean;
   profile: Profile;
   className: Positions;
   authenticated: boolean;
   setDisplayHeader: Function;
 }
 
-export default function Header({ className, authenticated, profile, showNav, setDisplayHeader }: HeaderProps) {
+export default function Header({ className, authenticated, profile, setDisplayHeader }: HeaderProps) {
   return (
     <header data-testid={className} className={styles[className]}>
-      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "bg-accent pt-2.5 px-2.5 rounded-xl" : "bg-transparent"}`}>
-        {!showNav && <span />}
+      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "border-b-2 border-secondary" : "bg-transparent"}`}>
+        <span className="block lg:hidden" />
 
         <div className="flex gap-1 items-center">
           <span className="text-xl">{LOGO}</span>
@@ -38,57 +37,55 @@ export default function Header({ className, authenticated, profile, showNav, set
           </h1>
         </div>
 
-        {showNav && (
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/" className={navigationMenuTriggerStyle()}>
-                  Home
-                </Link>
-              </NavigationMenuItem>
+        <NavigationMenu className="hidden lg:block">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <Link href="/" className={navigationMenuTriggerStyle()}>
+                Home
+              </Link>
+            </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Manager</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                          href="/">
-                          <GameIcon className="h-6 w-6" />
-                          <div className="mb-2 mt-4 text-lg font-medium">Game</div>
-                          <p className="text-sm leading-tight text-muted-foreground">Revamped Soccer Manager for everyone with advanced real world simulation.</p>
-                        </a>
-                      </NavigationMenuLink>
-                    </li>
-                    <ListItem href="/" title="Register">
-                      Get started! Create an account today and compete against opponents.
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Manager</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/">
+                        <GameIcon className="h-6 w-6" />
+                        <div className="mb-2 mt-4 text-lg font-medium">Game</div>
+                        <p className="text-sm leading-tight text-muted-foreground">Revamped Soccer Manager for everyone with advanced real world simulation.</p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <ListItem href="/" title="Register">
+                    Get started! Create an account today and compete against opponents.
+                  </ListItem>
+                  <ListItem href="/" title="My Team">
+                    Get support from AI assistant to build the most formidable team in your game world.
+                  </ListItem>
+                  <ListItem href="/" title="Trophy Cabinet">
+                    Get a glance into game objectives, achievements, and upcoming challenges!
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>API Hub</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {components.map((component) => (
+                    <ListItem key={component.title} title={component.title} href={component.href}>
+                      {component.description}
                     </ListItem>
-                    <ListItem href="/" title="My Team">
-                      Get support from AI assistant to build the most formidable team in your game world.
-                    </ListItem>
-                    <ListItem href="/" title="Trophy Cabinet">
-                      Get a glance into game objectives, achievements, and upcoming challenges!
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>API Hub</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    {components.map((component) => (
-                      <ListItem key={component.title} title={component.title} href={component.href}>
-                        {component.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        )}
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
 
         <MobileHeader profile={profile} authenticated={authenticated} setDisplayHeader={setDisplayHeader} />
       </main>
@@ -117,29 +114,9 @@ const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRe
 ListItem.displayName = "ListItem";
 
 const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Clubs",
-    href: "/",
-    description: "Retrieve club details, including history, squad, and performance.",
-  },
-  {
-    title: "Players",
-    href: "/",
-    description: "Access player profiles, stats, and performance data.",
-  },
-  {
-    title: "Managers",
-    href: "/",
-    description: "Access details on team managers, their history, and strategic insights.",
-  },
-  {
-    title: "Referees",
-    href: "/",
-    description: "Get information on referees, their officiating history, and match assignments.",
-  },
-  {
-    title: "Competitions",
-    href: "/",
-    description: "Explore details on tournaments, leagues, fixtures, and standings.",
-  },
+  { title: "Clubs", href: "/", description: "Retrieve club details, including history, squad, and performance." },
+  { title: "Players", href: "/", description: "Access player profiles, stats, and performance data." },
+  { title: "Managers", href: "/", description: "Access details on team managers, their history, and strategic insights." },
+  { title: "Referees", href: "/", description: "Get information on referees, their officiating history, and match assignments." },
+  { title: "Competitions", href: "/", description: "Explore details on tournaments, leagues, fixtures, and standings." },
 ];

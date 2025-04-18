@@ -1,47 +1,42 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { Loader2 } from "lucide-react";
+import { FaTerminal } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Button } from "@components/ui/button";
 import { UseFormReturn } from "react-hook-form";
-import { Separator } from "@components/ui/separator";
-import { IoPersonAddSharp as RegisterIcon } from "react-icons/io5";
+import { Textarea } from "@components/ui/textarea";
+import { MdAutoDelete as InitiateAccDeletionIcon } from "react-icons/md";
+import { Alert, AlertDescription, AlertTitle } from "@components/ui/alert";
 import { GoEyeClosed as EyeClosed, GoEye as EyeOpen } from "react-icons/go";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@components/ui/form";
 
-interface SignupProps {
+interface DataDeletionProps {
   onSubmit: any;
   isSubmitting: boolean;
   showPassword: boolean;
   preSubmitHandler: any;
   togglePasswordVisibility: any;
-  form: UseFormReturn<{ name: string; email: string; handle: string; password: string }, any, { name: string; email: string; handle: string; password: string }>;
+  form: UseFormReturn<{ comment: string; email: string; handle: string; password: string }, any, { comment: string; email: string; handle: string; password: string }>;
 }
 
-export default function Signup({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: SignupProps) {
+export default function DataDeletion({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: DataDeletionProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full">
-      <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
-
-      <h1 className="text-xl font-bold">Create your account</h1>
+    <div className="space-y-8 text-center m-auto shadow rounded-lg w-full">
+      <Alert className="text-left" variant="destructive">
+        <FaTerminal className="h-4 w-4" />
+        <AlertTitle>Heads up!</AlertTitle>
+        <AlertDescription className="font-semibold block">
+          This action is irreversible. There is no way to recover your account after this. If you have any question kindly reach out to our&nbsp;
+          <Link href="/info/contact-us" className="underline">
+            support
+          </Link>
+          &nbsp;team.
+        </AlertDescription>
+      </Alert>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-lg mx-auto grid grid-cols-2 gap-y-6 gap-x-2 -mt-5">
-          <FormField
-            name="name"
-            control={form.control}
-            disabled={isSubmitting}
-            render={({ field }) => (
-              <FormItem className="col-span-2">
-                <FormLabel hidden>Full Name</FormLabel>
-                <FormControl className="relative">
-                  <Input placeholder="Full Name" {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto grid grid-cols-2 gap-y-6 gap-x-2 -mt-5 shadow bg-primary-foreground rounded-2xl p-3">
           <FormField
             name="email"
             control={form.control}
@@ -97,34 +92,30 @@ export default function Signup({ form, onSubmit, isSubmitting, showPassword, tog
             )}
           />
 
+          <FormField
+            name="comment"
+            control={form.control}
+            disabled={isSubmitting}
+            render={({ field }) => (
+              <FormItem className="col-span-2">
+                <FormLabel hidden>Comment</FormLabel>
+                <FormControl className="relative">
+                  <Textarea
+                    placeholder="We are sorry to hear that you are deleting your account. We value your membership and would like to know if there is anything we can do to improve your experience."
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
           <Button type="submit" disabled={isSubmitting} className="col-span-2 h-12" onClick={preSubmitHandler}>
-            {!isSubmitting && <RegisterIcon />}
+            {!isSubmitting && <InitiateAccDeletionIcon />}
             {isSubmitting && <Loader2 className="animate-spin" />}
-            {isSubmitting ? "Creating Account..." : "REGISTER"}
+            {isSubmitting ? "Initiating..." : "Initiate Acc. Deletion"}
           </Button>
         </form>
       </Form>
-
-      <p className="text-sm -mt-3 max-w-md mx-auto">
-        By clicking REGISTER, you agree to our{" "}
-        <Link href="/info/terms-and-conditions" prefetch={false} className="font-bold">
-          Terms & Conditions
-        </Link>{" "}
-        and have read and acknowledge our&nbsp;
-        <Link href="/info/privacy-policy" prefetch={false} className="font-bold">
-          Privacy Policy.
-        </Link>
-      </p>
-
-      <Separator className="-mt-2 mb-2 max-w-md mx-auto" />
-
-      <p className="text-sm">
-        Signed up already?{" "}
-        <Link href="/accounts/signin" prefetch={false} className="font-bold">
-          Login
-        </Link>{" "}
-        here
-      </p>
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { FaXTwitter as XIcon, FaGoogle as GoogleIcon, FaFacebook as FacebookIcon } from "react-icons/fa6";
 
 const socialAuth = [
-  { label: "Facebook", icon: <FacebookIcon />, endpoint: `${process.env.BASE_URL}/accounts/facebook` },
+  { label: "Meta", icon: <FacebookIcon />, endpoint: `${process.env.BASE_URL}/accounts/facebook` },
   { label: "Google", icon: <GoogleIcon />, endpoint: `${process.env.BASE_URL}/accounts/google` },
   { label: "X", icon: <XIcon />, endpoint: `${process.env.BASE_URL}/accounts/twitter` },
 ];
@@ -29,12 +29,12 @@ interface SigninProps {
 
 export default function SignIn({ form, isSubmitting, onSubmit, showPassword, togglePasswordVisibility, preSubmitHandler }: SigninProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full">
+    <div className="space-y-8 text-center m-auto md:max-w-xl shadow-xl rounded-lg p-5 w-full">
       <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
       <h1 className="text-xl font-bold">Sign in to WaveRD</h1>
 
-      <div className="flex items-center justify-center gap-4 flex-wrap -mt-4">
+      <div className="flex items-center justify-center gap-2 flex-wrap -mt-4">
         {socialAuth.map(({ endpoint, icon, label }) => (
           <a key={label} href={endpoint} rel="noopener noreferrer">
             <Button>
@@ -50,7 +50,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6  max-w-lg mx-auto">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mx-auto">
           <FormField
             name="email"
             control={form.control}

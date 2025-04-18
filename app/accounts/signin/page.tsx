@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const SignInContainer = dynamic(() => import("@components/accounts/signin/signin-container"), { loading: () => <p>dasdasd</p> });
+const SignInContainer = dynamic(() => import("@components/accounts/signin/signin-container"));
 
 export const metadata: Metadata = {
   title: "Sign In",

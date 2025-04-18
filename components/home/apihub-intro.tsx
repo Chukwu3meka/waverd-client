@@ -18,7 +18,7 @@ const Breadcrumb = dynamic(() => import("@/components/ui/breadcrumb").then((x) =
   BreadcrumbSeparator = dynamic(() => import("@/components/ui/breadcrumb").then((x) => x.BreadcrumbSeparator));
 
 const ApiHub = () => (
-  <div className="bg-secondary p-2.5 pb-20 rounded-bl-[4rem]" data-testid="manager" style={{ clipPath: "polygon(0 0%, 100% 0, 100% 95%, 0% 100%)" }}>
+  <div className="p-3" data-testid="manager">
     <div className="max-w-7xl m-auto">
       <Breadcrumb>
         <BreadcrumbList>

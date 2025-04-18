@@ -35,8 +35,7 @@ const nextConfig: NextConfig = {
   },
 
   turbopack: {
-    //
-    //
+    resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".json"],
   },
 };
 
@@ -44,9 +43,10 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 });
 
-module.exports = withMDX(nextConfig); // Merge MDX config with Next.js config
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-// const withBundleAnalyzer = require("@next/bundle-analyzer")({ enabled: process.env.ANALYZE === "true" });
-// module.exports = withBundleAnalyzer(
-//   withMDX(nextConfig) // Merge MDX config with Next.js config
-// );
+module.exports = withBundleAnalyzer(
+  withMDX(nextConfig) // Merge MDX config with Next.js config
+);

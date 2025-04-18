@@ -8,10 +8,9 @@ import { useTheme } from "next-themes";
 import { resizeHandler } from "@lib/helpers";
 import { useAppStore } from "@stores/app.store";
 
-
 export default function FooterContainer() {
-  const { setTheme, theme } = useTheme(),
-    accountsService = new AccountsService(),
+  const accountsService = new AccountsService(),
+    { setTheme, theme } = useTheme(),
     authenticated = useAppStore((state) => state.profile.authenticated);
 
   useEffect(() => {
@@ -22,16 +21,9 @@ export default function FooterContainer() {
     setTheme(theme);
 
     if (authenticated) {
-      await accountsService
-        .setTheme({ theme })
-
-        .then(({ success, message }) => {
-          if (!success) {
-            import("sonner").then((mod) => {
-              mod.toast.error(message, { richColors: true });
-            });
-          }
-        });
+      await accountsService.setTheme({ theme }).then(({ success, message }) => {
+        if (!success) import("sonner").then((mod) => mod.toast.error(message, { richColors: true }));
+      });
     }
   };
 

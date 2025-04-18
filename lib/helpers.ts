@@ -43,6 +43,6 @@ export const resizeHandler = () => {
     document.documentElement.style.setProperty("--footerHeight", `${footerHeight}px`);
     document.documentElement.style.setProperty("--headerHeight", `${headerHeight}px`);
     document.documentElement.style.setProperty("--browserHeight", `${window.innerHeight}px`);
-    document.documentElement.style.setProperty("--contentHeight", `${Math.floor(window.innerHeight) - (footerHeight + headerHeight)}px`);
+    document.documentElement.style.setProperty("--contentHeight", `${Math.round(window.innerHeight) - (footerHeight + headerHeight)}px`);
   });
 };

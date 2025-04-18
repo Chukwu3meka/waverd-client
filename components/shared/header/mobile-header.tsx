@@ -41,7 +41,7 @@ export default function MobileHeader({ profile, authenticated, setDisplayHeader 
           <SheetDescription></SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col justify-between h-[calc(100vh-135px)]">
+        <div className="flex flex-col justify-between h-[calc(100vh-177px)]">
           <div className="flex flex-col gap-5 justify-between">
             <Separator className="mb-2" />
 

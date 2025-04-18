@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({ email: emailSchema, password: passwordSchema, name: nameSchema, handle: handleSchema });
 type FormData = z.infer<typeof schema>;
 
-const SignUpContainer = () => {
+export default function SignUpContainer() {
   const { theme } = useTheme(),
     accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
@@ -81,6 +81,4 @@ const SignUpContainer = () => {
   };
 
   return <Signup {...{ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }} />;
-};
-
-export default SignUpContainer;
+}

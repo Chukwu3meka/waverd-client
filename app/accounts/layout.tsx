@@ -1,41 +1,32 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import styles from "./layouts.module.scss";
 import Autoplay from "embla-carousel-autoplay";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import { ReactNode } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@components/ui/carousel";
 
-const Header = dynamic(() => import("@components/shared/header/header-container"), { loading: () => <Skeleton className="h-[var(--headerHeight)] w-full" /> }),
-  Footer = dynamic(() => import("@components/shared/footer/footer-container"), { loading: () => <Skeleton className="h-[var(--footerHeight)] w-full" /> });
-
 export default function Accounts({ children }: { children: ReactNode }) {
   return (
-    <main className="grid-rows-[auto_max-content]">
-      <div className="lg:grid lg:grid-cols-[minmax(300,550px)_minmax(500px,auto)]">
-        <aside className={`${styles.slides} hidden lg:block`}>
-          <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }}>
-            <CarouselContent>
-              {slides.map((features, id) => (
-                <CarouselItem key={id} className="basis-1/1">
-                  {features}
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </aside>
-        <div>
-          <Header position="relative" />
-          <div className="max-w-7xl m-auto grid p-5 min-h-[var(--contentHeight)]">{children}</div>
-        </div>
+    <main className="lg:grid lg:grid-cols-[minmax(300,550px)_minmax(500px,auto)]">
+      <aside className={`${styles.slides} hidden lg:block`}>
+        <Carousel plugins={[Autoplay({ delay: 3000 })]} opts={{ align: "center", loop: true }}>
+          <CarouselContent>
+            {slides.map((features, id) => (
+              <CarouselItem key={id} className="basis-1/1">
+                {features}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </aside>
+      <div>
+        <div className="max-w-7xl m-auto grid p-5 min-h-[var(--contentHeight)]">{children}</div>
       </div>
-
-      <Footer />
     </main>
   );
 }
+
 const slides = [
   <>
     <h5>It's great to see you again</h5>

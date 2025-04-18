@@ -7,6 +7,21 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* add .2 to all */
+  --text-xs: 0.95rem;
+  --text-sm: 1.075rem;
+  --text-base: 1.2rem;
+  --text-lg: 1.325rem;
+  --text-xl: 1.45rem;
+  --text-2xl: 1.7rem;
+  --text-3xl: 2.075rem;
+  --text-4xl: 2.45rem;
+  --text-5xl: 3.2rem;
+  --text-6xl: 3.95rem;
+  --text-7xl: 4.7rem;
+  --text-8xl: 6.2rem;
+  --text-9xl: 8.2rem;
 }
 
 :root {
@@ -114,13 +129,17 @@
     overflow-x: hidden;
     font-family: var(--font-playfair);
 
-    & > div > main {
+    & > div {
       margin: auto;
       display: grid;
       max-width: 100vw;
       position: relative;
       align-content: space-between;
       min-height: var(--browserHeight);
+      grid-template-rows: max-content auto max-content;
+      & > main {
+        min-height: var(--contentHeight);
+      }
     }
   }
 }

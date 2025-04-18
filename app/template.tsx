@@ -1,10 +1,12 @@
 "use client";
 
+import AccountsService from "@services/axios/accounts.service";
+
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import { resizeHandler } from "@lib/helpers";
 import { useAppStore } from "@stores/app.store";
-import AccountsService from "@services/axios/accounts.service";
+import { useReportWebVitals } from "next/web-vitals";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 const ThemeProvider = ({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) => {
@@ -16,6 +18,10 @@ export default function RootTemplate({ children }: { children: React.ReactNode }
     prevScrollPosRef = useRef(0),
     accountsService = new AccountsService(),
     setDisplayHeader = useAppStore((state) => state.setDisplayHeader);
+
+  useReportWebVitals((metric) => {
+    if (process.env.NODE_ENV === "development") console.log({ ...metric });
+  });
 
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
@@ -29,10 +35,8 @@ export default function RootTemplate({ children }: { children: React.ReactNode }
       });
     } catch (error) {}
 
-    setTimeout(() => {
-      window.addEventListener("resize", resizeHandler);
-      window.addEventListener("scroll", handleScroll, { passive: true });
-    }, 5000);
+    window.addEventListener("resize", resizeHandler);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("resize", resizeHandler);

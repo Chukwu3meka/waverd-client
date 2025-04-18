@@ -1,3 +1,5 @@
+import DataDeletion from "../data-deletion/data-deletion-container";
+
 export const metadata = {
   title: "Data Deletion",
   keywords: ["data", "data deletion", "delete", "soccer manager", "soccer", "waverd", "football manager", "football"],
@@ -7,7 +9,6 @@ export const metadata = {
 # Data Deletion Instruction
 
 We only use Email for authentication (sign-in purpose only) across social platforms (Twitter, Facebook, and Google). To maintain a highly competitive online gaming experience, after a certain period of inactivity (currently **{process.env.INACTIVITY_PERIOD}** days) on our site, your profile and its data will be deleted by one of our moderators, with no way to recover your account.
-You need to signin in order to initiate Data Deletion, visit this link [Request Account deletion](https://www.waverd.com/accounts/data-deletion) to get started.
 
 ---
 
@@ -34,3 +35,5 @@ There are a few reasons why you might want to delete your data from websites. Fo
 - Be careful about what information you share online.
 - Use strong passwords and security measures.
 - Check for regular security updates related to your account.
+
+<DataDeletion />

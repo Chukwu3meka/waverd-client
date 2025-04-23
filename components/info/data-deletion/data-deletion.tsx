@@ -22,7 +22,7 @@ interface DataDeletionProps {
 
 export default function DataDeletion({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: DataDeletionProps) {
   return (
-    <div className="space-y-8 text-center m-auto shadow rounded-lg w-full">
+    <div className="space-y-8 text-center m-auto shadow w-full bg-primary-foreground rounded-2xl p-3">
       <Alert className="text-left" variant="destructive">
         <FaTerminal className="h-4 w-4" />
         <AlertTitle>Heads up!</AlertTitle>
@@ -36,7 +36,7 @@ export default function DataDeletion({ form, onSubmit, isSubmitting, showPasswor
       </Alert>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto grid grid-cols-2 gap-y-6 gap-x-2 -mt-5 shadow bg-primary-foreground rounded-2xl p-3">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto grid grid-cols-2 gap-y-6 gap-x-2 -mt-5">
           <FormField
             name="email"
             control={form.control}

@@ -1,22 +1,14 @@
 "use client";
 
-import AccountsService from "@services/axios/accounts.service";
-
-import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import { resizeHandler } from "@lib/helpers";
 import { useAppStore } from "@stores/app.store";
 import { useReportWebVitals } from "next/web-vitals";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-const ThemeProvider = ({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) => {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
-};
+export default function Provider({ children }: { children: React.ReactNode }) {
+  verifySession();
 
-export default function RootTemplate({ children }: { children: React.ReactNode }) {
-  const { setTheme } = useTheme(),
-    prevScrollPosRef = useRef(0),
-    accountsService = new AccountsService(),
+  const prevScrollPosRef = useRef(0),
     setDisplayHeader = useAppStore((state) => state.setDisplayHeader);
 
   useReportWebVitals((metric) => {
@@ -25,15 +17,6 @@ export default function RootTemplate({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
-
-    try {
-      accountsService.getProfile().then(({ data, success }) => {
-        if (success) {
-          setTheme(data.theme);
-          useAppStore.setState({ profile: { ...data, authenticated: true } });
-        }
-      });
-    } catch (error) {}
 
     window.addEventListener("resize", resizeHandler);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -55,9 +38,19 @@ export default function RootTemplate({ children }: { children: React.ReactNode }
     prevScrollPosRef.current = currScrollPos; // Update the previous scroll position.
   };
 
-  return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      {children}
-    </ThemeProvider>
-  );
+  return children;
 }
+
+const verifySession = async () => {
+  import("@services/axios/accounts.service").then((mod) => {
+    const accountsService = new mod.default();
+
+    accountsService.getProfile().then(({ data, success }) => {
+      if (success) {
+        import("@stores/app.store").then((mod) => {
+          mod.useAppStore.setState((state) => ({ ...state, profile: { ...data, authenticated: true } }));
+        });
+      }
+    });
+  });
+};

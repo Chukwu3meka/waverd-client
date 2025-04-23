@@ -1,14 +1,10 @@
 import service from "./service";
-import { AxiosResponse } from "axios";
 
 class AccountsService {
   accountsServiceUrl = "/accounts";
 
-  getProfile = async (cookie?: string | null): Promise<NonPaginatedResponse<Profile>> => {
-    const path = this.accountsServiceUrl + "/profile",
-      cookieOption = { headers: { Cookie: cookie } };
-
-    return service.get(path, cookieOption);
+  getProfile = async (): Promise<NonPaginatedResponse<Profile>> => {
+    return service.get(this.accountsServiceUrl + "/profile");
   };
 
   setTheme = async (payload: ThemePayload): Promise<NonPaginatedResponse<null>> => {

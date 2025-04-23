@@ -9,12 +9,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { emailSchema } from "@schemas/email";
+import { useAppStore } from "@stores/app.store";
 import { OAUTH_PROVIDERS } from "@lib/constants";
 import { passwordSchema } from "@schemas/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { capitalize, deObfuscate } from "@lib/helpers";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useAppStore } from "@stores/app.store";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema });
 type FormData = z.infer<typeof schema>;
@@ -78,14 +78,11 @@ export default function SignInContainer() {
 
   const onSubmit = async (data: FormData) => {
     await accountsService.signin({ ...getValues() }).then(async ({ data, success, message }) => {
-      if (success) {
-        reset();
-        signin(data);
-        toast.success("Login Successful", { richColors: true });
-        router.push(target || "/");
-      } else {
-        toast.error(message || "Something went wrong", { richColors: true });
-      }
+      if (!success) return toast.error(message || "Something went wrong");
+
+      reset();
+      signin(data);
+      router.push(target || "/");
     });
   };
 

@@ -7,26 +7,21 @@ import AccountsService from "@services/axios/accounts.service";
 
 import { toast } from "sonner";
 import { useState } from "react";
-import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
-import { capitalize } from "@lib/helpers";
 import { emailSchema } from "@schemas/email";
 import { handleSchema } from "@schemas/handle";
 import { useAppStore } from "@stores/app.store";
 import { commentSchema } from "@schemas/comment";
 import { passwordSchema } from "@schemas/password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema, comment: commentSchema, handle: handleSchema });
 type FormData = z.infer<typeof schema>;
 
 export default function DataDeletionContainer() {
-  const authenticated = useAppStore((state) => state.profile.authenticated);
-
-  const { theme } = useTheme(),
-    accountsService = new AccountsService(),
+  const accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
+    authenticated = useAppStore((state) => state.profile.authenticated),
     form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", comment: "", handle: "" } });
 
   const {
@@ -39,20 +34,14 @@ export default function DataDeletionContainer() {
   const onSubmit = async () => {
     if (!isValid) throw { message: "Deletion form is invalid" };
 
-    await accountsService
-      .initDataDeletion(getValues())
-      .then(() => {
+    await accountsService.initDataDeletion(getValues()).then(({ message, success }) => {
+      if (success) {
         reset();
-        toast.success("Success!!!", {
-          richColors: true,
-          description: `Account deletion has been successfully initiated. Kindly check your mail for the next step`,
-        });
-      })
-      .catch(({ response, message }: AxiosError<NonPaginatedResponse<string>>) => {
-        console.log(response, message);
-
-        toast.error(response ? response.data.message : message || "Something went wrong", { richColors: true });
-      });
+        toast.success(`Account deletion has been successfully initiated. Kindly check your mail for the next step`);
+      } else {
+        toast.error(message || "Something went wrong");
+      }
+    });
   };
 
   const togglePasswordVisibility = (): void => {
@@ -64,12 +53,12 @@ export default function DataDeletionContainer() {
 
     if (!isValid) {
       const errDesc = Object.values(errors)[0]?.message;
-      toast.error(errDesc || `Form is invalid`, { richColors: true });
+      toast.error(errDesc || `Form is invalid`);
     }
   };
 
   return (
-    <main className="mt-10">
+    <main className="mt-5">
       {authenticated ? (
         <DataDeletion {...{ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }} />
       ) : (

@@ -2,19 +2,19 @@ import "./globals.css";
 import fonts from "@lib/fonts";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { Skeleton } from "@components/ui/skeleton";
 
-const Analytics = dynamic(() => import("@vercel/analytics/next").then((m) => m.Analytics)),
+const Provider = dynamic(() => import("../components/shared/providers/root")),
+  ThemeProvider = dynamic(() => import("@components/shared/providers/theme")),
+  Header = dynamic(() => import("@components/shared/header/header-container")),
+  Footer = dynamic(() => import("@components/shared/footer/footer-container")),
+  Analytics = dynamic(() => import("@vercel/analytics/next").then((m) => m.Analytics)),
   Toaster = dynamic(() => import("@/components/ui/sonner").then((mod) => mod.Toaster)),
-  SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((m) => m.SpeedInsights)),
-  Header = dynamic(() => import("@components/shared/header/header-container"), { loading: () => <Skeleton className="h-[var(--headerHeight)] w-full" /> }),
-  Footer = dynamic(() => import("@components/shared/footer/footer-container"), { loading: () => <Skeleton className="h-[var(--footerHeight)] w-full" /> });
+  SpeedInsights = dynamic(() => import("@vercel/speed-insights/next").then((m) => m.SpeedInsights));
 
 export const metadata: Metadata = {
   title: "WaveRD",
-  description:
-    "Revamped Soccer Manager for everyone with advanced real world simulation and Football API Provider for all your soccer data needs. Available Everywhere at every time",
   keywords: ["soccer manager", "soccer", "waverd", "Soccer Manager", "football"],
+  description: "Revamped Soccer Manager with advanced simulation and Football API Provider. Available 24/7",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -30,13 +30,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SpeedInsights />
 
         <body>
-          <Header position="sticky" />
-          <main>
-            <Header position="relative" />
-            {children}
-            <Footer />
-          </main>
-          <Toaster />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Header position="sticky" />
+            <main>
+              <Header position="relative" />
+              <Provider>{children}</Provider>
+              <Footer />
+            </main>
+            <Toaster richColors />
+          </ThemeProvider>
         </body>
       </html>
     </>

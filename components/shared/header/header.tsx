@@ -27,7 +27,7 @@ interface HeaderProps {
 export default function Header({ className, authenticated, profile, setDisplayHeader }: HeaderProps) {
   return (
     <header data-testid={className} className={styles[className]}>
-      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "border-b-2 border-secondary" : "bg-transparent"}`}>
+      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "border-b-2" : "bg-transparent border-2"}`}>
         <span className="block lg:hidden" />
 
         <div className="flex gap-1 items-center">

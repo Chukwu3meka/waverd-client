@@ -11,21 +11,29 @@ import { useAppStore } from "@stores/app.store";
 export default function FooterContainer() {
   const accountsService = new AccountsService(),
     { setTheme, theme } = useTheme(),
-    authenticated = useAppStore((state) => state.profile.authenticated);
+    profile = useAppStore((state) => state.profile),
+    setProfileTheme = useAppStore((state) => state.setTheme);
 
   useEffect(() => {
     resizeHandler();
   }, []);
 
-  const themeHandler = (theme: Theme) => async () => {
-    setTheme(theme);
+  useEffect(() => {
+    if (profile.theme !== theme) setTheme(profile.theme);
+  }, [profile.theme]);
 
-    if (authenticated) {
-      await accountsService.setTheme({ theme }).then(({ success, message }) => {
-        if (!success) import("sonner").then((mod) => mod.toast.error(message, { richColors: true }));
-      });
+  const themeHandler = (theme: Theme) => async () => {
+    if (theme !== profile.theme) {
+      setTheme(theme);
+      setProfileTheme(theme);
+
+      if (profile.authenticated) {
+        await accountsService.setTheme({ theme }).then(({ success, message }) => {
+          if (!success) import("sonner").then((mod) => mod.toast.error(message, { richColors: true }));
+        });
+      }
     }
   };
 
-  return <Footer theme={theme as Theme} themeHandler={themeHandler} />;
+  return <Footer theme={profile.theme} themeHandler={themeHandler} />;
 }

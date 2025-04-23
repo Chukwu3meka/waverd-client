@@ -13,9 +13,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { FaXTwitter as XIcon, FaGoogle as GoogleIcon, FaFacebook as FacebookIcon } from "react-icons/fa6";
 
 const socialAuth = [
-  { label: "Meta", icon: <FacebookIcon />, endpoint: `${process.env.BASE_URL}/accounts/facebook` },
-  { label: "Google", icon: <GoogleIcon />, endpoint: `${process.env.BASE_URL}/accounts/google` },
   { label: "X", icon: <XIcon />, endpoint: `${process.env.BASE_URL}/accounts/twitter` },
+  { label: "Google", icon: <GoogleIcon />, endpoint: `${process.env.BASE_URL}/accounts/google` },
+  { label: "Meta", icon: <FacebookIcon />, endpoint: `${process.env.BASE_URL}/accounts/facebook` },
 ];
 
 interface SigninProps {
@@ -29,7 +29,7 @@ interface SigninProps {
 
 export default function SignIn({ form, isSubmitting, onSubmit, showPassword, togglePasswordVisibility, preSubmitHandler }: SigninProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl shadow-xl rounded-lg p-5 w-full">
+    <div className="space-y-8 text-center m-auto md:max-w-xl p-5 w-full">
       <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
       <h1 className="text-xl font-bold">Sign in to WaveRD</h1>
@@ -100,10 +100,10 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
         </form>
       </Form>
 
-      <p className="text-sm -mt-3">
+      <p className="text-xs -mt-3">
         Seeking to reset your password or forgot your password?{" "}
-        <Link href="/accounts/password-reset" prefetch={false} className="font-bold">
-          Password recovery
+        <Link href="/accounts/password-reset" prefetch={false} className="font-bold underline">
+          Reset Password
         </Link>
       </p>
 
@@ -111,7 +111,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
 
       <p className="text-sm">
         Are you new to WaveRD?{" "}
-        <Link href="/accounts/signup" prefetch={false} className="font-bold">
+        <Link href="/accounts/signup" prefetch={false} className="font-bold underline">
           Create Account
         </Link>
       </p>

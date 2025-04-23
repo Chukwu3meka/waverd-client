@@ -21,7 +21,7 @@ interface SignupProps {
 
 export default function Signup({ form, onSubmit, isSubmitting, showPassword, togglePasswordVisibility, preSubmitHandler }: SignupProps) {
   return (
-    <div className="space-y-8 text-center m-auto md:max-w-xl shadow rounded-lg p-5 w-full">
+    <div className="space-y-8 text-center m-auto md:max-w-xl p-5 w-full">
       <Image src="/images/layouts/accounts.png" alt="Wave Research" width={120} height={100} style={{ margin: "auto" }} />
 
       <h1 className="text-xl font-bold">Create your account</h1>
@@ -107,11 +107,11 @@ export default function Signup({ form, onSubmit, isSubmitting, showPassword, tog
 
       <p className="text-sm -mt-3 max-w-md mx-auto">
         By clicking REGISTER, you agree to our{" "}
-        <Link href="/info/terms-and-conditions" prefetch={false} className="font-bold">
+        <Link href="/info/terms-and-conditions" prefetch={false} className="font-bold underline">
           Terms & Conditions
         </Link>{" "}
         and have read and acknowledge our&nbsp;
-        <Link href="/info/privacy-policy" prefetch={false} className="font-bold">
+        <Link href="/info/privacy-policy" prefetch={false} className="font-bold underline">
           Privacy Policy.
         </Link>
       </p>
@@ -120,7 +120,7 @@ export default function Signup({ form, onSubmit, isSubmitting, showPassword, tog
 
       <p className="text-sm">
         Signed up already?{" "}
-        <Link href="/accounts/signin" prefetch={false} className="font-bold">
+        <Link href="/accounts/signin" prefetch={false} className="font-bold underline">
           Login
         </Link>{" "}
         here

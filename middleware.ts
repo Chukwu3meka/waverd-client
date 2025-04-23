@@ -1,42 +1,22 @@
 import { jwtDecode } from "jwt-decode";
-import { NextResponse, userAgent } from "next/server";
-
+import { NextResponse } from "next/server";
+import { INIT_PROFILE } from "@lib/constants";
 import type { NextRequest } from "next/server";
-import AccountsService from "@services/axios/accounts.service";
+import { setServiceCookie } from "@services/axios/service";
 
 const goToLogin = async (destination: string, url: any) => {
   // return Response.redirect(new URL(`/accounts/signin?target=${destination}`, url));
   return NextResponse.redirect(new URL(`/accounts/signin?target=${destination}`, url));
 };
 
-async function getUserRole(cookies: any) {
-  const accountsService = new AccountsService(),
-    baseUrl = process.env.BASE_URL + accountsService.accountsServiceUrl;
-
-  return await fetch(baseUrl + "/profile", {
-    /* credentials: "include", tells browser will include credentials in the request,
-  The server must respond with the appropriate CORS headers, including:
-  Access-Control-Allow-Origin and Access-Control-Allow-Credentials,
-  to allow the response to be received by the client. */
-    // credentials: "same-origin",
-    credentials: "include",
-    /* mode: "cors", This involves sending a preflight OPTIONS request to the server to check whether the server allows the requested access,
-  and then sending the actual request if the server responds with the appropriate CORS headers. */
-    mode: "cors",
-    method: "GET",
-    cache: "no-store",
-    headers: { Cookie: cookies, "Content-Type": "application/json" },
-  })
-    .then(async (res) => {
-      if (!res.ok) return null;
-
-      return await res
-        .json()
-        .then(async (res) => (res.data ? res.data.role : null))
-        .catch(async (err) => null);
+const getSessionProfile = (): Promise<Profile> => {
+  return import("@services/axios/accounts.service").then((mod) =>
+    new mod.default().getProfile().then(({ data, success }) => {
+      if (success) return data;
+      return INIT_PROFILE;
     })
-    .catch(() => null);
-}
+  );
+};
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl,
@@ -46,13 +26,16 @@ export async function middleware(request: NextRequest) {
 
   try {
     // ? Delete Wave Research SSID if it does not have a value
-    if (cookies && !cookies.value) request.cookies.delete(["SSID"]);
+    if (cookies && !cookies.value) {
+      request.cookies.delete(["SSID"]);
+    } else {
+      setServiceCookie(request.cookies);
+    }
   } catch (err) {
     return goToLogin(destination, url);
   }
 
-  // Check if destination is a private route, i.e requires authentication
-  const hasAuthRoute = privateRoutes.some((route: string) => destination.startsWith(route));
+  const hasAuthRoute = privateRoutes.some((route: string) => destination.startsWith(route)); // Check if destination is a private route, i.e requires authentication
 
   if (hasAuthRoute) {
     const ssidCookie = cookies && cookies.value;
@@ -62,7 +45,7 @@ export async function middleware(request: NextRequest) {
     if (!decoded || !decoded.session) return goToLogin(destination, url);
 
     if (destination.startsWith("/console/")) {
-      const role = await getUserRole(`SSID=${ssidCookie}`);
+      const role = (await getSessionProfile()).role;
 
       if (!["moderator"].includes(role)) return goToLogin(destination, url);
 

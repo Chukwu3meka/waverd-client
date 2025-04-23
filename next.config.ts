@@ -47,6 +47,4 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-module.exports = withBundleAnalyzer(
-  withMDX(nextConfig) // Merge MDX config with Next.js config
-);
+export default withBundleAnalyzer(withMDX(nextConfig) /** Merge MDX config with Next.js config */);

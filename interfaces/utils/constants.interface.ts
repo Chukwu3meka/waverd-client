@@ -1,6 +1,6 @@
 type Theme = "dark" | "light" | "system";
 
-type Role = "admin" | "user" | "dummy" | "test";
+type Role = "admin" | "user" | "dummy" | "test" | "moderator";
 
 interface Profile {
   role: Role;

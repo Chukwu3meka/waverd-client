@@ -1,0 +1,38 @@
+aside.slides {
+  overflow: hidden;
+  position: relative;
+  background-size: 100% 100%;
+  background-image: url("/images/layouts/accounts-background.jpg");
+
+  & > div {
+    z-index: 1;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.7em;
+    align-items: center;
+    justify-content: center;
+
+    & > div > div > div {
+      display: flex;
+      color: white;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: black;
+    opacity: 0.4;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

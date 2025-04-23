@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 import { LOGO } from "@lib/constants";
+import { Positions } from "./header-container";
 import { GrGamepad as GameIcon } from "react-icons/gr";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
@@ -17,30 +18,30 @@ const MobileHeader = dynamic(() => import("./mobile-header")),
   NavigationMenuTrigger = dynamic(() => import("@/components/ui/navigation-menu").then((x) => x.NavigationMenuTrigger));
 
 interface HeaderProps {
-  showNav: boolean;
   profile: Profile;
+  className: Positions;
   authenticated: boolean;
-  className: "relativeHeader" | "stickyHeader" | "hiddenHeader";
+  setDisplayHeader: Function;
 }
 
-const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => (
-  <header data-testid={className} className={styles[className]}>
-    <main className="flex justify-between items-center w-full pb-2.5 bg-transparent border-b-2">
-      {!showNav && <span />}
+export default function Header({ className, authenticated, profile, setDisplayHeader }: HeaderProps) {
+  return (
+    <header data-testid={className} className={styles[className]}>
+      <main className={`flex justify-between items-center w-full pb-2.5 " ${className === "relative" ? "border-b-2" : "bg-transparent border-2"}`}>
+        <span className="block lg:hidden" />
 
-      <div className="flex gap-1 items-center">
-        <span className="text-xl">{LOGO}</span>
-        <h1 className="font-bold text-3xl -mt-0.5">
-          <Link href="/">WaveRD</Link>
-        </h1>
-      </div>
+        <div className="flex gap-1 items-center">
+          <span className="text-xl">{LOGO}</span>
+          <h1 className="font-bold text-3xl -mt-0.5">
+            <Link href="/">WaveRD</Link>
+          </h1>
+        </div>
 
-      {showNav && (
-        <NavigationMenu>
+        <NavigationMenu className="hidden lg:block">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+              <Link href="/" className={navigationMenuTriggerStyle()}>
+                Home
               </Link>
             </NavigationMenuItem>
 
@@ -85,14 +86,12 @@ const Header = ({ className, authenticated, profile, showNav }: HeaderProps) => 
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-      )}
 
-      <MobileHeader profile={profile} authenticated={authenticated} />
-    </main>
-  </header>
-);
-
-export default Header;
+        <MobileHeader profile={profile} authenticated={authenticated} setDisplayHeader={setDisplayHeader} />
+      </main>
+    </header>
+  );
+}
 
 const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(({ className, title, children, ...props }, ref) => {
   return (
@@ -115,29 +114,9 @@ const ListItem = forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRe
 ListItem.displayName = "ListItem";
 
 const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Clubs",
-    href: "/",
-    description: "Retrieve club details, including history, squad, and performance.",
-  },
-  {
-    title: "Players",
-    href: "/",
-    description: "Access player profiles, stats, and performance data.",
-  },
-  {
-    title: "Managers",
-    href: "/",
-    description: "Access details on team managers, their history, and strategic insights.",
-  },
-  {
-    title: "Referees",
-    href: "/",
-    description: "Get information on referees, their officiating history, and match assignments.",
-  },
-  {
-    title: "Competitions",
-    href: "/",
-    description: "Explore details on tournaments, leagues, fixtures, and standings.",
-  },
+  { title: "Clubs", href: "/", description: "Retrieve club details, including history, squad, and performance." },
+  { title: "Players", href: "/", description: "Access player profiles, stats, and performance data." },
+  { title: "Managers", href: "/", description: "Access details on team managers, their history, and strategic insights." },
+  { title: "Referees", href: "/", description: "Get information on referees, their officiating history, and match assignments." },
+  { title: "Competitions", href: "/", description: "Explore details on tournaments, leagues, fixtures, and standings." },
 ];

@@ -39,7 +39,7 @@ test("Home page works just fine", async ({ page, isMobile }) => {
     window.scrollTo(0, document.querySelector("body")!.scrollHeight); // Scroll to bottom of page
   });
 
-  const stickyHeaderSelector = page.getByTestId("stickyHeader");
+  const stickyHeaderSelector = page.getByTestId("sticky");
   await expect(stickyHeaderSelector, "Sticky Header should be visible when users scroll to the bottom of the page").toBeVisible();
 
   await page.keyboard.press("PageUp"); // Scroll down a page

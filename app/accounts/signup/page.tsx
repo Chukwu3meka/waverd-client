@@ -1,7 +1,15 @@
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const ComingSoon = dynamic(() => import("@components/shared/coming-soon/ComingSoonContainer"));
+const SignUpContainer = dynamic(() => import("@components/accounts/signup/signup-container"), { loading: () => <p>dasdasd</p> });
 
-const page = () => <ComingSoon finishDate={new Date("2025-04-01")} />;
+export const metadata: Metadata = {
+  title: "Sign Up",
+  keywords: ["signup", "register", "soccer manager", "soccer", "waverd", "football manager", "football"],
+  description:
+    "Embark on an exciting Soccer journey without limit! Register today to enjoy premium features, and experience the best competitions in soccer and football data provider.",
+};
 
-export default page;
+export default function RegisterPage() {
+  return <SignUpContainer />;
+}

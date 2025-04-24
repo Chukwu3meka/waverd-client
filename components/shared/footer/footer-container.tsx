@@ -29,7 +29,7 @@ export default function FooterContainer() {
 
       if (profile.authenticated) {
         await accountsService.setTheme({ theme }).then(({ success, message }) => {
-          if (!success) import("sonner").then((mod) => mod.toast.error(message, { richColors: true }));
+          if (!success) import("sonner").then((mod) => mod.toast.error(message));
         });
       }
     }

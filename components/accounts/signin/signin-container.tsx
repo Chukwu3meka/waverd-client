@@ -66,7 +66,7 @@ export default function SignInContainer() {
 
   const preSubmitHandler = async () => {
     const isValid = await trigger(); // Trigger validation for all fields
-    if (!isValid) toast.error("Invalid Email/Password", { richColors: true });
+    if (!isValid) toast.error("Invalid Email/Password");
   };
 
   const {

@@ -6,8 +6,6 @@ import { useAppStore } from "@stores/app.store";
 import { useReportWebVitals } from "next/web-vitals";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
-  verifySession();
-
   const prevScrollPosRef = useRef(0),
     setDisplayHeader = useAppStore((state) => state.setDisplayHeader);
 
@@ -16,6 +14,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
+    verifySession();
     console.log(`%cInitializing WaveRD...${new Date().toLocaleTimeString()}`, "color: yellow; font-family: serif; font-size: 12px");
 
     window.addEventListener("resize", resizeHandler);

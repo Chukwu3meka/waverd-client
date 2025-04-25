@@ -7,8 +7,7 @@ export default function Template({ children }: Readonly<{ children: React.ReactN
   const setDisplayHeader = useAppStore((state) => state.setDisplayHeader);
 
   useEffect(() => {
-    // hide sticky header on evrey page navigation
-    setDisplayHeader(false);
+    setDisplayHeader(false); // ? hide sticky header on every page navigation
   }, []);
 
   return children;

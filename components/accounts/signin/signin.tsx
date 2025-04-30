@@ -79,6 +79,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
                     {field.value && (
                       <Button
                         size="icon"
+                        type="button"
                         variant="secondary"
                         onClick={togglePasswordVisibility}
                         aria-label={showPassword ? "Hide password" : "Show password"}
@@ -95,7 +96,7 @@ export default function SignIn({ form, isSubmitting, onSubmit, showPassword, tog
           <Button type="submit" disabled={isSubmitting} className="w-full h-12" onClick={preSubmitHandler}>
             {!isSubmitting && <LoginIcon />}
             {isSubmitting && <Loader2 className="animate-spin" />}
-            {isSubmitting ? "Authenticating..." : "SIGN IN"}
+            {isSubmitting ? "AUTHENTICATING..." : "SIGN IN"}
           </Button>
         </form>
       </Form>

@@ -79,6 +79,7 @@ export default function DataDeletion({ form, onSubmit, isSubmitting, showPasswor
                     {field.value && (
                       <Button
                         size="icon"
+                        type="button"
                         variant="secondary"
                         onClick={togglePasswordVisibility}
                         aria-label={showPassword ? "Hide password" : "Show password"}

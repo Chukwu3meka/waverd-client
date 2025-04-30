@@ -6,7 +6,6 @@ import AccountsService from "@services/axios/accounts.service";
 
 import { toast } from "sonner";
 import { useState } from "react";
-import { AxiosError } from "axios";
 import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 import { capitalize } from "@lib/helpers";
@@ -47,23 +46,16 @@ export default function SignUpContainer() {
         });
       }
 
-      await accountsService
-        .signup({ ...getValues(), theme: theme as Theme })
-        .then(() => {
+      await accountsService.signup({ ...getValues(), theme: theme as Theme }).then(({ success, message }) => {
+        if (success) {
           reset();
-          toast.success("Account Created", {
-            richColors: true,
-            description: "Great news! Your account has been created successfully. Kindly check your email for a message from us containing an activation link.",
-          });
-        })
-        .catch(({ response, message }: AxiosError<NonPaginatedResponse<string>>) => {
-          throw { message: response ? response.data.message : message || "Invalid Server response" };
-        })
-        .catch((err: AxiosError) => {
-          throw err.response?.data || {};
-        });
+          toast.success("Account Created", { description: message });
+        } else {
+          throw { message: message || "Invalid Server response" };
+        }
+      });
     } catch ({ message }: any) {
-      toast.error(message || "Something went wrong", { richColors: true });
+      toast.error(message || "Something went wrong");
     }
   };
 
@@ -76,7 +68,7 @@ export default function SignUpContainer() {
 
     if (!isValid) {
       const errDesc = Object.values(errors)[0]?.message;
-      toast.error(errDesc || `Form is invalid`, { richColors: true });
+      toast.error(errDesc || `Form is invalid`);
     }
   };
 

@@ -46,7 +46,6 @@ export async function middleware(request: NextRequest) {
 
     if (destination.startsWith("/console/")) {
       const role = (await getSessionProfile()).role;
-
       if (!["moderator"].includes(role)) return goToLogin(destination, url);
 
       // const url = request.nextUrl;
@@ -66,7 +65,7 @@ export async function middleware(request: NextRequest) {
 // ? Routes that require authentication
 const privateRoutes = ["/console", "/games"];
 
-// ? Use this else middleware will apply to even files in /public, etc
 export const config = {
+  // ? Use this else middleware will apply to even files in /public, etc
   matcher: ["/", "/info/:path*", "/accounts/:path*", "/apihub/:path*", "/console/:path*", "/games/:path*"],
 };

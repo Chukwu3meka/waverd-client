@@ -26,6 +26,7 @@ interface InitPassResetService {
 interface ConfPassResetService {
   email: string;
   password: string;
+  gear: string;
 }
 
 interface DataDeletionService {

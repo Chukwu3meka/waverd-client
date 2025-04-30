@@ -18,7 +18,7 @@ const Result = ({ variant, children, title }: ResultProps) => {
     <main className="flex items-center justify-center flex-col gap-5 py-10 px-5">
       <Image src={`/images/layouts/${variant}.svg`} width={200} height={200} priority alt="Page not found" className="w-auto h-auto" />
 
-      <p className="font-mono">{title || resultTitle[variant]}</p>
+      <p className="font-mono text-xl">{title || resultTitle[variant]}</p>
 
       {children}
     </main>

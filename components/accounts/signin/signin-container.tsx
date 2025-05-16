@@ -17,7 +17,6 @@ import { capitalize, deObfuscate } from "@lib/helpers";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema });
-type FormData = z.infer<typeof schema>;
 
 export default function SignInContainer() {
   const accountsService = new AccountsService(),
@@ -62,7 +61,7 @@ export default function SignInContainer() {
     }
   }, [oAuthMessage]);
 
-  const form = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { email: "", password: "" }, mode: "onChange" });
+  const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema), defaultValues: { email: "", password: "" }, mode: "onChange" });
 
   const preSubmitHandler = async () => {
     const isValid = await trigger(); // Trigger validation for all fields

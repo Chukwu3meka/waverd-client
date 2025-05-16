@@ -12,12 +12,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { passwordSchema } from "@schemas/password";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema });
-type FormData = z.infer<typeof schema>;
 
 export default function ConfirmResetContainer({ gear }: { gear: string }) {
   const accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
-    form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "" } });
+    form = useForm<z.infer<typeof schema>>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "" } });
 
   const {
     reset,

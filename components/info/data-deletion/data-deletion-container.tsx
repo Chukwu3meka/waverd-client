@@ -16,13 +16,12 @@ import { passwordSchema } from "@schemas/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({ email: emailSchema, password: passwordSchema, comment: commentSchema, handle: handleSchema });
-type FormData = z.infer<typeof schema>;
 
 export default function DataDeletionContainer() {
   const accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
     authenticated = useAppStore((state) => state.profile.authenticated),
-    form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", comment: "", handle: "" } });
+    form = useForm<z.infer<typeof schema>>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", comment: "", handle: "" } });
 
   const {
     reset,

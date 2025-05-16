@@ -15,14 +15,13 @@ import { handleSchema } from "@schemas/handle";
 import { passwordSchema } from "@schemas/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const schema = z.object({ email: emailSchema, password: passwordSchema, name: nameSchema, handle: handleSchema });
-type FormData = z.infer<typeof schema>;
+const schema = z.object({ name: nameSchema, email: emailSchema, handle: handleSchema, password: passwordSchema });
 
 export default function SignUpContainer() {
   const { theme } = useTheme(),
     accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
-    form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", name: "", handle: "" } });
+    form = useForm<z.infer<typeof schema>>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "", password: "", name: "", handle: "" } });
 
   const {
     reset,

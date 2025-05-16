@@ -11,12 +11,11 @@ import { emailSchema } from "@schemas/email";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({ email: emailSchema });
-type FormData = z.infer<typeof schema>;
 
 export default function InitResetContainer() {
   const accountsService = new AccountsService(),
     [showPassword, setShowPassword] = useState(false),
-    form = useForm<FormData>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "" } });
+    form = useForm<z.infer<typeof schema>>({ mode: "onChange", resolver: zodResolver(schema), defaultValues: { email: "" } });
 
   const {
     reset,
